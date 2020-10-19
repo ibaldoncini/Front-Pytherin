@@ -8,10 +8,8 @@ function App() {
       <header className="App-header">
         <meta charSet='utf-8'/>
       </header>
-      <body>
-        <Head/>
-        <Login/>
-      </body>
+      <Head/>
+      <Login/>
     </div>
   );
 }
