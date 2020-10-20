@@ -6,60 +6,68 @@ export default class Register extends React.Component{
     constructor(props){
         super(props);
 
-        this.state = {name:'',
-                      psw: '',
-                      email: '',
-                      img: null};
-
-        this.handleChangeName = this.handleChangeName.bind(this);
-        this.handleChangePass = this.handleChangePass.bind(this);
-        this.handleChangeMail = this.handleChangeMail.bind(this);
-        this.handleChangeImg = this.handleChangeImg.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {nameUser:'',
+                      passUser: '',
+                      passUser2: '',
+                      mailUser: '',
+                      img: React.createRef()};
+        // Event handlers
+        this.handleChange = this.handleChange.bind(this)
+        this.handleChangeImg = this.handleChangeImg.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleRedirect = this.handleRedirect.bind(this)
     }
-    handleChangeName(e){
-        this.setState({name: e.target.value});
-    }
-
-    handleChangePass(e){
-        this.setState({psw: e.target.value});
-    }
-
-    handleChangeMail(e){
-        this.setState({email: e.target.value});
-    }
+    handleChange(e) {
+       this.setState({[e.target.name]: e.target.value})
+      }
 
     handleChangeImg(e){
-        this.setState({
-            img: e.target.files[0]
-          })
+        this.setState({img: e.target.files[0]});
     }
     handleSubmit(e){
-        if(this.state.name === ""){ // define what to do, this is just for some testing.
-            alert("Deberá seleccionar un nombre.");
+        var regExpMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+        var regExpPsw = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/
+        if(this.state.nameUser === ""){
+            alert("Deberá seleccionar un nombre.")
             e.preventDefault();
-        }else if(this.state.psw === ""){ // find regex
-            alert("Deberá seleccionar una contraseña.");
+        }else if(this.state.passUser === ""){
+            alert("Deberá seleccionar una contraseña.")
             e.preventDefault();
-        }else if(this.state.email === ""){ // find regex
-            alert("Deberá seleccionar un e-mail.");
+        }else if(this.state.passUser.length < 8 || this.state.passUser.length > 54){
+            alert("La contraseña deberá comprender entre 8 y 54 caracteres.")
+            e.preventDefault();
+        }else if(!regExpPsw.test(this.state.passUser)){
+            alert("La contraseña deberá tener carácteres al menos una letra mayúscula y un número.")
+            e.preventDefault();
+        }else if(this.state.passUser !== this.state.passUser2){
+            alert("Las contraseñas no coinciden.")
+            e.preventDefault();
+        } else if(this.state.mailUser === "" || !regExpMail.test(this.state.mailUser)){
+            alert("Deberá seleccionar un e-mail válido.")
             e.preventDefault();
         }else if(this.state.img === null){
-            alert("Deberá seleccionar una imagen de perfil.");
+            alert("Deberá seleccionar una imagen de perfil.")
             e.preventDefault();
         }else{
-            alert("Form submited!");
+            alert(this.state.img.toString())
+            alert("Form submited!")
+            e.preventDefault()
         }
     }
+        handleRedirect(e){
+            alert("Redirected!")
+        }
     render(){
            return <div className="registerUser">
-                <form onSubmit={this.handleSubmit}>
+                <form name='fRegister' onSubmit={this.handleSubmit}>
                     <h1>Registrar nuevo usuario</h1>
-                    <label>Nombre: </label><input type="text" name="nameUser" id="nameUser" value={this.state.name} onChange={this.handleChangeName}></input> <br/>
-                    <label>Contraseña: </label><input type="password" name="passUser" id="passUser" value={this.state.psw} onChange={this.handleChangePass}></input><br/>
-                    <label>E-mail: </label><input type="text" name="mailUser" id="mailUser" value={this.state.email} onChange={this.handleChangeMail}></input><br/>
-                    <label>Imagen: </label><input type="file" name="logoUser" id="logoUser" value={this.state.img} onChange={this.handleChangeImg}></input><br/>
+                    <label>Nombre: </label><input type="text" name="nameUser" id="nameUser" value={this.state.nameUser} onChange={this.handleChange}></input> <br/>
+                    <label>Contraseña: </label><input type="password" name="passUser" id="passUser" value={this.state.passUser} onChange={this.handleChange}></input><br/>
+                    <label>Repita contraseña: </label><input type="password" name="passUser2" id="passUser2" value={this.state.passUser2} onChange={this.handleChange}></input><br/>
+                    <label>E-mail: </label><input type="text" name="mailUser" id="mailUser" value={this.state.mailUser} onChange={this.handleChange}></input><br/>
+                    <label>Imagen: </label><input type="file" ref={this.img} name="logoUser" id="logoUser" onChange={this.handleChangeImg}></input><br/>
                     <input type="submit" id="regBtn" name="regBtn"/>
+                    <input type="button" id="cancelBtn" name="cancelBtn" value="Cancelar" onClick={this.handleRedirect}/>
                 </form>
             </div>;
         }
