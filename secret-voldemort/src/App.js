@@ -1,16 +1,19 @@
 import React from 'react';
 import { Login } from './components/Login';
-import { Head } from './components/Head'
+import { BrowserRouter, Route } from 'react-router-dom';
+
+
+// This is the "main".
+// We use rout for organization of our single page app.
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <meta charSet='utf-8'/>
-      </header>
-      <Head/>
-      <Login/>
-    </div>
+    <BrowserRouter>
+      <Route exact path='/'>
+        <Login/>
+      </Route>
+      <Route exact path='/register' /> 
+    </BrowserRouter>
   );
 }
 

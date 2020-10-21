@@ -10,7 +10,11 @@
     "babel-preset-react-app": "^3.1.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-scripts": "3.4.3"
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.4",
+    "redux": "^4.0.5",
+    "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,7 +40,8 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "devDependencies": {
-    "react-dev-utils": "^10.2.1"
+    "react-dev-utils": "^10.2.1",
+    "redux-devtools": "^3.7.0"
   },
   "keywords": [],
   "author": "",
