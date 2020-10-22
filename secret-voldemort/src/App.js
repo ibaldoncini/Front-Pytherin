@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from 'react';
+import React from 'react';
 import { Login } from './components/Login';
 import { BrowserRouter, Route } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 // This is the "main".
 // We use rout for organization of our single page app.
 function App() {
-
+  
   return (
     <BrowserRouter>
       <Route exact path='/'>
