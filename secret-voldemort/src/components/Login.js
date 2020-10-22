@@ -1,20 +1,20 @@
 import React from 'react';
 import { Head } from './Head';
 import { Link } from 'react-router-dom';
-import { loginSuc } from '../actions';
-import { connect } from 'react-redux';
-import { createStore } from 'redux';
-//import { loged_user } from './reducers';
- 
+import verifyEmail from '../services/verification';
+//import sendRequest from '../services/request';
+
 /* Login	/users/	POST		{email,password}	Token	200 OK-401 UNAUTHORIZED-400 BAD REQUEST */ 
 
 
-// TERMINAR DE IMPLEMENTAR REDUCER CON LA FUNCION PARA EL ENDPOINT (CREAR STORE EN APP)
+async function obtainToken(response) {
+        
+  const data = await response.json();
+  if (response.ok){
+    return data;
+  }
+}
 
-/*let store = createStore(loged_user);
-
-const action = loginSuc("3453asd");
-store.dispatch(action);*/
 
 /* Login have the form */
 class Login extends React.Component {
@@ -22,18 +22,17 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      email: '', 
       psw: '',
       valid_email: false
     }
 
     this.handleChange = this.handleChange.bind(this);
-    this.verifyEmail = this.verifyEmail.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.sendRequest = this.sendRequest.bind(this);
   }
   
   
-  
+  /* handle the change on imputs */
   handleChange(event) {
     const value = event.target.value;
     const name = event.target.name;
@@ -44,45 +43,53 @@ class Login extends React.Component {
   }
 
 
-  /* Here the email is verified, concretly if has two @ and some . */
-  verifyEmail() {
-    const email = this.state.email;
-    const regExpMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;  
-    
-    if (regExpMail.test(email)) {
-      this.setState({
-        valid_email: true
-      }); 
-    } else {
-      alert("The inpunt haven't e-mail format.")
-    }
+  async sendRequest(methodOpt, keys) {
+    console.log("On sendRequest method");
+    const response = await fetch("http://127.0.0.1:8000/users", {
+      body: keys,
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: "POST"
+    })
+    return response;
   }
-  
+
 
   /* Here i want to stablish the connection with the endpoint for login.
   * I think that i need to add redux for this.
   */
   handleLogin(e) {
-    this.verifyEmail();
+    
+    e.preventDefault();
+    const email = this.state.email;
+    
+    if (verifyEmail(email)) {
+      
+      const psw = this.state.psw
+      const partsOfEmail = email.split('@');
+      const firstpart = partsOfEmail[0];
+      const secondPart = partsOfEmail[1];
 
-    if (this.state.valid_email === true) {
-      const keys = {"username": this.state.email, "password": this.state.psw}
+      const keys = `grant_type=&username=${firstpart}%40${secondPart}&` + 
+        `password=${psw}&scope=&client_id=&client_secret=`;
       
 
       // This is the function to comunicate with the REST-API.
-      fetch('/users', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(keys)
-      });
+      this.sendRequest("POST", keys).then(async response => {
+        
+        // token is an object {access_token, type}
+        const token = (await obtainToken(response)).access_token;
 
+      }).catch(error => {
+        console.error("There was an error", error);
+      });
     } else {
-      e.preventDefault()
+      alert("Invalid e-mail format.");
     }
   }
- 
+
 
   render() {
     return (
@@ -102,7 +109,7 @@ class Login extends React.Component {
         </form>
 
         <div className='goto-register'>
-          <p>Aun no tienes una cuenta, <Link to={`/register`}> Registrate! </Link> </p>
+          <p>Aun no tienes una cuenta, <Link to={`/registerPage`}> Registrate! </Link> </p>
         </div>
       </div>
     );
