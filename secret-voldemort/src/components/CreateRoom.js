@@ -10,28 +10,57 @@ class FormCreateRoom extends React.Component {
 
     this.state = {
       room_name: '',
-      max_players: 5
+      room_max_players: 5,
+      bkResponse: ''
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeMaxPlayers = this.handleChangeMaxPlayers.bind(this);
     this.handleChangeRoomName = this.handleChangeRoomName.bind(this);
+    // this.handlebkResponse = this.handlebkResponse.bind(this);
+  }
+
+  async sendRequest(requestOptions) {
+    const response = await fetch('http://127.0.0.1:8000/room/new', requestOptions);
+    // const data = await response.json();
+    return response
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const {room_name, max_players} = this.state;
-    if (max_players && room_name) {
-      alert('Creating room ' + room_name)
+    const {room_name, room_max_players} = this.state;
+    if (room_max_players && room_name) {
+
+      const requestOptions = {
+        method: 'POST',
+        body: `{"name": "${room_name}",
+               "max_players": "${room_max_players}", 
+               "email": "asdddddas@hot.s"}`
+      };
+
+      this.sendRequest(requestOptions)
+        .then(async response => {
+          const data = await response.json();
+          if(!response.ok) {
+            const error = (data && data.message) || response.status;
+            return alert(data.message)
+          }
+          alert("Redirecting to loby...") 
+        })
+        .catch(error => {
+          console.error('There was an error', error);
+        })
+
     } else {
       alert('Please fill in all fields correctly.')
     }
   }
+   
   
   handleChangeMaxPlayers(event) {
     const value = event.target.value;
     this.setState({
-      max_players: value
+      room_max_players: value
     })
   }
 
@@ -51,14 +80,14 @@ class FormCreateRoom extends React.Component {
             <form name="form" onSubmit={this.handleSubmit}>
                 <div className="Room_name">
                     <label>Room name <br/>
-                      <input type="text" maxLength='30' minLength='3'
+                      <input type="text" maxLength='30' minLength='6'
                         value={this.state.room_name} min='5' max='10'
                         onChange={this.handleChangeRoomName} name="roomName"/>
                     </label> <br/>
                 </div>
                 <div className="Max_Players">
                     <label>Maximum number of players <br/>
-                      <input type="number" value={this.state.max_players} 
+                      <input type="number" value={this.state.room_max_players} 
                         min='5' max='10' onChange={this.handleChangeMaxPlayers} 
                         name="maxPlayers" />
                     </label> <br/>
