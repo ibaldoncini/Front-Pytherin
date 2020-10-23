@@ -1,3 +1,4 @@
+
  /* This function allows you to send a request to address `path`,
  with the given `method` and `body` */
 
@@ -10,5 +11,4 @@
     };
   
     return (await fetch(path, requestOptions))
-  
   } 
