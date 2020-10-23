@@ -2,8 +2,7 @@ import React from 'react';
 import { Head } from './Head';
 import { Link } from 'react-router-dom';
 import verifyEmail from '../services/verification';
-//import sendRequest from '../services/request';
-
+import sendRequest from '../services/request';
 /* Login	/users/	POST		{email,password}	Token	200 OK-401 UNAUTHORIZED-400 BAD REQUEST */ 
 
 
@@ -12,6 +11,10 @@ async function obtainToken(response) {
   const data = await response.json();
   if (response.ok){
     return data;
+  } else {
+    document.getElementById('inemail').value="";
+    document.getElementById('inpsw').value="";
+    alert("E-mail o password incorrect, Try again.");
   }
 }
 
@@ -25,10 +28,8 @@ class Login extends React.Component {
       psw: '',
       valid_email: false
     }
-
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
-    this.sendRequest = this.sendRequest.bind(this);
   }
   
   
@@ -43,23 +44,8 @@ class Login extends React.Component {
   }
 
 
-  async sendRequest(methodOpt, keys) {
-    console.log("On sendRequest method");
-    const response = await fetch("http://127.0.0.1:8000/users", {
-      body: keys,
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      method: "POST"
-    })
-    return response;
-  }
-
-
   /* Here i want to stablish the connection with the endpoint for login.
-  * I think that i need to add redux for this.
-  */
+  I think that i need to add redux for this.*/
   handleLogin(e) {
     
     e.preventDefault();
@@ -75,18 +61,21 @@ class Login extends React.Component {
       const keys = `grant_type=&username=${firstpart}%40${secondPart}&` + 
         `password=${psw}&scope=&client_id=&client_secret=`;
       
+      const headers = {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
 
       // This is the function to comunicate with the REST-API.
-      this.sendRequest("POST", keys).then(async response => {
+      sendRequest("POST", headers, keys, "http://127.0.0.1:8000/users").then(async response => {
         
         // token is an object {access_token, type}
         const token = (await obtainToken(response)).access_token;
+        alert(token);
 
       }).catch(error => {
-        console.error("There was an error", error);
+        console.log("There was an error", error);
       });
-    } else {
-      alert("Invalid e-mail format.");
     }
   }
 
@@ -98,11 +87,11 @@ class Login extends React.Component {
         <form onSubmit={this.handleLogin}>
           <label> 
             E-mail: <br/>  
-            <input type='email' name='email' value={this.state.email} onChange={this.handleChange}/>
+            <input id='inemail' type='email' name='email' value={this.state.email} onChange={this.handleChange}/>
           </label> <br/>
           <label>
             Contraseña: <br/> 
-            <input type='password' name='psw' value={this.state.psw} onChange={this.handleChange} />
+            <input id='inpsw' type='password' name='psw' value={this.state.psw} onChange={this.handleChange} />
 
           </label><br/>
           <input type='submit' value='Login'/> 
