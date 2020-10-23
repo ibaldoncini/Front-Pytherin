@@ -1,22 +1,12 @@
 import React from 'react';
 import { Head } from './Head';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import verifyEmail from '../services/verification';
 import sendRequest from '../services/request';
+import { userContext } from '../user-context';
+
 /* Login	/users/	POST		{email,password}	Token	200 OK-401 UNAUTHORIZED-400 BAD REQUEST */ 
 
-
-async function obtainToken(response) {
-        
-  const data = await response.json();
-  if (response.ok){
-    return data;
-  } else {
-    document.getElementById('inemail').value="";
-    document.getElementById('inpsw').value="";
-    alert("E-mail o password incorrect, Try again.");
-  }
-}
 
 
 /* Login have the form */
@@ -25,24 +15,16 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
+      email: '',
       psw: '',
-      valid_email: false
+      valid_email: false,
+      redirect: false,
     }
-    this.handleChange = this.handleChange.bind(this);
+   
     this.handleLogin = this.handleLogin.bind(this);
   }
   
-  
-  /* handle the change on imputs */
-  handleChange(event) {
-    const value = event.target.value;
-    const name = event.target.name;
-    
-    this.setState({
-      [name]: value
-    });
-  }
-
+  static contextType = userContext;
 
   /* Here i want to stablish the connection with the endpoint for login.
   I think that i need to add redux for this.*/
@@ -57,50 +39,69 @@ class Login extends React.Component {
       const partsOfEmail = email.split('@');
       const firstpart = partsOfEmail[0];
       const secondPart = partsOfEmail[1];
-
+      
       const keys = `grant_type=&username=${firstpart}%40${secondPart}&` + 
         `password=${psw}&scope=&client_id=&client_secret=`;
       
-      const headers = {
+        const headers = {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded"
       }
-
+      
       // This is the function to comunicate with the REST-API.
       sendRequest("POST", headers, keys, "http://127.0.0.1:8000/users").then(async response => {
         
         // token is an object {access_token, type}
-        const token = (await obtainToken(response)).access_token;
-        alert(token);
-
+        const data = await response.json();
+        if (response.ok){
+          const token = data.access_token;
+          this.context.setToken(token);
+          this.setState({redirect: true});
+    
+        } else {
+          document.getElementById('inemail').value="";
+          document.getElementById('inpsw').value="";
+          console.log(data);
+          alert(data.detail);
+        }
+        
       }).catch(error => {
         console.log("There was an error", error);
-      });
+      })
     }
   }
 
 
   render() {
-    return (
-      <div className='login-form'>
-        <Head syle='head_style' />
-        <form onSubmit={this.handleLogin}>
-          <label> 
-            E-mail: <br/>  
-            <input id='inemail' type='email' name='email' value={this.state.email} onChange={this.handleChange}/>
-          </label> <br/>
-          <label>
-            Contraseña: <br/> 
-            <input id='inpsw' type='password' name='psw' value={this.state.psw} onChange={this.handleChange} />
+    if (this.state.redirect || this.context.token) {
+      return (<Redirect to='/home'/>);
+    } else {
+      return (
+        <userContext.Consumer> 
+          {({token, setToken}) => (
+            
+            <div className='login-form'>
+              <Head/>
+              <form onSubmit={this.handleLogin}>
+                <label> 
+                  E-mail: <br/>  
+                  <input id='inemail' type='email' value={this.state.email} 
+                  onChange={e => this.setState({email: e.target.value})}/>
+                </label>
+                <br/>
+                <label>
+                  Contraseña: <br/> 
+                  <input id='inpsw' type='password' value={this.state.psw} 
+                  onChange={e => this.setState({psw: e.target.value})}/>
 
-          </label><br/>
-          <input type='submit' value='Login'/> 
-        </form>
-
-        <div className='goto-register'>
-          <p>Aun no tienes una cuenta, <Link to={`/registerPage`}> Registrate! </Link> </p>
-        </div>
-      </div>
-    );
+                </label><br/>
+                <input type='submit' value='Login'/> 
+              </form>
+              <p>Aun no tienes una cuenta, <Link to={`/registerPage`}> Registrate! </Link> </p>
+            </div>
+          )} 
+        </userContext.Consumer>
+      )
   }
-} export {Login};
+}
+} export {Login}
