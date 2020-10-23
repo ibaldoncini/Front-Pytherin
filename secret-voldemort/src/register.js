@@ -80,7 +80,7 @@ export default class Register extends React.Component{
             if(response.ok){
                 alert("Usuario creado, se envió un mail de verificación a " + mail.toString())
             }else {
-                alert(data.detail)
+                alert(data.detail.toString())
             }
         })
     }
@@ -92,7 +92,8 @@ export default class Register extends React.Component{
             if(this.state.redir){
                 return <Redirect to={this.state.toPage} />    
             }
-            return <div className="registerUser" >
+            return(
+                <div className="registerUser" >
                 <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
                     <h1>Registrar nuevo usuario</h1>
                     <label>Nombre: </label><input type="text" name="nameUser" id="nameUser" value={this.state.nameUser} onChange={this.handleChange}></input> <br/>
@@ -104,6 +105,7 @@ export default class Register extends React.Component{
                     <input type="submit" id="regBtn" name="regBtn" value="Crear cuenta"/>
                     <input type="button" id="cancelBtn" name="cancelBtn" onClick={this.handleRedirect} value="Cancelar"/>
                 </form>
-            </div>;
+                </div>
+            )
         }
 }
