@@ -87,7 +87,7 @@ export default class Register extends React.Component{
     }
     handleRedirect(){
         this.setState({redir: true})
-        this.setState({toPage : '/index'})
+        this.setState({toPage : '/home'})
     }
     render(){
             if(this.state.redir){
@@ -96,15 +96,15 @@ export default class Register extends React.Component{
             return(
                 <div className="registerUser" >
                 <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
-                    <h1>Registrar nuevo usuario</h1>
-                    <label>Nombre: </label><input type="text" name="nameUser" id="nameUser" value={this.state.nameUser} onChange={this.handleChange}></input> <br/>
-                    <label>Contraseña: </label><input type="password" name="passUser" id="passUser" value={this.state.passUser} onChange={this.handleChange}></input><br/>
-                    <label>Repita contraseña: </label><input type="password" name="passUser2" id="passUser2" value={this.state.passUser2} onChange={this.handleChange}></input><br/>
+                    <h1>User registration</h1>
+                    <label>Username: </label><input type="text" name="nameUser" id="nameUser" value={this.state.nameUser} onChange={this.handleChange}></input> <br/>
+                    <label>Password: </label><input type="password" name="passUser" id="passUser" value={this.state.passUser} onChange={this.handleChange}></input><br/>
+                    <label>Repeat password: </label><input type="password" name="passUser2" id="passUser2" value={this.state.passUser2} onChange={this.handleChange}></input><br/>
                     <label>E-mail: </label><input type="text" name="mailUser" id="mailUser" value={this.state.mailUser} onChange={this.handleChange}></input><br/>
-                    <label>Imagen: </label><input type="file" ref={this.img} name="logoUser" id="logoUser" onChange={this.handleChangeImg}></input>
-                    <input type="button" id="cleanBtn" name="cleanBtn" value="Limpiar" onClick={this.cleanFile}/><br/>
+                    <label>Image: </label><input type="file" ref={this.img} name="logoUser" id="logoUser" onChange={this.handleChangeImg}></input>
+                    <input type="button" id="cleanBtn" name="cleanBtn" value="Clean" onClick={this.cleanFile}/><br/>
                     <input type="submit" id="regBtn" name="regBtn" value="Crear cuenta"/>
-                    <input type="button" id="cancelBtn" name="cancelBtn" onClick={this.handleRedirect} value="Cancelar"/>
+                    <input type="button" id="cancelBtn" name="cancelBtn" onClick={this.handleRedirect} value="Cancel"/>
                 </form>
                 </div>
             )

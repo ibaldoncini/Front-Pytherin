@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../user-context';
+import Button from './Button';
 
 export function Home(props) {
     const contextType = userContext
@@ -11,9 +12,9 @@ export function Home(props) {
                 <div>
                     <h1> Hello user with token {token}</h1>
                     <div>
-                        <button>Crear Partida</button>
-                        <button>Unirse a Partida</button>
-                        <button>Perfil</button>
+                        <Button path='/createRoom' text='Create room'></Button>
+                        <button>Join a room</button>
+                        <button>Profile</button>
                     </div> 
                 </div>
                 :

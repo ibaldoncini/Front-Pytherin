@@ -3,6 +3,8 @@ import { Login } from './components/Login';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { userContext } from './user-context';
 import { Home } from './components/Home';
+import Register from './register';
+import CreateRoom from './components/CreateRoom';
 
 
 // This is the "main".
@@ -24,6 +26,8 @@ class App extends Component {
         <userContext.Provider value={this.state}>
           <Route exact path='/' render= {() => <Login/>}/>
           <Route exact path='/home' render= {() => <Home/>}/>
+          <Route exact path='/registerPage' render= {() => <Register/>}/>
+          <Route exact path='/createRoom' render= {() => <CreateRoom/>}/>
         </userContext.Provider>
       </BrowserRouter>
     );

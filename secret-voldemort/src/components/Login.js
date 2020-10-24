@@ -2,7 +2,7 @@ import React from 'react';
 import { Head } from './Head';
 import { Link, Redirect } from 'react-router-dom';
 import verifyEmail from '../services/verification';
-import sendRequest from '../services/request';
+import { sendRequest } from '../services/request';
 import { userContext } from '../user-context';
 
 /* Login	/users/	POST		{email,password}	Token	200 OK-401 UNAUTHORIZED-400 BAD REQUEST */ 
@@ -90,14 +90,14 @@ class Login extends React.Component {
                 </label>
                 <br/>
                 <label>
-                  Contraseña: <br/> 
+                  Password: <br/> 
                   <input id='inpsw' type='password' value={this.state.psw} 
                   onChange={e => this.setState({psw: e.target.value})}/>
 
                 </label><br/>
                 <input type='submit' value='Login'/> 
               </form>
-              <p>Aun no tienes una cuenta, <Link to={`/registerPage`}> Registrate! </Link> </p>
+              <p>Don't have an account yet? <Link to={`/registerPage`}> Sign up here </Link> </p>
             </div>
           )} 
         </userContext.Consumer>

@@ -11,8 +11,8 @@ class Head extends React.Component {
     render() {
       return (
         <div className={this.state.syle}>
-          <h1>Secret-voldemort</h1>
-          <h2>Para jugar es necesario loguearse</h2>
+          <h1>Pytherin Project</h1>
+          <h2>To play you need to be logged in</h2>
         </div>
       );
     }
