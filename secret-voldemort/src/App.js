@@ -3,7 +3,7 @@ import { Login } from './components/Login';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { userContext } from './user-context';
 import { Home } from './components/Home';
-import Register from './register';
+import { Register } from './components/Register';
 import CreateRoom from './components/CreateRoom';
 
 
