@@ -26,6 +26,33 @@ class Login extends React.Component {
   
   static contextType = userContext;
 
+  componentWillUnmount() {
+    const context = this.context;
+    const header = {
+      accept: "application/json",
+      Authorization: "Bearer" + " " +  context.token
+    }
+
+    console.log(context.token);
+
+    sendRequest("GET",header, '', "http://127.0.0.1:8000/users/me").then(async response => {
+      const data = await response.json();
+      if (response.ok) {
+        console.log(data);
+        context.setUsername(data.username);
+        context.setEmail(data.email);
+        context.setIcon(data.icon);
+
+      } else {
+        console.log(data);
+      }
+    }).catch(async error => {
+        console.log(error);
+    })
+    
+  }
+
+
   /* Here i want to stablish the connection with the endpoint for login.
   I think that i need to add redux for this.*/
   handleLogin(e) {

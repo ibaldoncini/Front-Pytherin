@@ -5,7 +5,14 @@ import { createContext } from 'react';
 
 export const userContext = createContext({
     token: '',
-    setToken: () => {}
+    username: '',
+    email: '',
+    icon: {},
+
+    setToken: () => {},
+    setUsername: () => {},
+    setEmail: () => {},
+    setIcon: () => {}
 });
 
 

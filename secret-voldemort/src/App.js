@@ -10,19 +10,37 @@ import CreateRoom from './components/CreateRoom';
 // This is the "main".
 // We use rout for organization of our single page app.
 class App extends Component {
+
   setToken = token => {
      this.setState({token});
   }
 
+  setUsername = username => {
+    this.setState({username});
+  }
+  
+  setEmail =  email => {
+    this.setState({email});
+  }
+
+  setIcon = icon => {
+    this.setState({icon});
+  }
+
   state = {
     token: '',
-    setToken: this.setToken
+    username: '',
+    email: '',
+    icon: {},
+    setToken: this.setToken,
+    setUsername: this.setUsername,
+    setEmail: this.setEmail,
+    setIcon: this.setIcon
   };
 
   render() { 
     return (
       <BrowserRouter>
-        {/* <Route exact path='/register' render= {() => <Register/>}/> */}
         <userContext.Provider value={this.state}>
           <Route exact path='/' render= {() => <Login/>}/>
           <Route exact path='/home' render= {() => <Home/>}/>

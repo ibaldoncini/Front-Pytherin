@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../user-context';
 import Button from './Button';
+import { sendRequest } from '../services/request';
 
 export function Home(props) {
-    const contextType = userContext
-    return(
-        <userContext.Consumer>
-            {({token, setToken}) => (
-                token ?
-                <div>
-                    <h1> Hello user with token {token}</h1>
+
+  return(
+    <userContext.Consumer>
+        {({username, token}) => (
+            token ?
+            <div>
+                {username !== '' ?
                     <div>
+                    <h1> Hello {username}</h1>
                         <Button path='/createRoom' text='Create room'></Button>
                         <button>Join a room</button>
                         <button>Profile</button>
-                    </div> 
-                </div>
-                :
-                <Redirect to='/'/>
-            )
-            }
-        </userContext.Consumer>
-    )
+                    </div>
+                    :
+                    <p>Loading...</p>
+                }
+            </div>
+            :
+            <Redirect to='/'/>
+        )
+        }
+    </userContext.Consumer>
+  )
 }
