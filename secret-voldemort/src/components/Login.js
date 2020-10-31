@@ -48,43 +48,50 @@ class Login extends React.Component {
     e.preventDefault();
     const email = this.state.email;
     
-    if (verifyEmail(email)) {
-      
-      const psw = this.state.psw
-      const partsOfEmail = email.split('@');
-      const firstpart = partsOfEmail[0];
-      const secondPart = partsOfEmail[1];
-      
-      const keys = `grant_type=&username=${firstpart}%40${secondPart}&` + 
-        `password=${psw}&scope=&client_id=&client_secret=`;
-      
-        const headers = {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-      
-      // This is the function to comunicate with the REST-API.
-      sendRequest("POST", headers, keys, "http://127.0.0.1:8000/users").then(async response => {
-        
-        // token is an object {access_token, type}
-        const data = await response.json();
-        if (response.ok){
-          const token = data.access_token;
-          this.context.setToken(token);
+    if(this.state.psw === '' || this.state.username === '') {
+      alert("You left empty fields");
+      document.getElementById('inemail').value="";
+      document.getElementById('inpsw').value="";
+    } else {
 
-          // Now we decode the token to complete the user context
-          this.tokenDecode();
-          
-        } else {
-          document.getElementById('inemail').value="";
-          document.getElementById('inpsw').value="";
-          console.log(data);
-          alert(data.detail);
+      if (verifyEmail(email)) {
+        
+        const psw = this.state.psw
+        const partsOfEmail = email.split('@');
+        const firstpart = partsOfEmail[0];
+        const secondPart = partsOfEmail[1];
+        
+        const keys = `grant_type=&username=${firstpart}%40${secondPart}&` + 
+          `password=${psw}&scope=&client_id=&client_secret=`;
+        
+          const headers = {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded"
         }
         
-      }).catch(error => {
-        console.log("There was an error", error);
-      })
+        // This is the function to comunicate with the REST-API.
+        sendRequest("POST", headers, keys, "http://127.0.0.1:8000/users").then(async response => {
+          
+          // token is an object {access_token, type}
+          const data = await response.json();
+          if (response.ok){
+            const token = data.access_token;
+            this.context.setToken(token);
+
+            // Now we decode the token to complete the user context
+            this.tokenDecode();
+            
+          } else {
+            document.getElementById('inemail').value="";
+            document.getElementById('inpsw').value="";
+            console.log(data);
+            alert(data.detail);
+          }
+          
+        }).catch(error => {
+          console.log("There was an error", error);
+        })
+      }
     }
   }
 
