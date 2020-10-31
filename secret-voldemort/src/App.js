@@ -10,45 +10,47 @@ import { Vote } from './components/Vote';
 
 // This is the "main".
 // We use rout for organization of our single page app.
-export const App = props => {
+class App extends Component {
 
-  const setToken = token => {
+  setToken = token => {
      this.setState({token});
   }
 
-  const setUsername = username => {
+  setUsername = username => {
     this.setState({username});
   }
   
-  const setEmail =  email => {
+  setEmail =  email => {
     this.setState({email});
   }
 
-  const setIcon = icon => {
+  setIcon = icon => {
     this.setState({icon});
   }
 
-  const state = {
+  state = {
     token: '',
     username: '',
     email: '',
     icon: {},
-    setToken: setToken,
-    setUsername: setUsername,
-    setEmail: setEmail,
-    setIcon: setIcon
+    setToken: this.setToken,
+    setUsername: this.setUsername,
+    setEmail: this.setEmail,
+    setIcon: this.setIcon
   };
 
-   
+  render() { 
     return (
       <BrowserRouter>
-        <userContext.Provider value={state}>
+        <userContext.Provider value={this.state}>
           <Route exact path='/' render= {() => <Login/>}/>
           <Route exact path='/home' render= {() => <Home/>}/>
           <Route exact path='/registerPage' render= {() => <Register/>}/>
           <Route exact path='/createRoom' render= {() => <CreateRoom/>}/>
+          <Route exact path='/vote' render={() => <Vote roomname="caca"/>}/>
         </userContext.Provider>
-        <Route exact path='/vote' render= {() => <Vote/>}/>
       </BrowserRouter>
     );
+  }
 }
+export default App;

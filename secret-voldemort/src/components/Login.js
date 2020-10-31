@@ -74,8 +74,7 @@ class Login extends React.Component {
 
           // Now we decode the token to complete the user context
           this.tokenDecode();
-
-    
+          
         } else {
           document.getElementById('inemail').value="";
           document.getElementById('inpsw').value="";
