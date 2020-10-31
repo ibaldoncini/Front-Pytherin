@@ -20,7 +20,7 @@ class LobbyRoom extends React.Component{
             "Content-Type": "application/json"
         }
         const path = "http://127.0.0.1:8000/room/get_players"
-
+        // the component will re-render every setInterval, take care...
         this.state.timer = setInterval(sendRequest('GET', headers, {}, path).then(response => {
             if(!response.ok){ 
                 alert ("Error al obtener usuarios de la sala")
@@ -35,6 +35,9 @@ class LobbyRoom extends React.Component{
     }
     render(){
         return(
+            <userContext.Consumer>
+            {({ token }) => (
+              token ? 
             <div className="lobby-room-form">
                 <div className="lobby-container">
                     <h1>Partida: {this.state.room_name}</h1>
@@ -44,6 +47,10 @@ class LobbyRoom extends React.Component{
                     </ul>
                 </div>
             </div>
-            )
-        }
+            :
+            <Redirect to='/'/>
+            )}
+            </userContext.Consumer>
+        )
+    }
 } export {LobbyRoom}

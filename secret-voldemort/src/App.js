@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import './App.sass';
 import { Login } from './components/Login';
 import { BrowserRouter as Router , Route } from 'react-router-dom';
 import { userContext } from './user-context';
 import { Home } from './components/Home';
 import { Register } from './components/Register';
 import { LobbyRoom } from './components/LobbyRoom';
+import { Game } from './components/Game';
 import CreateRoom from './components/CreateRoom';
 
 // This is the "main".
@@ -45,6 +47,7 @@ class App extends Component {
             <Route exact path='/' render= {() => <Login/>}/>
             <Route exact path='/home' render= {() => <Home/>}/>
             <Route exact path='/lobbyRoom' render= {() => <LobbyRoom/>}/>
+            <Route exact path='/gameRoom' render= {() => <Game/>}/>
             <Route exact path='/registerPage' render= {() => <Register/>}/>
             <Route exact path='/createRoom' render= {() => <CreateRoom/>}/>
           </userContext.Provider>
