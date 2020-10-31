@@ -8,54 +8,49 @@ import { Register } from './components/Register';
 import { LobbyRoom } from './components/LobbyRoom';
 import { Game } from './components/Game';
 import CreateRoom from './components/CreateRoom';
+import { Vote } from './components/Vote';
 
 // This is the "main".
 // We use rout for organization of our single page app.
-class App extends Component {
+export const App = props => {
 
-  setToken = token => {
+  const setToken = token => {
      this.setState({token});
   }
 
-  setUsername = username => {
+  const setUsername = username => {
     this.setState({username});
   }
   
-  setEmail =  email => {
+  const setEmail =  email => {
     this.setState({email});
   }
 
-  setIcon = icon => {
+  const setIcon = icon => {
     this.setState({icon});
   }
 
-  state = {
+  const state = {
     token: '',
     username: '',
     email: '',
     icon: {},
-    setToken: this.setToken,
-    setUsername: this.setUsername,
-    setEmail: this.setEmail,
-    setIcon: this.setIcon
+    setToken: setToken,
+    setUsername: setUsername,
+    setEmail: setEmail,
+    setIcon: setIcon
   };
-
-  render() { 
     return (
-        <Router>
-          <userContext.Provider value={this.state}>
-            <Route exact path='/' render= {() => <Login/>}/>
-            <Route exact path='/home' render= {() => <Home/>}/>
-            <Route exact path='/lobbyRoom' render= {() => <LobbyRoom/>}/>
-            <Route exact path='/gameRoom' render= {() => <Game/>}/>
-            <Route exact path='/registerPage' render= {() => <Register/>}/>
-            <Route exact path='/createRoom' render= {() => <CreateRoom/>}/>
-          </userContext.Provider>
-        </Router>
+      <BrowserRouter>
+        <userContext.Provider value={state}>
+          <Route exact path='/' render= {() => <Login/>}/>
+          <Route exact path='/home' render= {() => <Home/>}/>
+          <Route exact path='/createRoom' render= {() => <CreateRoom/>}/>
+          <Route exact path='/lobbyRoom' render= {() => <LobbyRoom/>}/>
+          <Route exact path='/gameRoom' render= {() => <Game/>}/>
+        </userContext.Provider>
+        <Route exact path='/vote' render= {() => <Vote/>}/>
+        <Route exact path='/registerPage' render= {() => <Register/>}/>
+      </BrowserRouter>
     );
-  }
 }
-export default App;
-
-
-
