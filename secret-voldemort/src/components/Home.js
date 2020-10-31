@@ -1,11 +1,12 @@
-import React, { useState, useContext } from 'react';
-import { Redirect } from 'react-router-dom';
-import { userContext } from '../user-context';
+import React from 'react';
 import Button from './Button';
-import { sendRequest } from '../services/request';
+import { userContext } from '../user-context';
+import { Redirect } from 'react-router-dom';
+import { render } from '@testing-library/react';
 
-export function Home(props) {
+class Home extends React.Component {
 
+  render() {
   return(
     <userContext.Consumer>
         {({username, token}) => (
@@ -28,4 +29,5 @@ export function Home(props) {
         }
     </userContext.Consumer>
   )
-}
+  }
+} export {Home}

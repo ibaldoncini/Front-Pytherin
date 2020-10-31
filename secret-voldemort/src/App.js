@@ -5,11 +5,15 @@ import { userContext } from './user-context';
 import { Home } from './components/Home';
 import { Register } from './components/Register';
 import CreateRoom from './components/CreateRoom';
+import JoinRoom from './components/JoinRoom';
+import Cookies from 'js-cookie';
 
 
 // This is the "main".
 // We use rout for organization of our single page app.
 class App extends Component {
+
+  static contextType = userContext
 
   setToken = token => {
      this.setState({token});
@@ -27,6 +31,17 @@ class App extends Component {
     this.setState({icon});
   }
 
+
+  readCookie = () => {
+    console.log(this.context.username)
+    let cookie = Cookies.get(this.context.username)
+    if (cookie === this.context.token) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   state = {
     token: '',
     username: '',
@@ -39,13 +54,23 @@ class App extends Component {
   };
 
   render() { 
+    
+    const cookie = Object.values(Cookies.get())
+    console.log("obteniendooioo " + cookie["username"])
+    console.log("Obteniendo cookies " + Object.values(Cookies.get()).indexOf())
+    let homePage = Login
+    if (cookie.name !== undefined) {
+      console.log("Buscando cookie para user: " + this.context.username)
+      console.log(Cookies.get(''))
+      homePage = ((Cookies.get(this.context.username))) ? Login : Home
+    }
     return (
       <BrowserRouter>
         <userContext.Provider value={this.state}>
-          <Route exact path='/' render= {() => <Login/>}/>
-          <Route exact path='/home' render= {() => <Home/>}/>
-          <Route exact path='/registerPage' render= {() => <Register/>}/>
-          <Route exact path='/createRoom' render= {() => <CreateRoom/>}/>
+          <Route exact path='/' component={homePage}/>
+          <Route exact path='/registerPage' component={Register}/>
+          <Route exact path='/createRoom' component={CreateRoom}/>
+          <Route exact path='joinRoom/:room' component={JoinRoom}/>
         </userContext.Provider>
       </BrowserRouter>
     );

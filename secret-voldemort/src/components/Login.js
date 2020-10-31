@@ -4,6 +4,8 @@ import { Link, Redirect } from 'react-router-dom';
 import verifyEmail from '../services/verification';
 import { sendRequest } from '../services/request';
 import { userContext } from '../user-context';
+import Cookies from 'js-cookie';
+import jwt_decode from 'jwt-decode';
 
 /* Login	/users/	POST		{email,password}	Token	200 OK-401 UNAUTHORIZED-400 BAD REQUEST */ 
 
@@ -17,41 +19,31 @@ class Login extends React.Component {
     this.state = {
       email: '',
       psw: '',
-      valid_email: false,
       redirect: false,
+      auth: false,
     }
    
     this.handleLogin = this.handleLogin.bind(this);
+    this.tokenDecode = this.tokenDecode.bind(this);
   }
   
   static contextType = userContext;
 
-  componentWillUnmount() {
-    const context = this.context;
-    const header = {
-      accept: "application/json",
-      Authorization: "Bearer" + " " +  context.token
-    }
 
-    console.log(context.token);
+  /* Decode the token and fill the user context */
+  tokenDecode() {
 
-    sendRequest("GET",header, '', "http://127.0.0.1:8000/users/me").then(async response => {
-      const data = await response.json();
-      if (response.ok) {
-        console.log(data);
-        context.setUsername(data.username);
-        context.setEmail(data.email);
-        context.setIcon(data.icon);
-
-      } else {
-        console.log(data);
-      }
-    }).catch(async error => {
-        console.log(error);
-    })
+    const uData = jwt_decode(this.context.token);
     
-  }
+    this.context.setUsername(uData.username);
+    this.context.setEmail(uData.email);
+    Cookies.set(this.context.username, {username: this.context.username,
+                                    email: this.context.email,
+                                  token: this.context.token});
 
+    console.log(uData);
+    this.setState({redirect: true});
+  }
 
   /* Here i want to stablish the connection with the endpoint for login.
   I think that i need to add redux for this.*/
@@ -83,8 +75,10 @@ class Login extends React.Component {
         if (response.ok){
           const token = data.access_token;
           this.context.setToken(token);
-          this.setState({redirect: true});
-    
+
+          // Now we decode the token to complete the user context
+          this.tokenDecode();
+          
         } else {
           document.getElementById('inemail').value="";
           document.getElementById('inpsw').value="";
@@ -98,10 +92,9 @@ class Login extends React.Component {
     }
   }
 
-
   render() {
-    if (this.state.redirect || this.context.token) {
-      return (<Redirect to='/home'/>);
+    if (this.state.redirect) {
+      return (<Redirect to='/'/>);
     } else {
       return (
         <userContext.Consumer> 
