@@ -18,7 +18,13 @@
       method: methodOpt,
       headers: headersOpt
     }
+  } else if (methodOpt === "PUT") {
+    requestOptions = {
+      body: JSON.stringify(keys),
+      headers: headersOpt,
+      method: methodOpt
+    }
   }
-  
+    console.log(requestOptions);
     return (await fetch(path, requestOptions))
   } 

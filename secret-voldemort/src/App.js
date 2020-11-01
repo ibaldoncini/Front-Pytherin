@@ -47,7 +47,7 @@ class App extends Component {
           <Route exact path='/home' render= {() => <Home/>}/>
           <Route exact path='/registerPage' render= {() => <Register/>}/>
           <Route exact path='/createRoom' render= {() => <CreateRoom/>}/>
-          <Route exact path='/vote' render={() => <Vote roomname="caca"/>}/>
+          <Route exact path='/vote' render={() => <Vote roomname="prueba"/>}/>
         </userContext.Provider>
       </BrowserRouter>
     );

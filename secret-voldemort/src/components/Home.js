@@ -14,6 +14,7 @@ export function Home(props) {
                 <div>
                    <h1> Hello {username}</h1>
                     <Button path='/createRoom' text='Create room'></Button>
+                    <Button path='/vote' text='vote'></Button>
                     <button>Join a room</button>
                     <button>Profile</button>
                 </div>
