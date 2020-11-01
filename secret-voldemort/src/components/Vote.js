@@ -10,17 +10,9 @@ import { VotesList } from './VotesList';
  */
 
 
-/* PROPS NEEDED: roomname, playerlist */ 
+/* PROPS NEEDED: roomname */ 
 export function Vote(props) {
 
-  const[vote, setVote] = useState('');
-  // const [usersVote, addUservote] = useState([]);
-  const userData = [
-    {user: "jerober",
-      vote: "Lumox"},
-    {user: "antomin",
-      vote: "Nox"}]
-  
   const handleVote = (e) => {
     const roomname = props.roomname;
     const body = `{"vote": ${e.target.name}}`;
@@ -37,40 +29,19 @@ export function Vote(props) {
     }).catch(error => {
       console.log("There was an error on voting");
     });*/
-    if(e.target.name === "Lumox") {
-      setVote('Lumox');
-    } else {
-      setVote('Nox');
-    }
-  }
-
-  const handlePolling = () => {
-
-    /* //hago el polling pidiendo la lista de usuarios junto con sus votos
-      .then(async response => {
-        data = await response.json();
-        // suponiendo que data es una lista
-        data.map(user => {
-          addUservote(usersVote.append({user: user, vote: voto}))
-        })
-      })
-    */
   }
   
   return(
-    <div> 
+    <div>
         <Popup trigger={<button>Vote</button>} modal position='right center'>
-          {(close) =>
-            vote !== '' ? 
-              <VotesList usersVotes={userData.concat({user: "you", vote: vote})}/>
-              : 
+          {(close) => 
               <div>
                 <h3>Vote for the porposed government</h3>
-                <button name='lumox' onClick={handleVote} >Lumox</button>
-                <button name='nox' onClick={handleVote}>Nox</button>
+                <button name='lumox' onClick={handleVote} onClickCapture={close} >Lumox</button>
+                <button name='nox' onClick={handleVote} onClickCapture={close} >Nox</button>
               </div>
           }
         </Popup>
     </div>
-  );
+  )
 }

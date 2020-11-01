@@ -1,5 +1,9 @@
 import React from 'react'
 
+
+
+/* This component take a list of user with their votes as
+ * [{user: "username", vote: "lumox/nox"},...] */
 export function VotesList(props) {
     
   const usersVotes = props.usersVotes
