@@ -1,5 +1,5 @@
 import React from 'react';
-import  Death_Eater  from '../images/death_eater.png';
+import  Death_Eater  from '../images/death_eaters.jpg';
 import Phoenix_Order from '../images/phoenix_order.png';
 import None from '../images/cancel.jpg';
 class Piece extends React.Component{

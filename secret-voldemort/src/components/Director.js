@@ -1,16 +1,15 @@
 import React from 'react';
 import '../custom.css';
-
-class Minister extends React.Component{
+class Director extends React.Component{
     constructor(props){
-        super(props);
+        super(props)
     }
     render(){
         return(
             <div class="column align-cntr">
-                Current minister<br/>
+                Current director<br/>
                 <span>{this.props.name}</span>
             </div>
         )
     }
-} export {Minister};
+} export { Director };

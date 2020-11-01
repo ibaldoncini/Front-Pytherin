@@ -5,6 +5,9 @@ import { userContext } from '../user-context';
 import { Vote } from './Vote';
 import { Dashboard } from './Dashboard';
 import { Minister } from './Minister';
+import { RoleCharacter } from './RoleCharacter';
+import { Director } from './Director';
+import { PlayersList } from './PlayersList';
 import { Redirect } from 'react-router-dom';
 
 class Game extends React.Component{
@@ -12,11 +15,13 @@ class Game extends React.Component{
         super(props)
         this.state = {
             room_name : this.props.room_name,
-            players : {},
+            players : ['asdasd','asdsad2', 'asdasd3'],
             proclam_de: 4,
             proclam_op: 2,
+            myRole: 'asdasd',
+            myChar: 'asjdjasd',
             curr_minister: 'estebanquito',
-            curr_director : '',
+            curr_director : 'elnuevo',
             timer: null
         }
         
@@ -63,18 +68,10 @@ class Game extends React.Component{
                                Vote<br/>
                                <Vote/>
                             </div>
-                            <div class="column class='align-cntr'">
-                                Role/Character<br/>
-                                <span></span>
-                            </div>
+                            <RoleCharacter role={this.state.myRole} charac={ this.state.myChar} />
                             <Minister name={this.state.curr_minister} />
-                            <div class="column class='align-cntr'">
-                                Current director<br/>
-                                <span>{this.state.director}</span>
-                            </div>
-                            <div class="column class='align-cntr'">
-                                In-game players<br/>
-                            </div>
+                            <Director name={this.state.curr_director} />
+                            <PlayersList players= {this.state.players} />
                         </div>
                 </div>
             </div>
