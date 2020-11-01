@@ -5,6 +5,7 @@ import { userContext } from './user-context';
 import { Home } from './components/Home';
 import { Register } from './components/Register';
 import CreateRoom from './components/CreateRoom';
+import { Vote } from './components/Vote';
 
 
 // This is the "main".
@@ -46,12 +47,10 @@ class App extends Component {
           <Route exact path='/home' render= {() => <Home/>}/>
           <Route exact path='/registerPage' render= {() => <Register/>}/>
           <Route exact path='/createRoom' render= {() => <CreateRoom/>}/>
+          <Route exact path='/vote' render={() => <Vote roomname="prueba"/>}/>
         </userContext.Provider>
       </BrowserRouter>
     );
   }
 }
 export default App;
-
-
-
