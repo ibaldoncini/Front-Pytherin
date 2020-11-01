@@ -2,7 +2,6 @@ import React from 'react';
 import Button from './Button';
 import { userContext } from '../user-context';
 import { Redirect } from 'react-router-dom';
-import { render } from '@testing-library/react';
 
 class Home extends React.Component {
 
@@ -16,7 +15,6 @@ class Home extends React.Component {
                     <div>
                     <h1> Hello {username}</h1>
                         <Button path='/createRoom' text='Create room'></Button>
-                        <button>Join a room</button>
                         <button>Profile</button>
                     </div>
                     :

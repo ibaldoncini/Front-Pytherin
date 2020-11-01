@@ -56,10 +56,11 @@ class App extends Component {
   render() { 
     
     const cookie = Object.values(Cookies.get())
-    console.log("obteniendooioo " + cookie["username"])
+    console.log("obteniendooioo " + cookie + cookie["username"])
     console.log("Obteniendo cookies " + Object.values(Cookies.get()).indexOf())
     let homePage = Login
-    if (cookie.name !== undefined) {
+    // this it the previous guard (cookie.name !== undefined)
+    if (false) {
       console.log("Buscando cookie para user: " + this.context.username)
       console.log(Cookies.get(''))
       homePage = ((Cookies.get(this.context.username))) ? Login : Home
@@ -67,10 +68,11 @@ class App extends Component {
     return (
       <BrowserRouter>
         <userContext.Provider value={this.state}>
-          <Route exact path='/' component={homePage}/>
+          <Route exact path='/' component={Login}/>
+          <Route exact path='/home' component={Home}/>
           <Route exact path='/registerPage' component={Register}/>
           <Route exact path='/createRoom' component={CreateRoom}/>
-          <Route exact path='joinRoom/:room' component={JoinRoom}/>
+          <Route exact path='/joinRoom/:room' component={JoinRoom}/>
         </userContext.Provider>
       </BrowserRouter>
     );
