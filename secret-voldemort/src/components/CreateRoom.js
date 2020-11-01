@@ -28,12 +28,8 @@ class CreateRoom extends React.Component {
 
   // methods
   join_room(headers){
-    // the consts below is for joining the room after its creation.
-    const join_params = `{ 
-      "room_name": "${this.state.room_name}"
-    }`
     // send request for joining the room
-    sendRequest("POST", headers, join_params, "http://127.0.0.1:8000/room/join_room")
+    sendRequest("GET", headers, {}, "http://127.0.0.1:8000/room/join/" + this.state.room_name.toString())
     .then(async response => {
       const snd_data = await response.json()
       if(!response.ok){
@@ -103,7 +99,11 @@ class CreateRoom extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return (<Redirect to={this.state.redirectPath} room_name={ this.state.room_name}/>);
+      return (<Redirect to={{
+          pathname: this.state.redirectPath,
+          state: { room: this.state.room_name }
+        }}
+              />);
     } else {
       return (
         <userContext.Consumer>
