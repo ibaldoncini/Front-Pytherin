@@ -20,7 +20,7 @@ class JoinRoom extends Component {
 
   isLoged() {
     /* We need to finish setting the cookies to verify that the user is logged in. */
-    return (false)
+    return (true)
   }
 
   /* Before rendering, I set the name of the room that comes in the parameters, prepare 
@@ -40,6 +40,7 @@ class JoinRoom extends Component {
       "Content-Type": "application/json"
     }
     const endpoint = "http://127.0.0.1:8000/room/join/" + this.state.room_name
+
     if(this.isLoged()) {
       console.log("Enviando solicitud al endpoint" + endpoint)
 

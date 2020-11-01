@@ -37,9 +37,7 @@ class Login extends React.Component {
     
     this.context.setUsername(uData.username);
     this.context.setEmail(uData.email);
-    Cookies.set(this.context.username, {username: this.context.username,
-                                    email: this.context.email,
-                                  token: this.context.token});
+    Cookies.set(this.context.username, this.context.username);
 
     console.log(uData);
     this.setState({redirect: true});
@@ -94,7 +92,7 @@ class Login extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return (<Redirect to='/home'/>);
+      return (<Redirect to='/'/>);
     } else {
       return (
         <userContext.Consumer> 
