@@ -37,9 +37,12 @@ class Login extends React.Component {
     
     this.context.setUsername(uData.username);
     this.context.setEmail(uData.email);
-    Cookies.set(this.context.username, this.context.username);
-
-    console.log(uData);
+    Cookies.set("user", {
+      username: this.context.username,
+      token: this.context.token,
+      email: this.context.email,
+      icon: this.context.icon
+    });
     this.setState({redirect: true});
   }
 
@@ -91,8 +94,14 @@ class Login extends React.Component {
   }
 
   render() {
-    if (this.state.redirect) {
-      return (<Redirect to='/'/>);
+    const cookie = Cookies.getJSON("user");
+    if (cookie !== undefined || this.state.redirect) {
+      this.context.setUsername(cookie.username);
+      this.context.setEmail(cookie.email);
+      this.context.setToken(cookie.token);
+      this.context.setIcon(cookie.icon);
+
+      return (<Redirect to='/home'/>);
     } else {
       return (
         <userContext.Consumer> 

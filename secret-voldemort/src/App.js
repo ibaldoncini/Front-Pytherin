@@ -12,6 +12,9 @@ import Cookies from 'js-cookie';
 // This is the "main".
 // We use rout for organization of our single page app.
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   static contextType = userContext
 
@@ -31,17 +34,6 @@ class App extends Component {
     this.setState({icon});
   }
 
-
-  readCookie = () => {
-    console.log(this.context.username)
-    let cookie = Cookies.get(this.context.username)
-    if (cookie === this.context.token) {
-      return true
-    } else {
-      return false
-    }
-  }
-
   state = {
     token: '',
     username: '',
@@ -54,17 +46,11 @@ class App extends Component {
   };
 
   render() { 
-    const cookieIsSet = Object.values(Cookies.get()).length
-    console.log("Cookies" + Object.values(Cookies.get()))
-    let HomePage = Login
-    // this it the previous guard (cookie.name !== undefined)
-    if (cookieIsSet !== 0) {
-      HomePage = Home
-    }
     return (
       <BrowserRouter>
         <userContext.Provider value={this.state}>
-          <Route exact path='/' component={HomePage}/>
+          <Route exact path='/' component={Login}/>
+          <Route exact path='/home' component={Home}/>
           <Route exact path='/registerPage' component={Register}/>
           <Route exact path='/createRoom' component={CreateRoom}/>
           <Route exact path='/joinRoom/:room' component={JoinRoom}/>

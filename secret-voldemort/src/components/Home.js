@@ -1,37 +1,33 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Button from './Button';
 import Cookies from 'js-cookie';
-import { Redirect, Link } from 'react-router-dom';
+import { userContext } from '../user-context'
+import { Redirect } from 'react-router-dom';
 
-class Home extends React.Component {
-	constructor(props) {
-		super(props)
-		this.state = {
-			username: ''
-		}
+export function Home(props) {
+	const [logged, unLog] = useState(true);
+	const context = useContext(userContext);
 
-		this.logOut = this.logOut.bind(this)
+	const logOut = () => {
+		console.log("Cookie a borrar:" + context.username)
+		Cookies.remove("user");
+		unLog(false);
 	}
 
-	logOut() {
-		console.log("Cookie a borrar:" + this.state.username)
-		Cookies.remove(this.state.username)
-	}
+	return (
+		<div>
+			{logged ?
+				<div> 
+					<h1> Hello {context.username}</h1>
+					<Button path='/createRoom' text='Create room'></Button>
+					<button>Profile</button>
+					<button onClick={logOut}>Logout</button>
+				</div>
+				:
+				<Redirect to='/'/>
 
-  render() {
-
-		Object.values(Cookies.get()).filter(p => {
-      console.log(p)
-      this.state.username = p
-			})
-			
-		return(
-			<div>
-			<h1> Hello {this.state.username}</h1>
-			<Button path='/createRoom' text='Create room'></Button>
-			<button>Profile</button>
-			<button onClick={this.logOut}>Logout</button>
-			</div>
-		)
-  }
-} export {Home}
+			}
+		</div>
+		
+	);
+} 
