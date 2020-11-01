@@ -2,8 +2,9 @@ import React from 'react';
 import '../custom.css';
 import { sendRequest } from '../services/request';
 import { userContext } from '../user-context';
-import { Piece } from './Piece';
 import { Vote } from './Vote';
+import { Dashboard } from './Dashboard';
+import { Minister } from './Minister';
 import { Redirect } from 'react-router-dom';
 
 class Game extends React.Component{
@@ -12,12 +13,17 @@ class Game extends React.Component{
         this.state = {
             room_name : this.props.room_name,
             players : {},
+            proclam_de: 4,
+            proclam_op: 2,
+            curr_minister: 'estebanquito',
+            curr_director : '',
             timer: null
         }
+        
     }
     static contextType = userContext;
     // uncomment when the endpoint is done.
-    componentDidMount(){
+    /*componentDidMount(){
         const headers = {
             Accept: "application/json",
             Authorization: "Bearer " + this.context.token,
@@ -40,12 +46,7 @@ class Game extends React.Component{
     }
     componentWillUnmount(){
         clearInterval(this.state.timer);
-    }
-    renderPiece(i, img){
-        return (
-            <Piece imgSrc ={img} value="" />
-        );
-    }
+    }*/
     render(){
         return(
             // uncomment once its connected with endpoints
@@ -53,46 +54,26 @@ class Game extends React.Component{
             {({ token }) => (
               token ? */
             <div class="game-form" id='game-form'>
-                <div className="game-container">
+                <div class="game-container">
                     <h1 class="title">Partida: {this.state.room_name}</h1>
-                        <div class="box align-cntr">
-                                <article class="media">
-                                    <div class="media-center">
-                                        {this.renderPiece(0, "death")}
-                                        {this.renderPiece(0, "death")}
-                                        {this.renderPiece(0, "death")}
-                                        {this.renderPiece(0, "death")}
-                                        {this.renderPiece(0, "death")}
-                                        {this.renderPiece(0, "death")}
-                                    </div>
-                                    <div class="media-center">
-                                        {this.renderPiece(1, "phoenix")}
-                                        {this.renderPiece(1, "phoenix")}
-                                        {this.renderPiece(1, "phoenix")}
-                                        {this.renderPiece(1, "phoenix")}
-                                        {this.renderPiece(1, "phoenix")}
-                                    </div>
-                                </article>
-                        </div>
+                        <Dashboard proclam_de = {this.state.proclam_de} 
+                        proclam_op={this.state.proclam_op} />
                         <div class="columns">
                             <div class="column align-cntr">
-                               Votación<br/>
+                               Vote<br/>
                                <Vote/>
                             </div>
                             <div class="column class='align-cntr'">
-                                Rol/Personaje<br/>
+                                Role/Character<br/>
                                 <span></span>
                             </div>
+                            <Minister name={this.state.curr_minister} />
                             <div class="column class='align-cntr'">
-                                Ministro actual<br/>
-                                <span></span>
+                                Current director<br/>
+                                <span>{this.state.director}</span>
                             </div>
                             <div class="column class='align-cntr'">
-                                Director actual<br/>
-                                <span></span>
-                            </div>
-                            <div class="column class='align-cntr'">
-                                Jugadores en partida<br/>
+                                In-game players<br/>
                             </div>
                         </div>
                 </div>

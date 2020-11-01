@@ -57,5 +57,4 @@ import { Vote } from './components/Vote';
         </Router>
       );
     }
-  }
-  export default App;
+  }export default App;

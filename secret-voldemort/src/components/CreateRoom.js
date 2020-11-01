@@ -109,17 +109,17 @@ class CreateRoom extends React.Component {
         <userContext.Consumer>
         {({token, setToken}) => (
           token ? 
-          <div className="FormCreateRoom">
+          <div class="FormCreateRoom">
               <h2>Creation of room</h2>
               <form name="form" onSubmit={this.handleSubmit}>
-                  <div className="Room_name">
+                  <div class="Room_name">
                       <label>Room name <br/>
                         <input type="text" maxLength='30' minLength='6'
                           value={this.state.room_name} min='5' max='10'
                           onChange={this.handleChangeRoomName} name="roomName"/>
                       </label> <br/>
                   </div>
-                  <div className="Max_Players">
+                  <div class="Max_Players">
                       <label>Maximum number of players <br/>
                         <input type="number" value={this.state.room_max_players} 
                           min='5' max='10' onChange={this.handleChangeMaxPlayers} 

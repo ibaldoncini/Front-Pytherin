@@ -67,8 +67,8 @@ class LobbyRoom extends React.Component{
             <userContext.Consumer>
             {({ token }) => (
               token ? 
-            <div className="lobby-room-form">
-                <div className="lobby-container">
+            <div class="lobby-room-form">
+                <div class="lobby-container">
                     <h1>Partida: {this.state.room_name}</h1>
                     <h3>Jugadores en partida</h3>
                     <ul name='players-list' id='unique-list'>
