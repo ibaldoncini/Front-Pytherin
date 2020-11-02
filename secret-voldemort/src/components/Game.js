@@ -10,6 +10,7 @@ import { Director } from './Director';
 import { PlayersList } from './PlayersList';
 import { DiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
+import { VotesList } from './VotesList';
 
 class Game extends React.Component{
     constructor(props){
@@ -88,13 +89,32 @@ class Game extends React.Component{
                         <Dashboard proclam_de = {this.state.de_procs} 
                         proclam_op={this.state.fo_procs} />
                         <div class="columns">
-                            <div class="column align-cntr">
-                               Vote<br/>
-                               <Vote/>
-                            </div>
+                          <div class="column align-cntr">
+                            Vote
+                            <br/>
+                            {this.state.phase === 2 ? 
+                                <div>
+                                    <Vote room_name={this.state.room_name}/>
+                                    <VotesList usersVotes={this.state.votes}/>
+                                </div>
+                                :
+                                <div></div>
+                            }
+                        </div>
+                        <div class="column align-cntr">
+                            <RoleCharacter role={this.state.myRole} charac={ this.state.myChar} />
+                        </div>
+                        <div class="column align-cntr">
+                            <Minister
+                                room_name={this.state.room_name} 
+                                name={this.state.curr_minister} 
+                                phase={this.state.phase} 
+                                players={this.state.player_list}
+                                last_minister={this.state.last_minister}
+                                last_director={this.state.last_director}/>
+                        </div>
                             <RoleCharacter role={this.state.my_role} 
                             charac={ this.state.my_char} />
-                            <Minister name={this.state.minister} />
                             <Director name={this.state.director} />
                             <PlayersList players= {this.state.player_list} />
                         </div>
@@ -104,6 +124,8 @@ class Game extends React.Component{
                             room_name={this.state.room_name} 
                             phase = {this.state.phase} />);
                         </div>
+                        <div class="columns"></div>
+                    </div>
                 </div>
             </div>
             :

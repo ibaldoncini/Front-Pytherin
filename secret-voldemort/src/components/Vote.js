@@ -28,7 +28,6 @@ export function Vote(props) {
     };
     const path = `http://127.0.0.1:8000/${roomname}/vote`
 
-
     /* Send the vote decision */
     sendRequest("PUT", header, keys, path).then(async response => {
       const data = await response.json();
