@@ -4,6 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import verifyEmail from '../services/verification';
 import { sendRequest } from '../services/request';
 import { userContext } from '../user-context';
+import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
 
 /* Login	/users/	POST		{email,password}	Token	200 OK-401 UNAUTHORIZED-400 BAD REQUEST */ 
@@ -19,6 +20,7 @@ class Login extends React.Component {
       email: '',
       psw: '',
       redirect: false,
+      auth: false,
     }
    
     this.handleLogin = this.handleLogin.bind(this);
@@ -35,11 +37,16 @@ class Login extends React.Component {
     
     this.context.setUsername(uData.username);
     this.context.setEmail(uData.email);
-
-    console.log(uData);
+   
+    Cookies.set("user", {
+      username: this.context.username,
+      token: this.context.token,
+      email: this.context.email,
+      icon: this.context.icon
+    });
+    
     this.setState({redirect: true});
   }
-
 
   /* Here i want to stablish the connection with the endpoint for login.
   I think that i need to add redux for this.*/
@@ -64,9 +71,9 @@ class Login extends React.Component {
         const keys = `grant_type=&username=${firstpart}%40${secondPart}&` + 
           `password=${psw}&scope=&client_id=&client_secret=`;
         
-          const headers = {
-          Accept: "application/json",
-          "Content-Type": "application/x-www-form-urlencoded"
+        const headers = {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded"
         }
         
         // This is the function to comunicate with the REST-API.
@@ -95,9 +102,13 @@ class Login extends React.Component {
     }
   }
 
-
   render() {
-    if (this.state.redirect) {
+    const cookie = Cookies.getJSON("user");
+    if (cookie !== undefined || this.state.redirect) {
+      this.context.setUsername(cookie.username);
+      this.context.setEmail(cookie.email);
+      this.context.setToken(cookie.token);
+      this.context.setIcon(cookie.icon);
       return (<Redirect to='/home'/>);
     } else {
       return (

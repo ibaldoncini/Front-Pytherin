@@ -5,12 +5,17 @@ import { userContext } from './user-context';
 import { Home } from './components/Home';
 import { Register } from './components/Register';
 import CreateRoom from './components/CreateRoom';
-import { Vote } from './components/Vote';
+import JoinRoom from './components/JoinRoom';
 
 
 // This is the "main".
 // We use rout for organization of our single page app.
 class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  static contextType = userContext
 
   setToken = token => {
      this.setState({token});
@@ -43,11 +48,11 @@ class App extends Component {
     return (
       <BrowserRouter>
         <userContext.Provider value={this.state}>
-          <Route exact path='/' render= {() => <Login/>}/>
-          <Route exact path='/home' render= {() => <Home/>}/>
-          <Route exact path='/registerPage' render= {() => <Register/>}/>
-          <Route exact path='/createRoom' render= {() => <CreateRoom/>}/>
-          <Route exact path='/vote' render={() => <Vote roomname="prueba"/>}/>
+          <Route exact path='/' component={Login}/>
+          <Route exact path='/home' component={Home}/>
+          <Route exact path='/registerPage' component={Register}/>
+          <Route exact path='/createRoom' component={CreateRoom}/>
+          <Route exact path='/joinRoom/:room' component={JoinRoom}/>
         </userContext.Provider>
       </BrowserRouter>
     );
