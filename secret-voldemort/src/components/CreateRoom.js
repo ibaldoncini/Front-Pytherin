@@ -16,31 +16,47 @@ class CreateRoom extends React.Component {
       room_name: '',
       room_max_players: 5,
       redirect: false,
-      redirectPath: '',
+      redirectPath: ''
     };
-
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeMaxPlayers = this.handleChangeMaxPlayers.bind(this);
     this.handleChangeRoomName = this.handleChangeRoomName.bind(this);
+    this.join_room = this.join_room.bind(this);
   }
 
   static contextType = userContext;
 
+  // methods
+  join_room(headers){
+    // send request for joining the room
+    sendRequest("GET", headers, {}, "http://127.0.0.1:8000/room/join/" + this.state.room_name.toString())
+    .then(async response => {
+      const snd_data = await response.json()
+      if(!response.ok){
+        return(
+          alert(snd_data.detail)
+        )
+      }else {
+        this.setState({redirect: true, redirectPath: "/lobbyRoom"})
+      }
+      
+    })
+    .catch(error => {
+      console.error("There was an error", error) 
+    })
+    // end join request
+ }
   handleSubmit(e) {
     e.preventDefault()
+    const headers = {
+      Accept: "application/json",
+      Authorization: "Bearer " + this.context.token,
+      "Content-Type": "application/json"
+    }
     const keys = `{
               "name": "${this.state.room_name}",
               "max_players": "${this.state.room_max_players}"
-            }`
-            
-    const authorizationToken = "Bearer " + this.context.token
-
-    const headers = {
-      Accept: "application/json",
-      Authorization: authorizationToken,
-      "Content-Type": "application/json"
-    }
-    
+            }`    
     if (this.state.room_max_players && this.state.room_name) {
 
       sendRequest("POST", headers, keys, "http://127.0.0.1:8000/room/new")
@@ -52,10 +68,9 @@ class CreateRoom extends React.Component {
             return(
               alert(data.detail)
             )
-          }
-          
-          this.setState({redirect: true, redirectPath: "/loby"})
-
+          }else {
+            this.join_room(headers)
+          } 
         })
         .catch(error => {
           console.error('There was an error', error);
@@ -64,7 +79,6 @@ class CreateRoom extends React.Component {
     } else {
       alert('Please fill in all fields correctly.')
     }
-
   }
   
   handleChangeMaxPlayers(event) {
@@ -85,23 +99,27 @@ class CreateRoom extends React.Component {
 
   render() {
     if (this.state.redirect) {
-      return (<Redirect to={this.state.redirectPath}/>);
+      return (<Redirect to={{
+          pathname: this.state.redirectPath,
+          state: { room: this.state.room_name }
+        }}
+              />);
     } else {
       return (
         <userContext.Consumer>
         {({token, setToken}) => (
           token ? 
-          <div className="FormCreateRoom">
+          <div class="FormCreateRoom">
               <h2>Creation of room</h2>
               <form name="form" onSubmit={this.handleSubmit}>
-                  <div className="Room_name">
+                  <div class="Room_name">
                       <label>Room name <br/>
                         <input type="text" maxLength='30' minLength='6'
                           value={this.state.room_name} min='5' max='10'
                           onChange={this.handleChangeRoomName} name="roomName"/>
                       </label> <br/>
                   </div>
-                  <div className="Max_Players">
+                  <div class="Max_Players">
                       <label>Maximum number of players <br/>
                         <input type="number" value={this.state.room_max_players} 
                           min='5' max='10' onChange={this.handleChangeMaxPlayers} 

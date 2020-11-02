@@ -115,7 +115,7 @@ class Login extends React.Component {
         <userContext.Consumer> 
           {({token, setToken}) => (
             
-            <div className='login-form'>
+            <div class='login-form'>
               <Head/>
               <form onSubmit={this.handleLogin}>
                 <label> 
