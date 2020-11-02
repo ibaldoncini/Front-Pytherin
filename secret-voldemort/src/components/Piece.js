@@ -6,7 +6,8 @@ class Piece extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            img : (props.imgSrc == "death") ? Death_Eater : ((props.imgSrc == 'phoenix') ? Phoenix_Order : None),
+            img : (props.imgSrc == "death") ? Death_Eater : 
+            ((props.imgSrc == 'phoenix') ? Phoenix_Order : None),
         }
     }
     render(){
