@@ -55,7 +55,7 @@ class App extends Component {
           <Route exact path='/registerPage' component={Register}/>
           <Route exact path='/createRoom' component={CreateRoom}/>
           <Route exact path='/lobbyRoom/:room' render= {(props) => <LobbyRoom {...props}/>}/>
-          <Route exact path='/gameRoom' render= {(props) => <Game {...props}/>}/>
+          <Route exact path='/gameRoom/:room' render= {(props) => <Game {...props}/>}/>
           <Route exact path='/joinRoom/:room' component={JoinRoom}/>
         </userContext.Provider>
       </Router>

@@ -35,7 +35,7 @@ class Game extends React.Component{
     }
     static contextType = userContext;
     // uncomment when the endpoint is done.
-    componentDidMount(){
+    componentWillMount(){
         const headers = {
             Accept: "application/json",
             Authorization: "Bearer " + this.context.token,
@@ -113,8 +113,6 @@ class Game extends React.Component{
                                 last_minister={this.state.last_minister}
                                 last_director={this.state.last_director}/>
                         </div>
-                            <RoleCharacter role={this.state.my_role} 
-                            charac={ this.state.my_char} />
                             <Director name={this.state.director} />
                             <PlayersList players= {this.state.player_list} />
                         </div>

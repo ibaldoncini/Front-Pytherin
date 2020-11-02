@@ -49,9 +49,9 @@ class DiscardPanel extends React.Component{
         //var cards = this.getCards(min);
         // add this when finished
         var cards = []
-        if(this.state.phase == 3 && (this.context.email == this.state.minister)){
+        if(this.state.phase === 3 && (this.context.email === this.state.minister)){
             cards = this.getCards(true)
-        }else if(this.state.phase == 4 && (this.context.email == this.state.director)){
+        }else if(this.state.phase === 4 && (this.context.email === this.state.director)){
             cards = this.getCards(false)
         }
         return cards

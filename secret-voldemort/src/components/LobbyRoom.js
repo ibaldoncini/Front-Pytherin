@@ -12,7 +12,7 @@ class LobbyRoom extends React.Component{
             players : ["Cargando usuarios conectados"],
             owner : '',
             start: false,
-            redirectPath: '/gameRoom',
+            redirectPath: '/gameRoom/' + this.props.match.params.room,
             timer: null
         }
         this.getGameState = this.getGameState.bind(this);
@@ -31,10 +31,12 @@ class LobbyRoom extends React.Component{
                         alert (response.detail)
                     }else{
                         const data = await response.json()
+                        if(data.room_status === "In game") {
+                            this.setState({start: true})
+                        }
                         const users = data.users;
                         this.setState({owner: data.owner})
                         this.setState({players: users})
-                        console.log(this.state);
                     }
                 }
             ).catch(error => {
