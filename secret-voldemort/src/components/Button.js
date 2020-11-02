@@ -1,5 +1,6 @@
 import React from 'react'
 import {Route} from 'react-router-dom'
+import Cookies from 'js-cookie';
 
 /* This component allows you to generate a custom redirectable button. */
 class Button extends React.Component {
@@ -8,21 +9,27 @@ class Button extends React.Component {
 
     this.state = {
       path: props.path,
-      text: props.text
+      text: props.text,
+      username: props.username,
+      logout: props.logout
     }
   }
 
   render() {
     const {path, text} = this.state
-    return (
-      <Route render={({history}) => (
-        <button
-          type='button'
-          onClick={() => { history.push(path) }}
-        >
-         {text}
-        </button>
-      )} />
-    )
+    if (this.state.logout) {
+      Cookies.remove(this.state.username)
+    } else {
+      return (
+        <Route render={({history}) => (
+          <button
+            type='button'
+            onClick={() => { history.push(path) }}
+          >
+          {text}
+          </button>
+        )} />
+      )
+    }
   }
 } export default Button;
