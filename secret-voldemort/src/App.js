@@ -8,53 +8,58 @@ import { Register } from './components/Register';
 import { LobbyRoom } from './components/LobbyRoom';
 import { Game } from './components/Game';
 import CreateRoom from './components/CreateRoom';
-import { Vote } from './components/Vote';
+import JoinRoom from './components/JoinRoom';
 
 // This is the "main".
 // We use rout for organization of our single page app.
-// care with this, it was functional... but it wasn't working
-  class App extends Component {
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
 
-    setToken = token => {
-       this.setState({token});
-    }
+  static contextType = userContext
+
+  setToken = token => {
+     this.setState({token});
+  }
   
-    setUsername = username => {
-      this.setState({username});
-    }
-    
-    setEmail =  email => {
-      this.setState({email});
-    }
-  
-    setIcon = icon => {
-      this.setState({icon});
-    }
-  
-    state = {
-      token: '',
-      username: '',
-      email: '',
-      icon: {},
-      setToken: this.setToken,
-      setUsername: this.setUsername,
-      setEmail: this.setEmail,
-      setIcon: this.setIcon
-    };
-  
-    render() { 
-      return (
-        <Router>
-          <userContext.Provider value={this.state}>
-            <Route exact path='/' render= {() => <Login/>}/>
-            <Route exact path='/home' render= {() => <Home/>}/>
-            <Route exact path='/registerPage' render= {() => <Register/>}/>
-            <Route exact path='/lobbyRoom' render= {(props) => <LobbyRoom {...props}/>}/>
-            <Route exact path='/gameRoom' render= {(props) => <Game {...props}/>}/>
-            <Route exact path='/createRoom' render= {() => <CreateRoom/>}/>
-            <Route exact path='/vote' render= {() => <Vote/>}/>
-          </userContext.Provider>
-        </Router>
-      );
-    }
-  }export default App;
+  setUsername = username => {
+    this.setState({username});
+  }
+
+  setEmail =  email => {
+    this.setState({email});
+  }
+
+  setIcon = icon => {
+    this.setState({icon});
+  }
+
+  state = {
+    token: '',
+    username: '',
+    email: '',
+    icon: {},
+    setToken: this.setToken,
+    setUsername: this.setUsername,
+    setEmail: this.setEmail,
+    setIcon: this.setIcon
+  };
+
+  render() { 
+    return (
+      <BrowserRouter>
+        <userContext.Provider value={this.state}>
+          <Route exact path='/' component={Login}/>
+          <Route exact path='/home' component={Home}/>
+          <Route exact path='/registerPage' component={Register}/>
+          <Route exact path='/createRoom' component={CreateRoom}/>
+          <Route exact path='/lobbyRoom' render= {(props) => <LobbyRoom {...props}/>}/>
+          <Route exact path='/gameRoom' render= {(props) => <Game {...props}/>}/>
+          <Route exact path='/joinRoom/:room' component={JoinRoom}/>
+        </userContext.Provider>
+      </BrowserRouter>
+    );
+  }
+}
+export default App;
