@@ -10,7 +10,6 @@ export function Home(props) {
 	const context = useContext(userContext);
 
 	const logOut = () => {
-		console.log("Cookie a borrar:" + context.username)
 		Cookies.remove("user");
 		update(false)
 	}

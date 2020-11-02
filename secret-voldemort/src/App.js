@@ -7,6 +7,7 @@ import { Register } from './components/Register';
 import CreateRoom from './components/CreateRoom';
 import JoinRoom from './components/JoinRoom';
 
+
 // This is the "main".
 // We use rout for organization of our single page app.
 class App extends Component {
@@ -58,6 +59,3 @@ class App extends Component {
   }
 }
 export default App;
-
-
-
