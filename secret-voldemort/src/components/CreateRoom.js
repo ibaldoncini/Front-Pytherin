@@ -29,7 +29,7 @@ class CreateRoom extends React.Component {
   // methods
   join_room(headers){
     // send request for joining the room
-    sendRequest("GET", headers, {}, "http://127.0.0.1:8000/room/join/" + this.state.room_name.toString())
+    sendRequest("GET", headers, {}, "http://127.0.0.1:8000/room/join/" + this.state.room_name)
     .then(async response => {
       const snd_data = await response.json()
       if(!response.ok){
@@ -37,7 +37,7 @@ class CreateRoom extends React.Component {
           alert(snd_data.detail)
         )
       }else {
-        this.setState({redirect: true, redirectPath: "/lobbyRoom"})
+        this.setState({redirect: true, redirectPath: `/lobbyRoom/${this.state.room_name}`})
       }
       
     })

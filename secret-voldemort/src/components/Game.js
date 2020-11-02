@@ -127,7 +127,6 @@ class Game extends React.Component{
                         <div class="columns"></div>
                     </div>
                 </div>
-            </div>
             :
             <Redirect to='/'/>
             )}

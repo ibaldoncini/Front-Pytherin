@@ -2,12 +2,13 @@ import React from 'react';
 import { sendRequest } from '../services/request';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../user-context';
+import Cookies from 'js-cookie';
 
 class LobbyRoom extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            room_name : '',
+            room_name : this.props.match.params.room,
             players : ["Cargando usuarios conectados"],
             owner : '',
             start: false,
@@ -17,18 +18,23 @@ class LobbyRoom extends React.Component{
         this.getGameState = this.getGameState.bind(this);
         this.handleStart = this.handleStart.bind(this);
     }
+
+
     static contextType = userContext
+
+
     getGameState(headers, path){
         try {
             const timerId = setInterval((h=headers,p=path) => {sendRequest('GET', h, {}, p).then(
                 async response => {
                     if(!response.ok){ 
-                        alert ("Error al obtener usuarios de la sala")
+                        alert (response.detail)
                     }else{
                         const data = await response.json()
                         const users = data.users;
                         this.setState({owner: data.owner})
                         this.setState({players: users})
+                        console.log(this.state);
                     }
                 }
             ).catch(error => {
@@ -41,26 +47,30 @@ class LobbyRoom extends React.Component{
         }
     }
 
-    componentDidMount(){
+
+    componentWillMount(){
         const headers = {
             Accept: "application/json",
             Authorization: "Bearer " + this.context.token,
             "Content-Type": "application/json"
         }
         try{ // without this react explodes 
-            const prop = this.props.history.location.state // to get props via "redirect" component
-            const room = prop.room 
-            const path = "http://127.0.0.1:8000/" + room.toString() + "/game_state"
+            const room = this.props.match.params.room // to get props via "redirect" component 
+            const path = "http://127.0.0.1:8000/" + room + "/game_state"
             // the component will re-render every setInterval, take care...
             this.getGameState(headers,path)
-            this.setState({room_name: room})
+            console.log(this.state.room);
         }catch(e){
             alert("Hubo un error al procesar lo requerido por favor nuevamente desde la plataforma.")
         }
     }
+
+
     componentWillUnmount(){
         clearInterval(this.state.timer);
     }
+
+
     handleStart(){
         const headers = {
             Accept: "application/json",
@@ -80,14 +90,17 @@ class LobbyRoom extends React.Component{
             console.log("There was an error at" + path.toString());
         })
     }
+
+
     render(){
+        
         return(
             <userContext.Consumer>
             {({ token }) => (
-              token ? (this.state.start ? (<Redirect to={{
+            token ? (this.state.start ? (<Redirect to={{
                 pathname: this.state.redirectPath,
                 state: { room: this.state.room_name }
-              }}
+            }}
                 />) :
             (<div class="lobby-room-form">
                 <div class="lobby-container">
@@ -108,4 +121,5 @@ class LobbyRoom extends React.Component{
             </userContext.Consumer>
         )
     }
+    
 } export {LobbyRoom}

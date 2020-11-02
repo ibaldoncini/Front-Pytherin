@@ -26,7 +26,13 @@ class JoinRoom extends Component {
 
     const cookie = Cookies.getJSON("user");
     if(cookie !== undefined) {
-      const link_room = "/" + this.props.match.params.room
+      
+      this.context.setUsername(cookie.username);
+      this.context.setEmail(cookie.email);
+      this.context.setToken(cookie.token);
+      this.context.setIcon(cookie.icon);
+  
+      const link_room = "/lobbyRoom/" + this.props.match.params.room
       const authorizationToken = "Bearer " + cookie.token
   
       const headers = {
