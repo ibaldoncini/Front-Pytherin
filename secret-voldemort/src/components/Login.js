@@ -96,10 +96,14 @@ class Login extends React.Component {
   render() {
     const cookie = Cookies.getJSON("user");
     if (cookie !== undefined || this.state.redirect) {
+      console.log("Antes de setear token: " + this.context.token)
+
       this.context.setUsername(cookie.username);
       this.context.setEmail(cookie.email);
       this.context.setToken(cookie.token);
       this.context.setIcon(cookie.icon);
+
+      console.log("Luego de setear quedo token: " + this.context.token)
 
       return (<Redirect to='/home'/>);
     } else {

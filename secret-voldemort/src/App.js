@@ -6,8 +6,6 @@ import { Home } from './components/Home';
 import { Register } from './components/Register';
 import CreateRoom from './components/CreateRoom';
 import JoinRoom from './components/JoinRoom';
-import Cookies from 'js-cookie';
-
 
 // This is the "main".
 // We use rout for organization of our single page app.
