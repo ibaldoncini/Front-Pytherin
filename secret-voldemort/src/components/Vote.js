@@ -14,10 +14,10 @@ import { VotesList } from './VotesList';
 export function Vote(props) {
 
   const handleVote = (e) => {
-    const roomname = props.roomname;
+    const room_name = props.room_name;
     const body = `{"vote": ${e.target.name}}`;
     const header = {Accept: "application/json", "Content-Type": "application/json"};
-    const path = `http://localhost:8000/${roomname}/vote`
+    const path = `http://localhost:8000/${room_name}/vote`
 
     /* Send the vote decision */
     /*sendRequest("PUT", header, body, path).then(async response => {

@@ -10,21 +10,27 @@ import { Director } from './Director';
 import { PlayersList } from './PlayersList';
 //import { Discard } from './Discard';
 import { Redirect } from 'react-router-dom';
+import { VotesList } from './VotesList';
 
 class Game extends React.Component{
     constructor(props){
         super(props)
         this.state = {
-            room_name : this.props.room_name,
-            players : ['asdasd','asdsad2', 'asdasd3'],
-            proclam_de: 0,
-            proclam_op: 0,
-            myRole: 'asdasd',
-            myChar: 'asjdjasd',
-            cards_disdard: [],
-            curr_minister: 'naza trolo',
-            curr_director : 'elnuevo',
-            timer: null
+            room_name : '',
+            my_role : '',
+            voldemort: '',
+            death_eaters: [],
+            player_list : ['nacho', 'esteban', 'shuls', 'mariano', 'naza', 'jero'],
+            de_procs: 0,
+            fo_procs: 0,
+            my_char: 'asjdjasd',
+            curr_minister: 'jero',
+            director : '',
+            last_minister: 'nacho',
+            last_director: 'esteban',
+            phase: 1,
+            timer: null,
+            votes: [{user:'nacho', vote:'Lumos'}, {user:'mariano', vote: 'Nox'}]
         }
         
     }
@@ -63,26 +69,45 @@ class Game extends React.Component{
             <div class="game-form" id='game-form'>
                 <div class="game-container">
                     <h1 class="title">Partida: {this.state.room_name}</h1>
-                        <Dashboard proclam_de = {this.state.proclam_de} 
+                    <Dashboard proclam_de = {this.state.proclam_de} 
                         proclam_op={this.state.proclam_op} />
-                        <div class="columns">
-                            <div class="column align-cntr">
-                               Vote<br/>
-                               <Vote/>
-                            </div>
+                    <div class="columns">
+                        <div class="column align-cntr">
+                            Vote
+                            <br/>
+                            {this.state.phase === 2 ? 
+                                <div>
+                                    <Vote room_name={this.state.room_name}/>
+                                    <VotesList usersVotes={this.state.votes}/>
+                                </div>
+                                :
+                                <div></div>
+                            }
+                        </div>
+                        <div class="column align-cntr">
                             <RoleCharacter role={this.state.myRole} charac={ this.state.myChar} />
-                            <Minister name={this.state.curr_minister} />
+                        </div>
+                        <div class="column align-cntr">
+                            <Minister
+                                room_name={this.state.room_name} 
+                                name={this.state.curr_minister} 
+                                phase={this.state.phase} 
+                                players={this.state.player_list}
+                                last_minister={this.state.last_minister}
+                                last_director={this.state.last_director}/>
+                        </div>
+                        <div class="column align-cntr">
                             <Director name={this.state.curr_director} />
-                            <PlayersList players= {this.state.players} />
                         </div>
-                        <div class="columns">
-                          
+                        <div class="column align-cntr">
+                            <PlayersList players= {this.state.player_list} />
                         </div>
+                        <div class="columns"></div>
+                    </div>
                 </div>
             </div>
-            /*:
-            <Redirect to='/'/>
-            )}
+
+            /*<Redirect to='/'/>    
             </userContext.Consumer>*/
         )
     }
