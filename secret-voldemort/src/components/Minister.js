@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import '../custom.css';
 import { userContext } from '../user-context';
 import { DirectorCandidates } from './DirectorCandidates';
@@ -10,29 +10,40 @@ import { DirectorCandidates } from './DirectorCandidates';
 // last_minister
 // last_director
 
-class Minister extends React.Component{
-  constructor(props){
-    super(props);
-  }
+export const Minister = (props) => {
 
-  static contextType = userContext;
+  const [name, setName] = useState('');
+  const [last_director, setLastDirector] = useState('');
+  const [players, setPlayer] = useState([]);
+  const [roomName, setRoomname] = useState('');
+  const [phase, setPhase] = useState(-1);
 
-  render(){
+  const context = useContext(userContext)
+
+  useEffect(() => {
+    setName(props.name)
+    setLastDirector(props.last_director)
+    setRoomname(props.room_name)
+    setPlayer(props.players)
+    setPhase(props.phase)
+  },[props])
+
+
     return(
       <userContext.Consumer>
         {(email, token) =>
           <div class="column align-cntr">
             <p>Current minister</p><br/>
-            <span>{this.props.name}</span>
+            <span>{name}</span>
             
             <div>
-              {(this.props.phase === 1 && this.props.name === email) ?  
+              { ((phase === 1) && (name === context.email)) ?  
                 <DirectorCandidates 
-                  room_name = {this.props.room_name}
-                  user_token = {token}
-                  players={this.props.players} 
-                  name={this.props.name} 
-                  last_director={this.props.last_director} 
+                  room_name = {roomName}
+                  user_token = {context.token}
+                  players= {players} 
+                  name= {name} 
+                  last_director= {last_director} 
                 />
                 :
                 <div></div>
@@ -42,5 +53,5 @@ class Minister extends React.Component{
         }
       </userContext.Consumer>
     )
-  }
-} export {Minister};
+  
+}

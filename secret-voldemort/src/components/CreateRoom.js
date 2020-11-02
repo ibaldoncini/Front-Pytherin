@@ -122,7 +122,7 @@ class CreateRoom extends React.Component {
                   <div class="Max_Players">
                       <label>Maximum number of players <br/>
                         <input type="number" value={this.state.room_max_players} 
-                          min='5' max='10' onChange={this.handleChangeMaxPlayers} 
+                          min='3' max='10' onChange={this.handleChangeMaxPlayers} 
                           name="maxPlayers" />
                       </label> <br/>
                   </div> <br/>

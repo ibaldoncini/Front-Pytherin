@@ -8,9 +8,9 @@ class PlayersList extends React.Component{
         return( <div class="column class='align-cntr'">
                     Players list
                     <ul>
-                        {this.props.players.map((player) => {
-                            return (<li>{player}</li>);
-                        })}
+                        {this.props.players.map((player) => 
+                            <li>{player}</li>
+                        )}
                     </ul>
                 </div>)
     }

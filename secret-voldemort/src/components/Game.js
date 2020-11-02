@@ -35,7 +35,39 @@ class Game extends React.Component{
     }
     static contextType = userContext;
     // uncomment when the endpoint is done.
-    componentWillMount(){
+
+    update(headers, room, path) {
+
+     sendRequest('GET', headers, {}, path)
+            .then(async response => {const data = await response.json()
+            
+                console.log(data)
+                if(!response.ok){ 
+                    alert ("Error al obtener algunos datos de la partida.")
+                }else{
+                    console.log("Status game: " + data)
+                    this.setState({
+                        room_name: room,
+                        my_role: data.my_role,
+                        voldemort: data.voldemort,
+                        death_eaters: data.death_eaters,
+                        player_list : data.player_list,
+                        de_procs: data.de_procs,
+                        fo_procs: data.fo_procs,
+                        my_char: 'niidealoqui',
+                        minister: data.minister,
+                        director : data.director,
+                        last_minister: data.last_minister,
+                        last_director: data.last_director,
+                        phase: data.phase,
+                        votes: data.votes
+                    })
+                    console.log("Contexto actual: " + this.state.minister)
+                }
+            })
+    }
+
+    componentDidMount(){
         const headers = {
             Accept: "application/json",
             Authorization: "Bearer " + this.context.token,
@@ -43,37 +75,15 @@ class Game extends React.Component{
         }
         try {
             // path for getting the game state.
-            const prop = this.props.history.location.state // to get props via "redirect" component
-            const room = prop.room 
+            const room = this.props.match.params.room
             const path = "http://127.0.0.1:8000/" + room.toString() +"/game_state"
-            this.setState({room_name: room})
-            const timerId = setInterval(sendRequest('GET', headers, {}, path).then(async response => response.json()).then(response => {
-                if(!response.ok){ 
-                    alert ("Error al obtener algunos datos de la partida.")
-                }else{
-                   this.setState({
-                        my_role: response.my_role,
-                        voldemort: response.voldemort,
-                        death_eaters: response.death_eaters,
-                        player_list : response.player_list,
-                        de_procs: response.de_procs,
-                        fo_procs: response.fo_procs,
-                        my_char: 'niidealoqui',
-                        minister: response.minister,
-                        director : response.director,
-                        last_minister: response.last_minister,
-                        last_director: response.last_director,
-                        phase: response.phase,
-                        votes: response.votes
-                   })
-                   console.log(this.state)
-                }
-            }), 2000);
-            this.setState({timer: timerId})
+            const timer = setInterval(()=> this.update(headers, room, path), 1000);
+            this.setState({timer: timer})
         }catch(e){
             alert("Error al obtener datos de la partida.")
         }
     }
+
     componentWillUnmount(){
         clearInterval(this.state.timer);
     }
@@ -102,12 +112,13 @@ class Game extends React.Component{
                             }
                         </div>
                         <div class="column align-cntr">
-                            <RoleCharacter role={this.state.myRole} charac={ this.state.myChar} />
+                            <RoleCharacter role={this.state.my_role} charac={ this.state.myChar} />
                         </div>
                         <div class="column align-cntr">
                             <Minister
                                 room_name={this.state.room_name} 
-                                name={this.state.curr_minister} 
+                                mail_context={this.context.email}
+                                name={this.state.minister} 
                                 phase={this.state.phase} 
                                 players={this.state.player_list}
                                 last_minister={this.state.last_minister}

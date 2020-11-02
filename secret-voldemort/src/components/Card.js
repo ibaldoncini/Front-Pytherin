@@ -40,7 +40,7 @@ class Card extends React.Component{
         }
         try {
             const room = this.state.room_name;
-            const path = "http://127.0.0.1:8000/" + room.toString() +"/discard"
+            const path = "http://127.0.0.1:8000/" + room.toString() + "/discard"
             const keys = {
                 body: {
                     card_index: index

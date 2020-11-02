@@ -18,13 +18,6 @@ class DiscardPanel extends React.Component{
     static contextType = userContext;
     getCards(min){
         var cards = []
-        /*if(min){
-            cards = ['Order of the Fenix proclamation','Death Eater proclamation'
-            ,'Order of the Fenix proclamation']
-        }else {
-            cards = ['Death Eater proclamation', 'Order of the Fenix proclamation']
-        }
-        return cards*/
         const headers = {
             Accept: "application/json",
             Authorization: "Bearer " + this.context.token,
