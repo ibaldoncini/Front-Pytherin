@@ -1,7 +1,7 @@
 import React from 'react';
 import  Death_Eater  from '../images/death_eaters.jpg';
 import Phoenix_Order from '../images/phoenix_order.png';
-import None from '../images/cancel.jpg';
+import None from '../images/cancel.png';
 class Piece extends React.Component{
     constructor(props){
         super(props);

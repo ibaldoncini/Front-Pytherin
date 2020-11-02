@@ -8,6 +8,7 @@ import { Minister } from './Minister';
 import { RoleCharacter } from './RoleCharacter';
 import { Director } from './Director';
 import { PlayersList } from './PlayersList';
+//import { Discard } from './Discard';
 import { Redirect } from 'react-router-dom';
 
 class Game extends React.Component{
@@ -16,11 +17,12 @@ class Game extends React.Component{
         this.state = {
             room_name : this.props.room_name,
             players : ['asdasd','asdsad2', 'asdasd3'],
-            proclam_de: 4,
-            proclam_op: 2,
+            proclam_de: 0,
+            proclam_op: 0,
             myRole: 'asdasd',
             myChar: 'asjdjasd',
-            curr_minister: 'estebanquito',
+            cards_disdard: [],
+            curr_minister: 'naza trolo',
             curr_director : 'elnuevo',
             timer: null
         }
@@ -72,6 +74,9 @@ class Game extends React.Component{
                             <Minister name={this.state.curr_minister} />
                             <Director name={this.state.curr_director} />
                             <PlayersList players= {this.state.players} />
+                        </div>
+                        <div class="columns">
+                          
                         </div>
                 </div>
             </div>

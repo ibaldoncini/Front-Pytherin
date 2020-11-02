@@ -10,6 +10,8 @@ class LobbyRoom extends React.Component{
             room_name : '',
             players : ["Cargando usuarios conectados"],
             owner : '',
+            start: false,
+            redirectPath: '/gameRoom',
             timer: null
         }
         this.getGameState = this.getGameState.bind(this);
@@ -60,14 +62,34 @@ class LobbyRoom extends React.Component{
         clearInterval(this.state.timer);
     }
     handleStart(){
-        console.log("se empieza la partida perrito?");
+        const headers = {
+            Accept: "application/json",
+            Authorization: "Bearer " + this.context.token,
+            "Content-Type": "application/json"
+        }
+        const room = this.state.room_name
+        const path = "http://127.0.0.1:8000/" + room.toString() + "/start";
+        sendRequest("PUT", headers, {}, path).then(async response => {
+            const data = await response.json()
+            if(!response.ok){ 
+               alert(data.detail.toString())
+            }else{
+                this.setState({start: true})
+            }
+        }).catch(error => {
+            console.log("There was an error at" + path.toString());
+        })
     }
     render(){
         return(
             <userContext.Consumer>
             {({ token }) => (
-              token ? 
-            <div class="lobby-room-form">
+              token ? (this.state.start ? (<Redirect to={{
+                pathname: this.state.redirectPath,
+                state: { room: this.state.room_name }
+              }}
+                />) :
+            (<div class="lobby-room-form">
                 <div class="lobby-container">
                     <h1>Partida: {this.state.room_name}</h1>
                     <h3>Jugadores en partida</h3>
@@ -76,10 +98,10 @@ class LobbyRoom extends React.Component{
                         return <li id={item}>{item}</li>;
                     })}
                     </ul>
-                    <input type='button' value='Empezar partida' onClick={this.handleStart}/> 
+                    {(this.context.email == this.state.owner) ? <input type='button' value='Empezar partida' onClick={this.handleStart}/> : ""}
                     <input type='button' value='Salir de partida' onClick={this.handleExit}/>
                 </div>
-            </div>
+            </div>))
             :
             <Redirect to='/'/>
             )}
