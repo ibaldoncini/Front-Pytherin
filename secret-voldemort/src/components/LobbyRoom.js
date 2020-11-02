@@ -34,7 +34,7 @@ class LobbyRoom extends React.Component{
             ).catch(error => {
                 console.error("There was an error", error) 
             })
-            }, 3000);
+            }, 2000);
             this.setState({timer: timerId});
         }catch(e){
             alert ("Error al obtener datos sobre los usuarios de la sala. Consulte con el soporte.")
@@ -98,7 +98,7 @@ class LobbyRoom extends React.Component{
                         return <li id={item}>{item}</li>;
                     })}
                     </ul>
-                    {(this.context.email == this.state.owner) ? <input type='button' value='Empezar partida' onClick={this.handleStart}/> : ""}
+                    {(this.context.email === this.state.owner) ? <input type='button' value='Empezar partida' onClick={this.handleStart}/> : ""}
                     <input type='button' value='Salir de partida' onClick={this.handleExit}/>
                 </div>
             </div>))
