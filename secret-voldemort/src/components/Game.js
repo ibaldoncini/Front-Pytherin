@@ -11,6 +11,7 @@ import { PlayersList } from './PlayersList';
 import { DiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
 import { VotesList } from './VotesList';
+import Cookie from 'js-cookie';
 
 class Game extends React.Component{
     constructor(props){
@@ -85,7 +86,7 @@ class Game extends React.Component{
     componentDidMount(){
         const headers = {
             Accept: "application/json",
-            Authorization: "Bearer " + this.context.token,
+            Authorization: "Bearer " + Cookie.get("user").token,
             "Content-Type": "application/json"
         }
         try {
@@ -146,7 +147,8 @@ class Game extends React.Component{
                             <PlayersList players= {this.state.player_list} />
                         </div>
                         <div class="columns">
-                            {((this.state.phase === 3 && this.state.minister === this.context.email) || (this.state.phase === 4 && this.state.director === this.context.email)) 
+                            {((this.state.phase === 3 && this.state.minister === this.context.email) 
+                            || (this.state.phase === 4 && this.state.director === this.context.email)) 
                             ? <DiscardPanel minister={this.state.minister} 
                             director={this.state.director} 
                             room_name={this.state.room_name} 

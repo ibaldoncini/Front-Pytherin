@@ -59,12 +59,12 @@ export const DiscardPanel = (props) => {
             Discard<br/>
             {                
                 
-                (showCards() === false ? console.log("DIO FALSOOO")
+                showCards() === false ? console.log("DIO FALSOOO")
                 :
                 cards.split(',').map((card, index) =>
-                <Card ind={index} room_name={room_name}
-                        imgSrc={card} />))
-              
+                    <Card ind={index} room_name={room_name}
+                            image={card} />)
+                
             }
             
         </div>

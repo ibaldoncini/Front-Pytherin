@@ -18,10 +18,11 @@ export const Card = (props) => {
 
     useEffect(() => {
         var image = '';
-        (props.imgSrc === 'Death Eater proclamation') ? (image = Death_Eater) : 
-        ((props.imgSrc ==='Order of the Fenix proclamation') 
+        (props.image === 'Death Eater proclamation') ? (image = Death_Eater) : 
+        ((props.image ==='Order of the Fenix proclamation') 
         ? (image = Phoenix) : image = Cancel)
-       setImgSrc(props.imageSrc)
+       setImgSrc(image)
+       console.log(image);
        setRoomName(props.room_name)
        setIndex(props.ind)
     }, [props])
