@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { sendRequest } from '../services/request';
@@ -15,9 +15,13 @@ import { userContext } from '../user-context';
 export function Vote(props) {
   
   const context = useContext(userContext);
+  const [roomname, setRoomName] = useState('');
+
+  useEffect(() => {
+    setRoomName(props.room_name)
+  },[props]);
 
   const handleVote = (e) => {
-    const roomname = props.roomname;
     const authorizationToken = "Bearer " + context.token
     const vote = e.target.name;
     const keys = {"vote": vote}

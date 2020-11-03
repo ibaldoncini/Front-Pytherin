@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Popup from 'reactjs-popup';
 import { sendRequest } from '../services/request';
+import { userContext } from '../user-context';
 
 export function DirectorCandidates(props) {
 
+  const [room_name, setRoomName] = useState('')
+  const [name, setName] = useState('')
+  const [players, setPlayers] = useState([])
+  const [last_director, setLastDirector] = useState('')
+  
+  const context = useContext(userContext)
+
+  useEffect(() => {
+    setRoomName(props.room_name)
+    setName(props.name)
+    setLastDirector(props.last_director)
+    setPlayers(props.players)
+  }, [props]);
   
   const handleSelection = (e) => {
     const selectedUser = e.target.name;
     const keys = {director_email: selectedUser};
-    const authorizationToken = "Bearer " + props.user_token;
+    const authorizationToken = "Bearer " + context.token;
     const header = {
       Accept: "application/json",
       Authorization: authorizationToken,
       "Content-Type": "application/json"
     };
-    const path = `http://127.0.0.1:8000/${props.room_name}/director`
+    const path = `http://127.0.0.1:8000/${room_name}/director`
     
     sendRequest("PUT", header, keys, path).then(async response => {
       const data = await response.json();
@@ -32,8 +46,8 @@ export function DirectorCandidates(props) {
       {close =>
         <ul>
           {
-            props.players.map((user) => 
-              ((user !== props.name) && (user !== props.last_director)) ?
+            players.map((user) => 
+              ((user !== name) && (user !== last_director)) ?
                 <li> {user} 
                   <button name={user} onClick={handleSelection} onClickCapture={close}>
                       Select

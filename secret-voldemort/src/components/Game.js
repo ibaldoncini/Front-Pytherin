@@ -30,41 +30,56 @@ class Game extends React.Component{
             last_director: '',
             votes: [],
             phase: -1,
-            timer: null
+            timer: null,
+            redirect: false,
+            redirectPath: '',
         }
+        this.update = this.update.bind(this)
+
     }
     static contextType = userContext;
     // uncomment when the endpoint is done.
 
+
     update(headers, room, path) {
 
      sendRequest('GET', headers, {}, path)
-            .then(async response => {const data = await response.json()
-            
-                console.log(data)
-                if(!response.ok){ 
-                    alert ("Error al obtener algunos datos de la partida.")
-                }else{
-                    console.log("Status game: " + data)
-                    this.setState({
-                        room_name: room,
-                        my_role: data.my_role,
-                        voldemort: data.voldemort,
-                        death_eaters: data.death_eaters,
-                        player_list : data.player_list,
-                        de_procs: data.de_procs,
-                        fo_procs: data.fo_procs,
-                        my_char: 'niidealoqui',
-                        minister: data.minister,
-                        director : data.director,
-                        last_minister: data.last_minister,
-                        last_director: data.last_director,
-                        phase: data.phase,
-                        votes: data.votes
-                    })
-                    console.log("Contexto actual: " + this.state.minister)
-                }
-            })
+        .then(async response => {const data = await response.json()
+        
+          console.log(data)
+          if(!response.ok) { 
+            alert ("Error al obtener algunos datos de la partida.")
+          } else {
+              console.log("Status game: " + data)
+              if(data.phase !== 5 && data.phase !== 6) {
+                this.setState({
+                  room_name: room,
+                  my_role: data.my_role,
+                  voldemort: data.voldemort,
+                  death_eaters: data.death_eaters,
+                  player_list : data.player_list,
+                  de_procs: data.de_procs,
+                  fo_procs: data.fo_procs,
+                  my_char: 'niidealoqui',
+                  minister: data.minister,
+                  director : data.director,
+                  last_minister: data.last_minister,
+                  last_director: data.last_director,
+                  phase: data.phase,
+                  votes: data.votes,
+                })
+              } else {
+                  if (data.phase === 5) {
+                    alert("The game is over. The team Death Eater won. Redirecting to the home page.")
+                    this.setState({redirect: true, redirectPath: '/home'})
+                  } else {
+                    alert("The game is over. The team Fenix Order won. Redirecting to the home page.")
+                    this.setState({redirect: true, redirectPath: '/home'})
+                  }
+              }
+              console.log("Contexto actual: " + this.state.minister)
+          }
+        })
     }
 
     componentDidMount(){
@@ -88,6 +103,9 @@ class Game extends React.Component{
         clearInterval(this.state.timer);
     }
     render(){
+      if(this.state.redirect) {
+        return (<Redirect to={this.state.redirectPath}/>);
+      } else {
         return(
             // uncomment once its connected with endpoints
             <userContext.Consumer>
@@ -141,6 +159,7 @@ class Game extends React.Component{
             )}
             </userContext.Consumer>
         )
+      } 
     }
 
 

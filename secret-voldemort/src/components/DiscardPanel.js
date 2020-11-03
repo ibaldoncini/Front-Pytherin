@@ -1,65 +1,69 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../custom.css';
 import { Card } from './Card';
 import { userContext } from '../user-context';
 import { sendRequest } from '../services/request';
-class DiscardPanel extends React.Component{
-    constructor(props){
-        super(props)
-        this.state = {
-            room_name: this.props.room_name,
-            minister: this.props.minister,
-            director: this.props.director,
-            phase: this.props.phase
-        }
-        this.showCards = this.showCards.bind(this)
-        this.getCards = this.getCards.bind(this)
-    }
-    static contextType = userContext;
-    getCards(min){
-        var cards = []
+
+/* PROPS_NEEDED:  room_name, minister, director, phase */
+export const DiscardPanel = (props) => {
+    
+    const context = useContext(userContext);
+    const [room_name, setRoomName] = useState('');
+    const [minister, setMinister] = useState('');
+    const [director, setDirector] = useState('');
+    const [phase, setPhase] = useState(-1);
+
+    useEffect(() => {
+        setRoomName(props.room_name);
+        setMinister(props.minister);
+        setDirector(props.director);
+        setPhase(props.phase);
+    },[props]);
+
+    // Getting into the server for card getting
+    const getCards = () => {
         const headers = {
             Accept: "application/json",
-            Authorization: "Bearer " + this.context.token,
+            Authorization: "Bearer " + context.token,
             "Content-Type": "application/json"
-        }
-        const room = this.state.room_name
-        const path = "http://127.0.0.1:8000/" + room.toString() +"/cards"
+        };
+        const room = room_name;
+        const path = "http://127.0.0.1:8000/" + room.toString() +"/cards";
         sendRequest('GET', headers, {}, path).then(async response => {
-            const data = await response
+            const data = await response.json();
+            console.log("Aca va la response perrix: " + "\n" + data.cards.json());
             if(!response.ok){ 
-               alert(data.detail.toString())
-            }else{
-                cards = response
-                return cards
+               alert(data.detail.toString());
+            }else{ 
+                return data.cards;
             }
         }).catch(error => {
             console.log("There was an error at" + path.toString());
         })
-    }
-
-    showCards(min){
-        //var cards = this.getCards(min);
-        // add this when finished
-        var cards = []
-        if(this.state.phase === 3 && (this.context.email === this.state.minister)){
-            cards = this.getCards(true)
-        }else if(this.state.phase === 4 && (this.context.email === this.state.director)){
-            cards = this.getCards(false)
+    };
+    // Depending on phase and if its a minister or director will get cards (or not)
+    const showCards = () => {
+        var cards
+        if(phase === 3 && (context.email === minister)){
+            cards = getCards()
+        }else if(phase === 4 && (context.email === director)){
+            cards = getCards()
         }
         return cards
-    }
-    
-    render(){
-        return(
-            <div class="column align-cntr">
-                Discard<br/>
-                {this.showCards(true).map((key,index) => {
-                    return(<Card ind={index} room_name={this.state.room_name}
-                         imgSrc={key} />)
-                })}
-            </div>
-        )
-    }
+    };
 
-} export { DiscardPanel };
+    return(
+        <div class="column align-cntr">
+            Discard<br/>
+            {                
+                
+                console.log("ACAAAA:" + showCards())
+                /*showCards().map((key,index) => 
+                <Card ind={index} room_name={room_name}
+                        imgSrc={key} />
+                ) */
+            }
+            
+        </div>
+    );
+}

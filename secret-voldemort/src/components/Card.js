@@ -1,72 +1,65 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import  Death_Eater  from '../images/death_eaters.jpg';
 import Phoenix from '../images/phoenix_order.png';
 import Cancel from '../images/cancel.png';
 import { sendRequest } from '../services/request';
 import { userContext } from '../user-context';
-class Card extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            room_name: '',
-            img : '',
-            index: -1
-        }
-        this.discard = this.discard.bind(this);
-    }
-    static contextType = userContext;
 
-    componentDidMount(){
+/* This component will get the cards to discard  for minister and director */
+
+/* PROPS_NEEDED: room_name, imgSrc, ind  */
+
+export const Card = (props) => {
+
+    const context = useContext(userContext);
+    const [room_name, setRoomName] = useState('')
+    const [imgSrc, setImgSrc] = useState('')
+    const [index, setIndex] = useState(-1)
+
+    useEffect(() => {
         var image = '';
-        (this.props.imgSrc === 'Death Eater proclamation') ? (image = Death_Eater) : 
-        ((this.props.imgSrc ==='Order of the Fenix proclamation') 
+        (props.imgSrc === 'Death Eater proclamation') ? (image = Death_Eater) : 
+        ((props.imgSrc ==='Order of the Fenix proclamation') 
         ? (image = Phoenix) : image = Cancel)
-        this.setState({
-            img: image,
-            index: this.props.ind,
-            room_name: this.props.room_name,
-            timer: null
-        })
-    }
-    componentWillUnmount(){
-        clearInterval(this.state.timer)
-    }
+       setImgSrc(props.imageSrc)
+       setRoomName(props.room_name)
+       setIndex(props.ind)
+    }, [props])
 
-    discard(index){
+    const discard = (index) => {
         const headers = {
             Accept: "application/json",
-            Authorization: "Bearer " + this.context.token,
+            Authorization: "Bearer " + context.token,
             "Content-Type": "application/json"
         }
         try {
-            const room = this.state.room_name;
-            const path = "http://127.0.0.1:8000/" + room.toString() + "/discard"
+            const path = "http://127.0.0.1:8000/" + room_name.toString() + "/discard"
             const keys = {
                 body: {
                     card_index: index
                 },
-                room_name: room,
-                email: this.context.email
+                room_name: room_name,
+                email: context.email
             }
-            const timerId = setInterval(sendRequest('PUT', headers, keys, path).then(async response => response.json()).then(response => {
+            sendRequest('PUT', headers, keys, path).then(async response => {
+                const data = await response.json();
                 if(!response.ok){ 
-                    alert(response.detail)
+                    alert(data.detail)
                 }else{
-                    alert(response.message)
+                    alert(data.message)
                 }
-            }), 2000);
-            this.setState({timer: timerId})
+            }).catch(error => {
+                alert("Ups! Something went wrong.")
+            })
         }catch(e){
             alert("Error getting data from the current match.")
         }
     }
-    
-    render(){
-        return (
-            <figure class="image is-32x32 fig-inline">
-                <img height='32' onClick={() => {this.discard(this.state.index)}} 
-                width='32' src={ this.state.img } alt=""/>
-            </figure>
-        );
-    }
-} export { Card }
+
+    return (
+        <figure class="image is-32x32 fig-inline">
+            <img height='32' onClick={() => {discard(index)}} 
+            width='32' src={ imgSrc } alt=""/>
+        </figure>
+    );
+}

@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../custom.css';
-class Director extends React.Component{
-    constructor(props){
-        super(props)
-    }
-    render(){
+
+export const Director = (props) => {
+    const[name, setName] = useState('')
+
+    useEffect(() => {
+        setName(props.name)
+    }, [props]);
+
         return(
             <div class="column align-cntr">
                 Current director<br/>
-                <span>{this.props.name}</span>
+                <span>{name}</span>
             </div>
         )
-    }
-} export { Director };
+}
