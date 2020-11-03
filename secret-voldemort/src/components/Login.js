@@ -73,7 +73,8 @@ class Login extends React.Component {
         
         const headers = {
         Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded"
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Access-Control-Allow-Origin": "*"
         }
         
         // This is the function to comunicate with the REST-API.

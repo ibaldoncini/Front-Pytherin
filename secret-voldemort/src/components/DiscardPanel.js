@@ -12,6 +12,7 @@ export const DiscardPanel = (props) => {
     const [minister, setMinister] = useState('');
     const [director, setDirector] = useState('');
     const [phase, setPhase] = useState(-1);
+    const [cards, setCards] = useState('');
 
     useEffect(() => {
         setRoomName(props.room_name);
@@ -21,7 +22,7 @@ export const DiscardPanel = (props) => {
     },[props]);
 
     // Getting into the server for card getting
-    const getCards = () => {
+    const  getCards = () => {
         const headers = {
             Accept: "application/json",
             Authorization: "Bearer " + context.token,
@@ -31,25 +32,26 @@ export const DiscardPanel = (props) => {
         const path = "http://127.0.0.1:8000/" + room.toString() +"/cards";
         sendRequest('GET', headers, {}, path).then(async response => {
             const data = await response.json();
-            console.log("Aca va la response perrix: " + "\n" + data.cards.json());
+            console.log("Aca va la response perrix: " + data.cards);
             if(!response.ok){ 
                alert(data.detail.toString());
             }else{ 
-                return data.cards;
+                setCards(data.cards.toString());
             }
         }).catch(error => {
             console.log("There was an error at" + path.toString());
         })
     };
     // Depending on phase and if its a minister or director will get cards (or not)
-    const showCards = () => {
-        var cards
+     const showCards = async () => {
         if(phase === 3 && (context.email === minister)){
-            cards = getCards()
+            await getCards()
+            return true
         }else if(phase === 4 && (context.email === director)){
-            cards = getCards()
+            await getCards()
+            return true
         }
-        return cards
+        return false
     };
 
     return(
@@ -57,11 +59,12 @@ export const DiscardPanel = (props) => {
             Discard<br/>
             {                
                 
-                console.log("ACAAAA:" + showCards())
-                /*showCards().map((key,index) => 
+                (showCards() === false ? console.log("DIO FALSOOO")
+                :
+                cards.split(',').map((card, index) =>
                 <Card ind={index} room_name={room_name}
-                        imgSrc={key} />
-                ) */
+                        imgSrc={card} />))
+              
             }
             
         </div>

@@ -33,13 +33,9 @@ export const Card = (props) => {
             "Content-Type": "application/json"
         }
         try {
-            const path = "http://127.0.0.1:8000/" + room_name.toString() + "/discard"
+            const path = "http://127.0.0.1:8000/" + room_name + "/discard"
             const keys = {
-                body: {
-                    card_index: index
-                },
-                room_name: room_name,
-                email: context.email
+                card_index: index
             }
             sendRequest('PUT', headers, keys, path).then(async response => {
                 const data = await response.json();
@@ -58,7 +54,7 @@ export const Card = (props) => {
 
     return (
         <figure class="image is-32x32 fig-inline">
-            <img height='32' onClick={() => {discard(index)}} 
+            <img height='32' onClick={async () => {discard(index)}} 
             width='32' src={ imgSrc } alt=""/>
         </figure>
     );

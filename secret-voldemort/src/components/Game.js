@@ -146,10 +146,14 @@ class Game extends React.Component{
                             <PlayersList players= {this.state.player_list} />
                         </div>
                         <div class="columns">
-                            <DiscardPanel minister={this.state.minister} 
+                            {((this.state.phase === 3 && this.state.minister === this.context.email) || (this.state.phase === 4 && this.state.director === this.context.email)) 
+                            ? <DiscardPanel minister={this.state.minister} 
                             director={this.state.director} 
                             room_name={this.state.room_name} 
-                            phase = {this.state.phase} />);
+                            phase = {this.state.phase} /> 
+                            :
+                            <div></div>
+                            }
                         </div>
                         <div class="columns"></div>
                     </div>
