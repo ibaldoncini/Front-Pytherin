@@ -86,7 +86,7 @@ class Game extends React.Component{
     componentDidMount(){
         const headers = {
             Accept: "application/json",
-            Authorization: "Bearer " + Cookie.get("user").token,
+            Authorization: "Bearer " + this.context.token,
             "Content-Type": "application/json"
         }
         try {
