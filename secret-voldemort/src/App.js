@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.sass';
+import './stylesheet/App.sass';
 import { Login } from './components/Login';
 import { BrowserRouter as Router , Route } from 'react-router-dom';
 import { userContext } from './user-context';
@@ -50,13 +50,15 @@ class App extends Component {
     return (
       <Router>
         <userContext.Provider value={this.state}>
-          <Route exact path='/' component={Login}/>
-          <Route exact path='/home' component={Home}/>
-          <Route exact path='/registerPage' component={Register}/>
-          <Route exact path='/createRoom' component={CreateRoom}/>
-          <Route exact path='/lobbyRoom/:room' render= {(props) => <LobbyRoom {...props}/>}/>
-          <Route exact path='/gameRoom/:room' render= {(props) => <Game {...props}/>}/>
-          <Route exact path='/joinRoom/:room' component={JoinRoom}/>
+          <section>
+            <Route exact path='/' component={Login}/>
+            <Route exact path='/home' component={Home}/>
+            <Route exact path='/registerPage' component={Register}/>
+            <Route exact path='/createRoom' component={CreateRoom}/>
+            <Route exact path='/lobbyRoom/:room' render= {(props) => <LobbyRoom {...props}/>}/>
+            <Route exact path='/gameRoom/:room' render= {(props) => <Game {...props}/>}/>
+            <Route exact path='/joinRoom/:room' component={JoinRoom}/>
+          </section>
         </userContext.Provider>
       </Router>
     );

@@ -37,6 +37,8 @@ export class Register extends React.Component{
         document.getElementById("logoUser").value = null
         this.setState({img: null})
     }
+
+
     // validation
     handleSubmit(e){
         e.preventDefault()
@@ -60,6 +62,8 @@ export class Register extends React.Component{
             this.sendData()
         }
     }
+
+    
     sendData(){
         const path = 'http://127.0.0.1:8000/users/register'
         const nam = this.state.nameUser

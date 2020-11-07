@@ -11,7 +11,7 @@ import { PlayersList } from './PlayersList';
 import { DiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
 import { VotesList } from './VotesList';
-import Cookie from 'js-cookie';
+
 
 class Game extends React.Component{
     constructor(props){
@@ -35,8 +35,8 @@ class Game extends React.Component{
             redirect: false,
             redirectPath: '',
         }
-        this.update = this.update.bind(this)
 
+        this.update = this.update.bind(this)
     }
     static contextType = userContext;
     // uncomment when the endpoint is done.
@@ -100,9 +100,12 @@ class Game extends React.Component{
         }
     }
 
+    
     componentWillUnmount(){
         clearInterval(this.state.timer);
     }
+
+
     render(){
       if(this.state.redirect) {
         return (<Redirect to={this.state.redirectPath}/>);

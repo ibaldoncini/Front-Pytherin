@@ -115,26 +115,46 @@ class Login extends React.Component {
       return (
         <userContext.Consumer> 
           {({token, setToken}) => (
-            
-            <div class='login-form'>
-              <Head/>
-              <form onSubmit={this.handleLogin}>
-                <label> 
-                  E-mail: <br/>  
-                  <input id='inemail' type='email' value={this.state.email} 
-                  onChange={e => this.setState({email: e.target.value})}/>
-                </label>
-                <br/>
-                <label>
-                  Password: <br/> 
-                  <input id='inpsw' type='password' value={this.state.psw} 
-                  onChange={e => this.setState({psw: e.target.value})}/>
+            <section class='login-page'>
+                <Head/>
+              <div class='columns'>
+                <div class='column'>
+                  <div class='container'> 
 
-                </label><br/>
-                <input type='submit' value='Login'/> 
-              </form>
-              <p>Don't have an account yet? <Link to={`/registerPage`}> Sign up here </Link> </p>
-            </div>
+                    <div class='container'>
+                      <form onSubmit={this.handleLogin}>
+                        <div class='field'>
+                          <label class='label is-large'> E-mail: </label>
+                          <div class='control'>
+                            <input  class='input is-rounded is-large' id='inemail' type='email' value={this.state.email} 
+                            onChange={e => this.setState({email: e.target.value})}/>                   
+                          </div>
+                        </div>
+                        
+                        <div class='field'>
+                          <label class='label is-large'> Password: </label>
+                          <div class='control'>
+                            <input class='input is-rounded is-large' id='inpsw' type='password' value={this.state.psw} 
+                            onChange={e => this.setState({psw: e.target.value})}/>
+                          </div>
+                        </div>
+                        <div class='field'>
+                          <input class='button is-medium is-fullwidht is-rounded' type='submit' value='Login'/> 
+                        </div>
+                      </form>
+                    </div>
+                  
+                  </div>
+
+                </div>
+                <div class='column'>
+                  <p class='has-text-white is-large is-size-2 is-right'>Don't have an account yet? <br/><Link class='button' to={`/registerPage`}> Sign up here </Link> </p>
+                </div>
+              </div>
+              
+              
+            </section>
+           
           )} 
         </userContext.Consumer>
       )
