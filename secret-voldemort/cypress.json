@@ -1,0 +1,6 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "env": {
+      "serverUrl": "http://127.0.0.1:8000"
+    }
+  }

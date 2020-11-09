@@ -111,7 +111,7 @@ class CreateRoom extends React.Component {
           token ? 
           <section class='room-bg'>
               <div class='container has-text-centered mt-6'>
-                <h1 class='room-title'>Creation of room</h1>
+                <h2 class='room-title'>Creation of room</h2>
                 
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div class="field">

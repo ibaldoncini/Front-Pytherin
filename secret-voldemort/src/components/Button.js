@@ -8,6 +8,7 @@ class Button extends React.Component {
     super(props);
 
     this.state = {
+      namebutton: props.type,
       path: props.path,
       text: props.text,
       username: props.username,
@@ -16,18 +17,17 @@ class Button extends React.Component {
   }
 
   render() {
-    const {path, text} = this.state
     if (this.state.logout) {
       Cookies.remove(this.state.username)
     } else {
       return (
         <Route render={({history}) => (
           <button
+            type={this.state.namebutton}
             class={this.props.style}
-            type='button'
-            onClick={() => { history.push(path) }}
+            onClick={() => { history.push(this.state.path) }}
           >
-          {text}
+          {this.state.text}
           </button>
         )} />
       )

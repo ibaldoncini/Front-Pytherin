@@ -38,7 +38,7 @@ export function Home(props) {
 									<h1 class='home-title'> Hello {context.username}</h1>
 								</div>
 								<div class='column'> 
-									<Button style='home-button is-rounded is-large is-fullwidth m-6' path='/createRoom' text='Create room'/>
+									<Button style='home-button is-rounded is-large is-fullwidth m-6' path='/createRoom' text='Create room' type='btncr'/>
 									<button class='home-button is-rounded is-large is-fullwidth m-6'>Profile</button>
 									<button class='home-button is-rounded is-large is-fullwidth m-6' onClick={logOut}>Logout</button>
 								</div>
