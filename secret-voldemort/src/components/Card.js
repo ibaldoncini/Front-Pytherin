@@ -54,9 +54,9 @@ export const Card = (props) => {
     }
 
     return (
-        <figure class="image is-32x32 fig-inline">
-            <img height='32' onClick={async () => {discard(index)}} 
-            width='32' src={ imgSrc } alt=""/>
+        <figure class="image is-256x256 fig-inline">
+            <img height='256' onClick={async () => {discard(index)}} 
+            width='256' src={ imgSrc } alt=""/>
         </figure>
     );
 }

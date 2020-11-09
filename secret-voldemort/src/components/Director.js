@@ -9,9 +9,9 @@ export const Director = (props) => {
     }, [props]);
 
         return(
-            <div class="column align-cntr">
-                Current director<br/>
-                <span>{name}</span>
+            <div class="container align-cntr">
+                <p class='panel-title'> Current Director </p>
+                <span class='i-playerlist'>{name}</span>
             </div>
         )
 }

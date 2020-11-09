@@ -103,19 +103,40 @@ class LobbyRoom extends React.Component{
                 state: { room: this.state.room_name }
             }}
                 />) :
-            (<div class="lobby-room-form">
-                <div class="lobby-container">
-                    <h1>Partida: {this.state.room_name}</h1>
-                    <h3>Jugadores en partida</h3>
-                    <ul name='players-list' id='unique-list'>
-                    {this.state.players.map(item => {
-                        return <li id={item}>{item}</li>;
-                    })}
-                    </ul>
-                    {(this.context.email === this.state.owner) ? <input type='button' value='Empezar partida' onClick={this.handleStart}/> : ""}
-                    <input type='button' value='Salir de partida' onClick={this.handleExit}/>
+            (<section>
+                <div class="container room-bg my-6 py-6">
+                    <div class='container has-text-centered'>
+                        <h1 class='room-title'>Lobby</h1>
+                    </div>
+                    <div class='columns py-6'>
+                        <div class='column is-4'>
+                            <div class='room-card'>
+                                <div class='card-header'>
+                                    <h3 class='card-header-title is-centered'>Jugadores en partida</h3>
+                                </div>
+                                <div class='card-content is-centered'>
+                                    <ul name='players-list' id='unique-list'>
+                                    {this.state.players.map(item => {
+                                        return <li class='i-playerlist' id={item}>{item}</li>;
+                                    })}
+                                    </ul>
+                                </div>   
+                            </div>
+                        </div>
+                        <div class='column is-4 has-text-centered'>
+                            <h1 class='room-title'> {this.state.room_name} </h1> 
+                        </div>
+                        <div class='column is-4'>
+                            {(this.context.email === this.state.owner) ? 
+                                <input class='room-button is-fullwidth my-2 is-rounded' type='button' value='Empezar partida' onClick={this.handleStart}/> 
+                            :   
+                                ""
+                            }
+                            <input class='room-button is-fullwidth my-2 is-rounded' type='button' value='Salir de partida' onClick={this.handleExit}/>
+                        </div>
+                    </div>
                 </div>
-            </div>))
+            </section>))
             :
             <Redirect to='/'/>
             )}

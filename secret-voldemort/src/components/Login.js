@@ -7,6 +7,7 @@ import { userContext } from '../user-context';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
 
+
 /* Login	/users/	POST		{email,password}	Token	200 OK-401 UNAUTHORIZED-400 BAD REQUEST */ 
 
 
@@ -115,45 +116,51 @@ class Login extends React.Component {
       return (
         <userContext.Consumer> 
           {({token, setToken}) => (
-            <section class='login-page'>
+            <div class='login-page'>
+              <section>
                 <Head/>
-              <div class='columns'>
-                <div class='column'>
-                  <div class='container'> 
+                <div class='columns'>
+                  <div class='column'>
+                    <div class='container px-3'> 
 
-                    <div class='container'>
-                      <form onSubmit={this.handleLogin}>
-                        <div class='field'>
-                          <label class='label is-large'> E-mail: </label>
-                          <div class='control'>
-                            <input  class='input is-rounded is-large' id='inemail' type='email' value={this.state.email} 
-                            onChange={e => this.setState({email: e.target.value})}/>                   
+                      <div class='container'>
+                        <form onSubmit={this.handleLogin}>
+                          <div class='field'>
+                            <label class='login-label is-large'> E-mail: </label>
+                            <div class='control'>
+                              <input  class='login-input is-rounded is-large' id='inemail' type='email' value={this.state.email} 
+                              onChange={e => this.setState({email: e.target.value})}/>                   
+                            </div>
                           </div>
-                        </div>
-                        
-                        <div class='field'>
-                          <label class='label is-large'> Password: </label>
-                          <div class='control'>
-                            <input class='input is-rounded is-large' id='inpsw' type='password' value={this.state.psw} 
-                            onChange={e => this.setState({psw: e.target.value})}/>
+                          
+                          <div class='field'>
+                            <label class='login-label is-large'> Password: </label>
+                            <div class='control'>
+                              <input class='login-input is-rounded is-large' id='inpsw' type='password' value={this.state.psw} 
+                              onChange={e => this.setState({psw: e.target.value})}/>
+                            </div>
                           </div>
-                        </div>
-                        <div class='field'>
-                          <input class='button is-medium is-fullwidht is-rounded' type='submit' value='Login'/> 
-                        </div>
-                      </form>
+                          <div class='field'>
+                            <input class='login-button is-medium is-fullwidht is-rounded mb-2' type='submit' value='Login'/> 
+                          </div>
+                        </form>
+                      </div>
+                    
                     </div>
-                  
-                  </div>
 
-                </div>
-                <div class='column'>
-                  <p class='has-text-white is-large is-size-2 is-right'>Don't have an account yet? <br/><Link class='button' to={`/registerPage`}> Sign up here </Link> </p>
-                </div>
-              </div>
-              
-              
-            </section>
+                  </div>
+                  <div class='column'>
+                    <div class='container py-6'>
+                      <p class='has-text-white is-large is-size-2'>
+                        Don't have an account yet? 
+                        <Link class='login-button is-rounded mx-2' 
+                          to={`/registerPage`}> Sign up here </Link> 
+                      </p>
+                    </div>
+                  </div>
+                </div>   
+              </section>
+            </div>
            
           )} 
         </userContext.Consumer>

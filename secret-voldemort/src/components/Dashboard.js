@@ -34,25 +34,33 @@ export const Dashboard = (props) => {
         return components;
     }
     return (
-        <div class="box align-cntr">
-            <article class="media">
-                <div class="media-center">
-                    <span>Death Eaters: </span>
-                    {
-                        getPieces('death').map( (name) => 
-                            <Piece imgSrc = {name} />
-                        )
-                    }
+        <div class="container dashboard-bg">
+            <div class='container px-5'>
+                <div class="columns">
+                    <div class='column is-12'>
+                        <span class='game-title'>Death Eaters: </span>
+                        <div class='columns'>
+                            {
+                                getPieces('death').map( (name) => 
+                                    <Piece imgSrc = {name} />
+                                )
+                            }
+                        </div>
+                    </div>
                 </div>
-                <div class="media-center">
-                    <span>Phoenix Order: </span>
-                    {
-                        getPieces('phoenix').map( name =>
-                            <Piece imgSrc = { name } />
-                        )
-                    }
+                <div class="columns">
+                    <div class='column is-12'>
+                        <span class='game-title'>Phoenix Order: </span>
+                        <div class='columns'>
+                        {
+                            getPieces('phoenix').map( name =>
+                                <Piece imgSrc = { name } />
+                            )
+                        }
+                        </div>
+                    </div>
                 </div>
-            </article>
+            </div>
         </div>
     )
 }

@@ -55,18 +55,22 @@ export const DiscardPanel = (props) => {
     };
 
     return(
-        <div class="column align-cntr">
-            Discard<br/>
-            {                
+        <div class='container align-cntr my-6 py-3'> 
+            <p class='game-title align-cntr'>Discard</p>
+            <div class="columns">
+                {               
+                    
+                    showCards() === false ? console.log("DIO FALSOOO")
+                    :
+                    cards.split(',').map((card, index) =>
+                    <div class='column is-4 align-cntr'> 
+                        <Card ind={index} room_name={room_name}
+                            image={card} />
+                    </div>)
+                }   
                 
-                showCards() === false ? console.log("DIO FALSOOO")
-                :
-                cards.split(',').map((card, index) =>
-                    <Card ind={index} room_name={room_name}
-                            image={card} />)
                 
-            }
-            
+            </div>
         </div>
     );
 }

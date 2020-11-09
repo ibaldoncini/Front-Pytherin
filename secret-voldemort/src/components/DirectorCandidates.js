@@ -42,24 +42,26 @@ export function DirectorCandidates(props) {
   }
 
   return(
-    <Popup trigger={<button>Propose Director</button>}>
+    <Popup trigger={<button class='panel-button'>Propose Director</button>} modal position='right center' >
       {close =>
-        <ul>
-          {
-            players.map((user) => 
-              ((user !== name) && (user !== last_director)) ?
-                <li> {user} 
-                  <button name={user} onClick={handleSelection} onClickCapture={close}>
-                      Select
-                  </button>
-                </li>
-              :
-                <li>
-                  {user} (X)
-                </li>
-            )
-          }
-        </ul>
+        <div class='container has-text-centered'>
+          <ul>
+            {
+              players.map((user) => 
+                ((user !== name) && (user !== last_director)) ?
+                  <li class='i-playerlist'> {user} 
+                    <button class='panel-button mx-3 my-3' name={user} onClick={handleSelection} onClickCapture={close}>
+                        Select
+                    </button>
+                  </li>
+                :
+                  <li class='i-playerlist'>
+                    {user} (X)
+                  </li>
+              )
+            }
+          </ul>
+        </div>
       }
     </Popup>
   );

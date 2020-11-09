@@ -112,61 +112,67 @@ class Game extends React.Component{
       } else {
         return(
             // uncomment once its connected with endpoints
-            <userContext.Consumer>
+          <userContext.Consumer>
             {({ token }) => (
               token ? 
-            <div class="game-form" id='game-form'>
-                <div class="game-container">
-                    <h1 class="title">Partida: {this.state.room_name}</h1>
-                        <Dashboard proclam_de = {this.state.de_procs} 
-                        proclam_op={this.state.fo_procs} />
-                        <div class="columns">
-                          <div class="column align-cntr">
-                            Vote
-                            <br/>
-                            {this.state.phase === 2 ? 
-                                <div>
-                                    <Vote room_name={this.state.room_name}/>
-                                    <VotesList usersVotes={this.state.votes}/>
-                                </div>
-                                :
-                                <div></div>
-                            }
-                        </div>
-                        <div class="column align-cntr">
-                            <RoleCharacter role={this.state.my_role} charac={ this.state.myChar} />
-                        </div>
-                        <div class="column align-cntr">
-                            <Minister
-                                room_name={this.state.room_name} 
-                                mail_context={this.context.email}
-                                name={this.state.minister} 
-                                phase={this.state.phase} 
-                                players={this.state.player_list}
-                                last_minister={this.state.last_minister}
-                                last_director={this.state.last_director}/>
-                        </div>
-                            <Director name={this.state.director} />
-                            <PlayersList players= {this.state.player_list} />
-                        </div>
-                        <div class="columns">
-                            {((this.state.phase === 3 && this.state.minister === this.context.email) 
-                            || (this.state.phase === 4 && this.state.director === this.context.email)) 
-                            ? <DiscardPanel minister={this.state.minister} 
-                            director={this.state.director} 
-                            room_name={this.state.room_name} 
-                            phase = {this.state.phase} /> 
+              <section id='game-form'>
+                  <div class="container my-6">
+                      <h1 class="game-title is-large"> {this.state.room_name}</h1>
+                          <Dashboard proclam_de = {this.state.de_procs} 
+                          proclam_op={this.state.fo_procs} />
+                  </div>
+                  <div class='container panel-bg'> 
+                    <div class="columns">
+                        <div class="column is-3 ">
+                          <div class='container align-cntr'>
+                            <p class='panel-title'> Vote </p>
+                            { this.state.phase === 2 ? 
+                              <div class='container'>
+                                  <Vote room_name={this.state.room_name}/>
+                                  <VotesList usersVotes={this.state.votes}/>
+                              </div>
                             :
-                            <div></div>
+                              <div></div>
                             }
+                          </div>
                         </div>
-                        <div class="columns"></div>
+                        <div class="column is-2">
+                          <RoleCharacter role={this.state.my_role} charac={ this.state.myChar} />
+                        </div>
+                        <div class="column is-2 ">
+                          <Minister
+                            room_name={this.state.room_name} 
+                            mail_context={this.context.email}
+                            name={this.state.minister} 
+                            phase={this.state.phase} 
+                            players={this.state.player_list}
+                            last_minister={this.state.last_minister}
+                            last_director={this.state.last_director}/>
+                        </div>
+                        <div class="column is-2">
+                            <Director name={this.state.director} />
+                        </div>
+                        <div class='column is-3'> 
+                          <PlayersList players= {this.state.player_list} />
+                        </div>
                     </div>
-                </div>
-            :
-            <Redirect to='/'/>
+                  </div>
+                  <div class='container align-cntr'>   
+                    {((this.state.phase === 3 && this.state.minister === this.context.email) 
+                      || (this.state.phase === 4 && this.state.director === this.context.email)) 
+                      ? <DiscardPanel minister={this.state.minister} 
+                        director={this.state.director} 
+                        room_name={this.state.room_name} 
+                        phase = {this.state.phase} /> 
+                      :
+                      <div></div>
+                    }
+                  </div>    
+              </section>
+              :
+                <Redirect to='/'/>
             )}
-            </userContext.Consumer>
+          </userContext.Consumer>
         )
       } 
     }

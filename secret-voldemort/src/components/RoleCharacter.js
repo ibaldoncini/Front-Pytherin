@@ -18,10 +18,10 @@ export const RoleCharacter = (props) => {
     },[props])
 
     return(
-        <div class="column align-cntr">
-            Role/Character<br/>
-            <figure class="image is-32x32 fig-inline">
-                <img height='32' width='32' src={image} alt="" />
+        <div class="container align-cntr">
+            <p class='panel-title is-medium'>Role/<br/>Character</p>
+            <figure class="image is-128x128 fig-inline">
+                <img height='128' width='128' src={image} alt="" />
             </figure>
         </div>
     )

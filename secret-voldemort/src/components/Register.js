@@ -99,19 +99,59 @@ export class Register extends React.Component{
                 return <Redirect to={this.state.toPage} />    
             }
             return(
-                <div className="registerUser" >
-                <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
-                    <h1>User registration</h1>
-                    <label>Username: </label><input type="text" name="nameUser" id="nameUser" value={this.state.nameUser} onChange={this.handleChange}></input> <br/>
-                    <label>Password: </label><input type="password" name="passUser" id="passUser" value={this.state.passUser} onChange={this.handleChange}></input><br/>
-                    <label>Repeat password: </label><input type="password" name="passUser2" id="passUser2" value={this.state.passUser2} onChange={this.handleChange}></input><br/>
-                    <label>E-mail: </label><input type="text" name="mailUser" id="mailUser" value={this.state.mailUser} onChange={this.handleChange}></input><br/>
-                    <label>Image: </label><input type="file" ref={this.img} name="logoUser" id="logoUser" onChange={this.handleChangeImg}></input>
-                    <input type="button" id="cleanBtn" name="cleanBtn" value="Clean" onClick={this.cleanFile}/><br/>
-                    <input type="submit" id="regBtn" name="regBtn" value="Crear cuenta"/>
-                    <input type="button" id="cancelBtn" name="cancelBtn" onClick={this.handleRedirect} value="Cancel"/>
-                </form>
-                </div>
+                <section>
+                    <div className="container reg-bg py-6 px-6">
+                        <h1 class='reg-title has-text-centered'>User registration</h1>
+                        <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
+                            <div class='field'>
+                                <div class='container'>
+                                    <label class='login-label is-large'>Username: </label>
+                                    <div class='column is-3'>
+                                        <input class='login-input' type="text" name="nameUser" id="nameUser" 
+                                            value={this.state.nameUser} onChange={this.handleChange}/>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='field'>
+                                <div class='container is-horizontal'>
+                                    <div class='field-body'>
+                                        <label class='login-label is-large'>Password: </label>
+                                        <div class='column is-3'>
+                                            <input class='login-input' type="password" name="passUser" id="passUser" 
+                                                value={this.state.passUser} onChange={this.handleChange}/>
+                                        </div>
+                                        <label class='login-label is-large'>Repeat password: </label>
+                                        <div class='column is-3'>
+                                            <input type="password" name="passUser2"
+                                                id="passUser2" 
+                                                value={this.state.passUser2} 
+                                                onChange={this.handleChange}/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class='field'>
+                                <div class='container'>
+                                    <label class='login-label is-large'>E-mail: </label>
+                                    <div class='column is-3'>
+                                        <input class='login-input' type="text" name="mailUser" 
+                                            id="mailUser" 
+                                            value={this.state.mailUser} 
+                                            onChange={this.handleChange}/>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class='container has-text-centered'>
+                                <input class='login-button is-large mx-2 is-rounded' type="submit" 
+                                    id="regBtn" name="regBtn" value="Crear cuenta"/>
+                                <input class='login-button is-large mx-2 is-rounded' type="button" 
+                                    id="cancelBtn" name="cancelBtn" 
+                                    onClick={this.handleRedirect} value="Cancel"/>
+                            </div>
+                        </form>
+                    </div>
+                </section>
             )
         }
 }

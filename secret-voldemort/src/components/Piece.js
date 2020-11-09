@@ -14,9 +14,11 @@ export const Piece = props => {
     })
   
     return (
-        <figure class="image is-64x64 fig-inline">
-            <img height='64' width='64' src={ img } alt="Image" />
-        </figure>
+        <div class='column is-2'>
+            <figure class="image is-64x64">
+                <img  height='64' width='64' src={ img } alt="Image" />
+            </figure>
+        </div>
     );
 
 }

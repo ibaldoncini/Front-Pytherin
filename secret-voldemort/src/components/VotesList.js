@@ -12,10 +12,10 @@ export function VotesList(props) {
   },[props]);
 
   return(
-    <div>
+    <div class='container has-text-centered'>
       <ul>
         {usersVotes.map(user =>
-          <li>{user.user} votes: {user.vote}</li>
+          <li class='i-playerlist'>{user.user} votes: {user.vote}</li>
         )}
       </ul>
     </div>

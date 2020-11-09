@@ -109,27 +109,32 @@ class CreateRoom extends React.Component {
         <userContext.Consumer>
         {({token, setToken}) => (
           token ? 
-          <div class="FormCreateRoom">
-              <h2>Creation of room</h2>
-              <form name="form" onSubmit={this.handleSubmit}>
-                  <div class="Room_name">
-                      <label>Room name <br/>
-                        <input type="text" maxLength='30' minLength='6'
-                          value={this.state.room_name} min='5' max='10'
-                          onChange={this.handleChangeRoomName} name="roomName"/>
-                      </label> <br/>
-                  </div>
-                  <div class="Max_Players">
-                      <label>Maximum number of players <br/>
-                        <input type="number" value={this.state.room_max_players} 
-                          min='3' max='10' onChange={this.handleChangeMaxPlayers} 
-                          name="maxPlayers" />
-                      </label> <br/>
-                  </div> <br/>
-                  <input type='submit' value='Create room'/>
-                  <Button path="/home" text="Cancel"></Button>
-              </form>
-          </div>
+          <section class='room-bg'>
+              <div class='container has-text-centered mt-6'>
+                <h1 class='room-title'>Creation of room</h1>
+                
+                <form name="form" onSubmit={this.handleSubmit}>
+                    <div class="field">
+                        <label class='room-label'>Room name </label>
+                        <div class='column is-4 is-offset-4'>
+                          <input class='room-input is-medium' type="text" maxLength='30' minLength='6'
+                            value={this.state.room_name} min='5' max='10'
+                            onChange={this.handleChangeRoomName} name="roomName"/>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class='room-label'>Maximum number of players </label>
+                          <div class='column is-2 is-offset-5'>
+                            <input class='room-input' type="number" value={this.state.room_max_players} 
+                              min='3' max='10' onChange={this.handleChangeMaxPlayers} 
+                              name="maxPlayers" />
+                          </div>
+                    </div> 
+                    <input class='room-button mx-2 my-2' type='submit' value='Create room'/>
+                    <Button style='room-button mx-2 my-2' path="/home" text="Cancel"></Button>
+                </form>
+              </div>
+          </section>
           :
           <Redirect to='/'/>
         )}
