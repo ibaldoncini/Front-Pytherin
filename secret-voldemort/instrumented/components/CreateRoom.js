@@ -98,7 +98,11 @@ class CreateRoom extends React.Component {
           if(!response.ok) {
             //const error = (data && data.message) || response.status;
             return(
+<<<<<<< HEAD:secret-voldemort/instrumented/components/CreateRoom.js
               this.handleErrors(response.status, data.detail)
+=======
+              alert("Error on create room" + data.detail)
+>>>>>>> Syle added, TODO: Testing:secret-voldemort/src/components/CreateRoom.js
             )
           }else {
             this.join_room(headers)

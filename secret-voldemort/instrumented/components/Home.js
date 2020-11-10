@@ -37,7 +37,12 @@ export function Home(props) {
 								</div>
 								<div class='column'> 
 									<Button style='home-button is-rounded is-large is-fullwidth m-6' path='/createRoom' text='Create room' type='btncr'/>
+<<<<<<< HEAD:secret-voldemort/instrumented/components/Home.js
 									<Button style='home-button is-rounded is-large is-fullwidth m-6' path='/update_profile' text='Change nickname' type='btncn'/>
+=======
+									<Button style='home-button is-rounded is-large is-fullwidth m-6' path='/listRoom' text='Join room' type='btncr'/>
+									<button class='home-button is-rounded is-large is-fullwidth m-6'>Profile</button>
+>>>>>>> Syle added, TODO: Testing:secret-voldemort/src/components/Home.js
 									<button class='home-button is-rounded is-large is-fullwidth m-6' onClick={logOut}>Logout</button>
 								</div>
 							</div> 
