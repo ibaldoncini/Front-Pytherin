@@ -8,6 +8,7 @@ import { RoomTag } from './RoomTag';
 export const ListRoom = props => {
 
   const [roomList, updateRoomlist] = useState([]);
+  const [redirect, Back] = useState(false);
 
   const context = useContext(userContext);
 
@@ -47,27 +48,41 @@ export const ListRoom = props => {
   return(
     <userContext.Consumer>
       {token => (
-        token ? 
-          <section class='list-section my-6 py-6'>
-            <div class='container'>
-              <button class='button' type='button' onClick={getRooms}>
-                Refresh
-              </button>
-              <div class='column is-fullwidth'>
-                {
-                  <ul>
+        (token && !redirect) ? 
+          <div class='container my-3 py-3'>
+            <div class='column is-2 is-offset-2'>
+              <button class='room-button' type='button' onClick={()=>Back(true)}> Back </button>
+            </div>
+            <div class='column is-5 is-offset-4'>
+              <div class='card'>
+                <div class='card-header'>
+                  <p class='card-header-title room-title is-centered'>
+                    Select a room
+                  </p>
+                </div>
+                <div class='card-content'>
+                  <div class='column'>
                     {
-                      roomList !== [] ? roomList.map(room =>
-                        <li><RoomTag room={room}/></li>
-                      )
-                      :
-                      <div></div>
+                      <div class='table'>
+                        <div class='table-body'>
+                          {
+                            roomList !== [] ? roomList.map(room =>
+                              <div class='tr'><RoomTag room={room}/></div>
+                            )
+                            :
+                            <div></div>
+                          }
+                        </div>
+                      </div>
                     }
-                  </ul>
-                }
+                  </div>
+                </div>
+                <div class='card-footer'>                 
+                  <button class='card-footer-item room-button is-medium' type='button' onClick={getRooms}> Refresh</button>
+                </div>
               </div>
             </div>
-          </section>
+          </div>
         :
           <Redirect to='/'/>
       )}

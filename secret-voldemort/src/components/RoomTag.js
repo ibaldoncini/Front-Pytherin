@@ -8,11 +8,11 @@ export const RoomTag = props =>{
   const rootpath = '/joinRoom/'
   
   return (
-    <div class='container'>
+    <div class='container my-2 room-row'>
       {
         room === '' 
         ?
-        <div class='columns align-cntr'>
+        <div class='columns py-3 is-vcentered align-cntr'>
           <div class='column is-6'>
             {props.room.name}
           </div>
@@ -20,7 +20,7 @@ export const RoomTag = props =>{
             {props.room.active_users}/{props.room.max_players}
           </div>
           <div class='column is-4'>
-            <button class='button' onClick={() => {chooseRoom(props.room.name)}}>Unirse</button>
+            <button class='room-button' onClick={() => {chooseRoom(props.room.name)}}>Unirse</button>
           </div>
         </div>
         :

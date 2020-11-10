@@ -66,7 +66,7 @@ class CreateRoom extends React.Component {
           if(!response.ok) {
             const error = (data && data.message) || response.status;
             return(
-              alert(data.detail)
+              alert("Error on create room" + data.detail)
             )
           }else {
             this.join_room(headers)
