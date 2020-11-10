@@ -19,6 +19,13 @@ export const ListRoom = props => {
         context.setToken(cookie.token);
         context.setUsername(cookie.token);
         context.setEmail(cookie.email);
+        if (roomList.length === 0) {
+          document.getElementById("refresh").click()
+        }
+      } 
+    } else {
+      if (roomList.length === 0) {
+        document.getElementById("refresh").click()
       }
     }
   }, [context]);
@@ -48,15 +55,15 @@ export const ListRoom = props => {
   return(
     <userContext.Consumer>
       {token => (
-        (token && !redirect) ? 
+        (Cookie.get('user') !== undefined && !redirect) ? 
           <div class='container my-3 py-3'>
             <div class='column is-2 is-offset-2'>
-              <button class='room-button' type='button' onClick={()=>Back(true)}> Back </button>
+              <button id='back' class='room-button' type='button' onClick={()=>Back(true)}> Back </button>
             </div>
             <div class='column is-5 is-offset-4'>
               <div class='card'>
                 <div class='card-header'>
-                  <p class='card-header-title room-title is-centered'>
+                  <p id='title' class='card-header-title room-title is-centered'>
                     Select a room
                   </p>
                 </div>
@@ -78,7 +85,7 @@ export const ListRoom = props => {
                   </div>
                 </div>
                 <div class='card-footer'>                 
-                  <button class='card-footer-item room-button is-medium' type='button' onClick={getRooms}> Refresh</button>
+                  <button id='refresh' class='card-footer-item room-button is-medium' type='button' onClick={getRooms}> Refresh</button>
                 </div>
               </div>
             </div>
