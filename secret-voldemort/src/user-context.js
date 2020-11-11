@@ -2,12 +2,12 @@ import { createContext } from 'react';
 
 export const userContext = createContext({
     token: '',
-    username: '',
+    nickname: '',
     email: '',
     icon: {},
 
     setToken: () => {},
-    setUsername: () => {},
+    setNickname: () => {},
     setEmail: () => {},
     setIcon: () => {}
 });

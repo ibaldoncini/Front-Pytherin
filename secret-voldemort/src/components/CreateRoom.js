@@ -45,7 +45,8 @@ class CreateRoom extends React.Component {
       console.error("There was an error", error) 
     })
     // end join request
- }
+  }
+
   handleSubmit(e) {
     e.preventDefault()
     const headers = {

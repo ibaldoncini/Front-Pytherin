@@ -46,8 +46,8 @@ export class Register extends React.Component{
         var regExpPsw = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/
         if(this.state.nameUser === ""){
             alert("Deberá seleccionar un nombre.")
-        }else if(this.state.nameUser.length < 8){
-            alert("El nombre de usuario deberá ser de al menos 8 caracteres.")
+        }else if(this.state.nameUser.length < 8 || this.state.nameUser.length > 15){ //fixed
+            alert("Nickname must contain between 8 and 15 characters.")
         }else if(this.state.passUser === ""){
             alert("Deberá seleccionar una contraseña.")
         }else if(this.state.passUser.length < 8 || this.state.passUser.length > 54){
@@ -105,7 +105,7 @@ export class Register extends React.Component{
                         <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
                             <div class='field'>
                                 <div class='container'>
-                                    <label class='login-label is-large'>Username: </label>
+                                    <label class='login-label is-large'>Nickname: </label>
                                     <div class='column is-3'>
                                         <input class='login-input' type="text" name="nameUser" id="nameUser" 
                                             value={this.state.nameUser} onChange={this.handleChange}/>  
