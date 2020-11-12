@@ -36,7 +36,6 @@ context('Create a new room', () => {
 
     /* It checks the correct rendering of the page */
     it('Click on create room\n [*] should render the create room page', () => {
-
       cy.get('button[type=btncr]')
         .click()
       cy.get('h2')
