@@ -9,7 +9,7 @@ import { LobbyRoom } from './components/LobbyRoom';
 import { Game } from './components/Game';
 import CreateRoom from './components/CreateRoom';
 import JoinRoom from './components/JoinRoom';
-import { ListRoom } from './components/ListRoom'
+import { ListRoom } from './components/listroom/ListRoom'
 
 // This is the "main".
 // We use rout for organization of our single page app.
