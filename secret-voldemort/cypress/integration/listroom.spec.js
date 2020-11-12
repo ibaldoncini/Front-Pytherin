@@ -45,7 +45,11 @@ context("See the list of created room and select one to join", () =>{
         cy.get('button[id=back]').click()
         cy.get('h1[id=welcome').contains('Hello player1')
       })
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> Test complete maybe missing some cases
       it("Player1 create JoinTEST1 room and Player2 join", () =>{
         // login
         cy.visit(rootpath)
@@ -61,13 +65,18 @@ context("See the list of created room and select one to join", () =>{
         cy.get('input[type=submit]').click()
         cy.visit(rootpath)
         cy.get('button[id=logout]').click()
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> Test complete maybe missing some cases
         // player2 login
         cy.get('input[type=email]')
         .type('player2@example.com')
         cy.get('input[type=password')
         .type('Heladera65')
         cy.get('input[type=submit]').click()
+<<<<<<< HEAD
         
         // display list room
         cy.get('button[id=join]').click()
@@ -76,10 +85,21 @@ context("See the list of created room and select one to join", () =>{
         const roomtag = cy.get('div[id=JoinTEST1]')
         .contains('JoinTEST1')
         
+=======
+
+        // display list room
+        cy.get('button[id=join]').click()
+
+        // looks for room called JoinTEST1
+        const roomtag = cy.get('div[id=JoinTEST1]')
+          .contains('JoinTEST1')
+
+>>>>>>> Test complete maybe missing some cases
         //enter to the room
         roomtag.get('button[id=JoinTEST1join]').click()
         cy.get('h2[id=title]').contains('Lobby')
       })
+<<<<<<< HEAD
 
       it("user is not verified", () => {
         cy.visit(rootpath);
@@ -106,4 +126,9 @@ context("See the list of created room and select one to join", () =>{
         
       })
     })
+=======
+  })
+
+
+>>>>>>> Test complete maybe missing some cases
 })

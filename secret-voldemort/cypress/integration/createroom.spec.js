@@ -35,7 +35,11 @@ context('Create a new room', () => {
 
     /* It checks the correct rendering of the page */
     it('Click on create room\n [*] should render the create room page', () => {
+<<<<<<< HEAD
       cy.get('button[id=create]')
+=======
+      cy.get('button[type=btncr]')
+>>>>>>> Test complete maybe missing some cases
         .click()
       cy.get('h2')
         .should('be.visible')

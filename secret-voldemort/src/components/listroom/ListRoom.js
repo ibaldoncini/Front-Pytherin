@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState }from 'react';
 import { Redirect } from 'react-router-dom';
-import { userContext } from '../user-context';
+import { userContext } from '../../user-context';
 import Cookie from 'js-cookie';
-import { sendRequest } from '../services/request';
+import { sendRequest } from '../../services/request';
 import { RoomTag } from './RoomTag';
 
 export const ListRoom = props => {
