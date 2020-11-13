@@ -14,7 +14,8 @@ export function UpdateProfile(props) {
   const context = useContext(userContext);
   const [nickname, setNickname] = useState('');
   const [nameValidation, setNameValidation] = useState('')
-  const [responseDetail, setResponseDetail] = useState('')
+  const [badResponseDetail, setBadResponseDetail] = useState('')
+  const [goodResponseDetail, setGoodResponseDetail] = useState('')
   const [fieldValidation, setFieldValidations] = useState('')
   const [redirect, setRedirect] = useState(false)
 
@@ -61,7 +62,7 @@ export function UpdateProfile(props) {
   }
   
   const handleNickname = (e) => {
-    setResponseDetail('')
+    setBadResponseDetail('')
     setFieldValidations('')
     setNameValidation('')
     setNickname(e.target.value)
@@ -79,24 +80,43 @@ export function UpdateProfile(props) {
 
     const keys = {username: nickname}
 
+    /* If there is no error in the name validation and there is indeed a name ... */
+
     if(nameValidation === '' && nickname.length !== 0) {
       sendRequest("PUT", headers, keys, "http://127.0.0.1:8000/users/change_username")
         .then(async response => {
           const data = await response.json();
 
           if(!response.ok) {
-            return setResponseDetail(data.detail["msg"])
+            return setBadResponseDetail(data.detail)
           } else {
-            context.setNickname(nickname)
-            Cookies.remove("user")
-            Cookies.set("user", {
-              nickname: nickname,
-              token: context.token,             // It should be recodified.
-              email: context.email,
-              icon: context.icon
-            })
-            setOpen(true)
-            return setResponseDetail(data.message)
+            /* If the name was changed correctly I must refresh the token */
+            const headers2 = {
+              Accept: "application/json",
+              Authorization: "Bearer " + context.token
+            }
+            sendRequest("PUT", headers2, {}, "http://127.0.0.1:8000/users/refresh")
+              .then(async response2 => {
+                const data2 = await response2.json();
+
+                if(!response2.ok) {
+                  return setBadResponseDetail(data2.detail)
+                } else {
+                  
+                  context.setNickname(nickname)
+                  context.setToken(data2.access_token)
+                  console.log(context.token)
+                  Cookies.remove("user")
+                  Cookies.set("user", {
+                    nickname: nickname,
+                    token: data2.access_token,             
+                    email: context.email,
+                    icon: context.icon
+                  })
+                  setOpen(true)
+                  return setGoodResponseDetail(data.message)
+                }
+              })
           }
         })
     } else {
@@ -111,6 +131,7 @@ export function UpdateProfile(props) {
     <div>
       { (redirect === false) ?  
           ((Cookies.get("user") !== undefined) ?
+          <section class='room-bg'>
           <div class='container has-text-centered mt-6'>
             <form onSubmit={handleSubmit}>
               <div class="field">
@@ -126,27 +147,32 @@ export function UpdateProfile(props) {
             </form>
             <div>
               <Dialog
+              class='container-border'
               open={open}
               onClose={handleClose}
-              aria-labelledby="alert-dialog-title"
               aria-describedby="alert-dialog-description">
                 
-                <DialogContent>
-                  <DialogContentText id="alert-dialog-description">
-                    {responseDetail}
+                <DialogContent class='container-dialog'>
+                  <DialogContentText class="container-dialog help is-success" id="alert-dialog-description">
+                    {goodResponseDetail}
                   </DialogContentText>
                 </DialogContent>
-                <DialogActions>
-                  <button onClick={handleClose}>
+                <DialogActions class='container-dialog has-text-centered'>
+                  <button class='room-button mx-1 my-1' onClick={handleClose}>
                     Ok
                   </button>
                 </DialogActions>
               </Dialog>
             </div>
             <br/>
-            <p class="help is-danger">{responseDetail}</p>
+            {(badResponseDetail !== '') ? 
+              <p class="help is-danger">{badResponseDetail}</p>
+            :
+            <p class="help is-success">{goodResponseDetail}</p>
+            }
             <p class="help is-danger">{fieldValidation}</p>
           </div>
+          </section>
           :
           <Redirect to='/'/> )
         :
