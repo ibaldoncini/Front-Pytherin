@@ -15,6 +15,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import '../custom.css';
 import '../popup_custom.css';
+import { Avadakedavra } from './Avadakedavra';
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -187,6 +188,12 @@ class Game extends React.Component{
                               <Divination room_name={this.state.room_name} minister={this.state.minister} />
                               : <div></div>
                             }
+                        
+                          <Avadakedavra 
+                            phase={8}
+                            room_name={this.state.room_name}
+                            minister={this.state.minister} 
+                            players={this.state.player_list}/>
                         </div>
                         <div class="column is-2">
                             <Director name={this.state.director} />
