@@ -11,7 +11,7 @@ import { PlayersList } from './PlayersList';
 import { DiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
 import { VotesList } from './VotesList';
-
+import { Avadakedavra } from './Avadakedavra';
 
 class Game extends React.Component{
     constructor(props){
@@ -148,6 +148,12 @@ class Game extends React.Component{
                             players={this.state.player_list}
                             last_minister={this.state.last_minister}
                             last_director={this.state.last_director}/>
+                        
+                          <Avadakedavra 
+                            phase={8}
+                            room_name={this.state.room_name}
+                            minister={this.state.minister} 
+                            players={this.state.player_list}/>
                         </div>
                         <div class="column is-2">
                             <Director name={this.state.director} />
