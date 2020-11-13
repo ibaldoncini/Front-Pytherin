@@ -65,6 +65,7 @@ export function UpdateProfile(props) {
     setBadResponseDetail('')
     setFieldValidations('')
     setNameValidation('')
+    setGoodResponseDetail('')
     setNickname(e.target.value)
   }
   
@@ -143,27 +144,9 @@ export function UpdateProfile(props) {
                   <div class="help is-danger">{nameValidation}</div>
               </div>
               <input class='room-button mx-2 my-2' name='Update' type='submit' value='Update'/>
-              <Button style='room-button mx-2 my-2' path='/home' text='Cancel' type='btncn'/>
+              <Button style='room-button mx-2 my-2' path='/home' text='Home' type='btncn'/>
             </form>
-            <div>
-              <Dialog
-              class='container-border'
-              open={open}
-              onClose={handleClose}
-              aria-describedby="alert-dialog-description">
-                
-                <DialogContent class='container-dialog'>
-                  <DialogContentText class="container-dialog help is-success" id="alert-dialog-description">
-                    {goodResponseDetail}
-                  </DialogContentText>
-                </DialogContent>
-                <DialogActions class='container-dialog has-text-centered'>
-                  <button class='room-button mx-1 my-1' onClick={handleClose}>
-                    Ok
-                  </button>
-                </DialogActions>
-              </Dialog>
-            </div>
+            
             <br/>
             {(badResponseDetail !== '') ? 
               <p class="help is-danger">{badResponseDetail}</p>
