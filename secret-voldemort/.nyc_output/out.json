@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
 <<<<<<< HEAD
   "/home/mariano/Escritorio/Proyect-SecretV/Front-Pytherin/secret-voldemort/src/components/room/CreateRoomUT.spec.js": {
@@ -2124,3 +2125,6 @@
   }
 }
 >>>>>>> Test complete maybe missing some cases
+=======
+{}
+>>>>>>> some bugs from merge fixed
