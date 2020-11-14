@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Button from './Button';
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
@@ -15,15 +15,17 @@ export function Home(props) {
 		update(false)
 	}
 
-	if(context.username === '') {
-		const cookie = Cookies.getJSON("user");
-		if(cookie !== undefined) {
-			context.setUsername(cookie.username);
-			context.setEmail(cookie.email);
-			context.setToken(cookie.token);
-			context.setIcon(cookie.icon);
+	useEffect(() => {
+		if(context.username === '') {
+			const cookie = Cookies.getJSON("user");
+			if(cookie !== undefined) {
+				context.setUsername(cookie.username);
+				context.setEmail(cookie.email);
+				context.setToken(cookie.token);
+				context.setIcon(cookie.icon);
+			}
 		}
-	}
+	}, [context])
 	console.log(context.token)
 
 	return (
@@ -35,12 +37,13 @@ export function Home(props) {
 						<div class='container mt-6'>
 							<div class='columns is-desktop is-vcentered'>
 								<div class='column'>
-									<h1 class='home-title'> Hello {context.username}</h1>
+									<h1 id='welcome' class='home-title'> Hello {context.username}</h1>
 								</div>
 								<div class='column'> 
-									<Button style='home-button is-rounded is-large is-fullwidth m-6' path='/createRoom' text='Create room' type='btncr'/>
+									<Button id='create' style='home-button is-rounded is-large is-fullwidth m-6' path='/createRoom' text='Create room' type='btncr'/>
+									<Button id='join' style='home-button is-rounded is-large is-fullwidth m-6' path='/listRoom' text='Join room' type='btncr'/>
 									<button class='home-button is-rounded is-large is-fullwidth m-6'>Profile</button>
-									<button class='home-button is-rounded is-large is-fullwidth m-6' onClick={logOut}>Logout</button>
+									<button id='logout' class='home-button is-rounded is-large is-fullwidth m-6' onClick={logOut}>Logout</button>
 								</div>
 							</div> 
 						</div>

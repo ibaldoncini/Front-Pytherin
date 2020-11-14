@@ -9,6 +9,7 @@ import { LobbyRoom } from './components/LobbyRoom';
 import { Game } from './components/Game';
 import CreateRoom from './components/CreateRoom';
 import JoinRoom from './components/JoinRoom';
+import { ListRoom } from './components/listroom/ListRoom'
 
 // This is the "main".
 // We use rout for organization of our single page app.
@@ -58,6 +59,7 @@ class App extends Component {
             <Route exact path='/lobbyRoom/:room' render= {(props) => <LobbyRoom {...props}/>}/>
             <Route exact path='/gameRoom/:room' render= {(props) => <Game {...props}/>}/>
             <Route exact path='/joinRoom/:room' component={JoinRoom}/>
+            <Route exact path='/listRoom' component={ListRoom}/>
           </section>
         </userContext.Provider>
       </Router>

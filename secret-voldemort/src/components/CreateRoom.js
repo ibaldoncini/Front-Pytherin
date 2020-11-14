@@ -66,7 +66,7 @@ class CreateRoom extends React.Component {
           if(!response.ok) {
             const error = (data && data.message) || response.status;
             return(
-              alert(data.detail)
+              alert("Error on create room" + data.detail)
             )
           }else {
             this.join_room(headers)
@@ -117,7 +117,7 @@ class CreateRoom extends React.Component {
                     <div class="field">
                         <label class='room-label'>Room name </label>
                         <div class='column is-4 is-offset-4'>
-                          <input class='room-input is-medium' type="text" maxLength='30' minLength='6'
+                          <input id='inroomname' class='room-input is-medium' type="text" maxLength='30' minLength='6'
                             value={this.state.room_name} min='5' max='10'
                             onChange={this.handleChangeRoomName} name="roomName"/>
                         </div>

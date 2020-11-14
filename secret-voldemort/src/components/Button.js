@@ -23,6 +23,7 @@ class Button extends React.Component {
       return (
         <Route render={({history}) => (
           <button
+            id={this.props.id}
             type={this.state.namebutton}
             class={this.props.style}
             onClick={() => { history.push(this.state.path) }}
