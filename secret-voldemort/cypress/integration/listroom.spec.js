@@ -102,7 +102,7 @@ context("See the list of created room and select one to join", () =>{
         cy.get('input[type=submit]').click()
         cy.get('button[id=join]').click()
         cy.get('button[id=JoinTEST1join]').click()
-        cy.get('h1[id=welcome]').contains('Hello jerobernardi')
+        cy.get('h1[id=welcome]').contains('Hello notverifiedtest')
         
       })
     })
