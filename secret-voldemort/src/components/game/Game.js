@@ -16,7 +16,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import '../../custom.css';
 import '../../popup_custom.css';
-import { Avadakedavra } from './Avadakedavra';
+import { Avadakedavra } from './Avadakedavra/Avadakedavra';
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
