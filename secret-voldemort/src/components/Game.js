@@ -150,6 +150,8 @@ class Game extends React.Component{
                             last_director={this.state.last_director}/>
                         
                           <Avadakedavra 
+                            token={this.context.token}
+                            email={this.context.email}
                             phase={8}
                             room_name={this.state.room_name}
                             minister={this.state.minister} 
