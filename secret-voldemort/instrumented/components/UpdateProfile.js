@@ -47,8 +47,8 @@ export function UpdateProfile(props) {
       
     }
     
-    if (field_value && (field_value.length < 3 || field_value.length > 15)) {
-      return setNameValidation('Nickname must contain between 3 and 15 characters')
+    if (field_value && (field_value.length < 8 || field_value.length > 15)) {
+      return setNameValidation('Nickname must contain between 8 and 15 characters')
     }
 
     //If everything is correct I don't show a message.

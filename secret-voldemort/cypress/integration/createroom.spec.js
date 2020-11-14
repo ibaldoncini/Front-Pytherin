@@ -25,7 +25,7 @@ context('Create a new room', () => {
       cy.visit('/')
 
       cy.get('input[type=email]')
-        .type('player1@email.com')
+        .type('player1@example.com')
       
       cy.get('input[type=password]')
         .type('Heladera65')
