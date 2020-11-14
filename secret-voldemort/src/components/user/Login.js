@@ -1,11 +1,12 @@
 import React from 'react';
 import { Head } from './Head';
 import { Link, Redirect } from 'react-router-dom';
-import verifyEmail from '../services/verification';
-import { sendRequest } from '../services/request';
-import { userContext } from '../user-context';
+import verifyEmail from '../../services/verification';
+import { sendRequest } from '../../services/request';
+import { userContext } from '../../user-context';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
+import { SetCookies } from '../utils/SetCookies';
 
 
 /* Login	/users/	POST		{email,password}	Token	200 OK-401 UNAUTHORIZED-400 BAD REQUEST */ 
@@ -39,12 +40,7 @@ class Login extends React.Component {
     this.context.setUsername(uData.username);
     this.context.setEmail(uData.email);
    
-    Cookies.set("user", {
-      username: this.context.username,
-      token: this.context.token,
-      email: this.context.email,
-      icon: this.context.icon
-    });
+    SetCookies("user",this.context.username,this.context.token,this.context.email,this.context.icon)
     
     this.setState({redirect: true});
   }

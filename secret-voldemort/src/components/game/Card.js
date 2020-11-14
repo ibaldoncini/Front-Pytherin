@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
-import  Death_Eater  from '../images/death_eaters.jpg';
-import Phoenix from '../images/phoenix_order.png';
-import Cancel from '../images/cancel.png';
-import { sendRequest } from '../services/request';
-import { userContext } from '../user-context';
+import  Death_Eater  from '../../images/death_eaters.jpg';
+import Phoenix from '../../images/phoenix_order.png';
+import Cancel from '../../images/cancel.png';
+import { sendRequest } from '../../services/request';
+import { userContext } from '../../user-context';
 
 /* This component will get the cards to discard  for minister and director */
 

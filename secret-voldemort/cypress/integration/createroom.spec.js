@@ -25,18 +25,17 @@ context('Create a new room', () => {
       cy.visit('/')
 
       cy.get('input[type=email]')
-        .type('player1@email.com')
+        .type('player1@example.com')
       
       cy.get('input[type=password]')
         .type('Heladera65')
   
-      cy.get('input[type=submit]')
-        .click()
+      cy.get('input[type=submit]').click()
     })
 
     /* It checks the correct rendering of the page */
     it('Click on create room\n [*] should render the create room page', () => {
-      cy.get('button[type=btncr]')
+      cy.get('button[id=create]')
         .click()
       cy.get('h2')
         .should('be.visible')
@@ -53,14 +52,13 @@ context('Create a new room', () => {
       
       cy.reload()
       
-      cy.get('h1')
+      cy.get('button[id=logout]')
       .should('be.visible')
-      .and("contain", 'Hello player1')
     })
 
     /* It is checked that you cannot create a room with a name less than 6 characters */
     it('Try to put a name < 6 characters\n [*] the room should not be created', () => {
-      cy.get('button[type=btncr]')
+      cy.get('button[id=create]')
         .click()
 
       cy.get('input[name=roomName]')
@@ -81,7 +79,7 @@ context('Create a new room', () => {
 
     /* Check that you cannot create a room with a maximum number of players out of range [5-10] */
     it('Try to put max_players out of range\n [*] the room should not be created', () => {
-      cy.get('button[type=btncr]')
+      cy.get('button[id=create]')
         .click()
 
       cy.get('input[name=roomName]')
@@ -117,7 +115,7 @@ context('Create a new room', () => {
 
     /* Check that the user is correctly notified that not all fields are filled in. */
     it('Try to create without filling all the fields\n [*] the room should not be created', () => {
-      cy.get('button[type=btncr]')
+      cy.get('button[id=create]')
         .click()
       cy.on("window:alert", (alertText)  => {
         expect(alertText).eq("Please fill in all fields correctly.")
@@ -128,7 +126,7 @@ context('Create a new room', () => {
 
     /* Check that the user is correctly notified that there is a room with the chosen name. */ 
     it('Try to create with an existing room name\n [*] should not create the room and notify the user', () => {
-      cy.get('button[type=btncr]')
+      cy.get('button[id=create]')
         .click()
       cy.get('input[name=roomName]')
         .clear()
@@ -146,18 +144,17 @@ context('Create a new room', () => {
 
     /* Check that if the user clicks on "Cancel", the home page will be correctly rendered */
     it('Creation cancelled\n [*] the home page should be rendered', () => {
-      cy.get('button[type=btncr]')
+      cy.get('button[id=create]')
         .click()
       cy.contains('Cancel')
         .click()
-      cy.get('h1')
+      cy.get('button[id=logout]')
         .should('be.visible')
-        .and("contain", "Hello player1")
     })
 
     /* Check that if the fields were completed correctly and there were no problems, the room was set up correctly. */ 
     it('Everything is OK\n [*] should render the room with the user inside', () => {
-      cy.get('button[type=btncr]')
+      cy.get('button[id=create]')
         .click()
       cy.get('input[name=roomName]')
         .clear()
@@ -178,7 +175,7 @@ context('Create a new room', () => {
         .and("contain", 'Jugadores en partida')
       cy.wait(500)
       cy.get('ul')
-        .eq('0').contains('player1@email.com')
+        .eq('0').contains('player1@example.com')
     })
 
   })

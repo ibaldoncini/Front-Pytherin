@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import './stylesheet/App.sass';
-import { Login } from './components/Login';
+import { Login } from './components/user/Login';
 import { BrowserRouter as Router , Route } from 'react-router-dom';
 import { userContext } from './user-context';
-import { Home } from './components/Home';
-import { Register } from './components/Register';
-import { LobbyRoom } from './components/LobbyRoom';
-import { Game } from './components/Game';
-import CreateRoom from './components/CreateRoom';
-import JoinRoom from './components/JoinRoom';
-import { ListRoom } from './components/listroom/ListRoom'
+import { Home } from './components/user/Home';
+import { Register } from './components/user/Register';
+import { LobbyRoom } from './components/room/LobbyRoom';
+import { Game } from './components/game/Game';
+import CreateRoom from './components/room/CreateRoom';
+import JoinRoom from './components/room/JoinRoom';
+import { ListRoom } from './components/room/ListRoom'
 
 // This is the "main".
 // We use rout for organization of our single page app.

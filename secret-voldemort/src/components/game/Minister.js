@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState} from 'react';
-import '../custom.css';
-import { userContext } from '../user-context';
+import '../../stylesheet/custom.css';
+import { userContext } from '../../user-context';
 import { DirectorCandidates } from './DirectorCandidates';
 
 // room_name

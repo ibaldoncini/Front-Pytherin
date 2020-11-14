@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom"
-import { sendRequest } from '../services/request'
+import { sendRequest } from '../../services/request'
 
 export class Register extends React.Component{
     constructor(props){

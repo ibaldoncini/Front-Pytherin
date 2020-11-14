@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { mount } from 'cypress-react-unit-test';
 import { RoomTag } from './RoomTag';
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import { sendRequest } from '../services/request';
+import { sendRequest } from '../../services/request';
 import { Redirect } from 'react-router-dom';
-import { userContext } from '../user-context';
+import { userContext } from '../../user-context';
 
 class LobbyRoom extends React.Component{
     constructor(props){

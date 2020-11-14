@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { sendRequest } from '../services/request';
-import { userContext } from '../user-context';
+import { sendRequest } from '../../services/request';
+import { userContext } from '../../user-context';
 import { Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie'
 

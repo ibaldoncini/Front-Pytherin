@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Popup from 'reactjs-popup';
-import { sendRequest } from '../services/request';
-import { userContext } from '../user-context';
+import { sendRequest } from '../../services/request';
+import { userContext } from '../../user-context';
 
 export function DirectorCandidates(props) {
 

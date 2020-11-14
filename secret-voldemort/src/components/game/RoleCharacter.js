@@ -1,9 +1,8 @@
 import React, { useEffect, useState} from 'react';
-import '../custom.css';
-import  Phoenix  from '../images/phoenix_order.png';
-import Death_Eater from '../images/death_eaters.jpg';
-import Voldemort from '../images/voldemort.jpg';
-import  Dean  from '../images/dean.png';
+import '../../stylesheet/custom.css';
+import  Phoenix  from '../../images/phoenix_order.png';
+import Death_Eater from '../../images/death_eaters.jpg';
+import Voldemort from '../../images/voldemort.jpg';
 
 export const RoleCharacter = (props) => {
 
