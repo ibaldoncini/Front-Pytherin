@@ -11,6 +11,7 @@ import { PlayersList } from './PlayersList';
 import { DiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
 import { VotesList } from './VotesList';
+import { Avadakedavra } from './Avadakedavra';
 
 
 class Game extends React.Component{
@@ -139,7 +140,7 @@ class Game extends React.Component{
                         <div class="column is-2">
                           <RoleCharacter role={this.state.my_role} charac={ this.state.myChar} />
                         </div>
-                        <div class="column is-2 ">
+                        <div class="column is-2 align-cntr">
                           <Minister
                             room_name={this.state.room_name} 
                             mail_context={this.context.email}
@@ -148,6 +149,14 @@ class Game extends React.Component{
                             players={this.state.player_list}
                             last_minister={this.state.last_minister}
                             last_director={this.state.last_director}/>
+                          <Avadakedavra 
+                            phase={this.state.phase}
+                            room_name={this.state.room_name}
+                            players={this.state.player_list}
+                            minister={this.state.minister}
+                            token={this.context.token}
+                            email={this.context.email}
+                          />
                         </div>
                         <div class="column is-2">
                             <Director name={this.state.director} />
