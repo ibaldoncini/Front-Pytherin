@@ -11,7 +11,7 @@ import { PlayersList } from './PlayersList';
 import { DiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
 import { VotesList } from './VotesList';
-import { Avadakedavra } from './Avadakedavra';
+import { Avadakedavra } from './Avadakedavra/Avadakedavra';
 
 
 class Game extends React.Component{

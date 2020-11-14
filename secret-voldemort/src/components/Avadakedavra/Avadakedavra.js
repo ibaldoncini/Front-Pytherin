@@ -1,6 +1,6 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
-import { sendRequest } from '../services/request';
+import { sendRequest } from '../../services/request';
 
 // PROPS {phase, room_name, players, minister, token, email}
 export const Avadakedavra = props => {
@@ -32,26 +32,26 @@ export const Avadakedavra = props => {
   }
 
   return (
-    (8 === 8 && props.email === props.minister) 
+    (props.phase === 8 && props.email === props.minister) 
     ? 
       <Popup 
         trigger={
-          <button class='panel-button'>
+          <button id='trigger' class='panel-button'>
             Avadakedavra `
           </button>
         } modal position='right center'>
         
         {close => 
           <div class='container has-text-centered panel-bg'>
-            <p class='panel-title'> Choose who to cast the spell on </p>
+            <p id='title' class='panel-title'> Choose who to cast the spell on </p>
             <div class='column is-6 is-offset-3 align-cntr is-vcentered'>
               <ul>
                 {
                   props.players.map(p =>
                   p !== props.minister ?
-                    <li class='i-payerlist'>
+                    <li id={'i-' + p}class='i-payerlist'>
                       {p} 
-                      <button class='room-button my-2 mx-2' 
+                      <button id={'cast-' + p} class='room-button my-2 mx-2' 
                         onClick={handleSpeell(p)} 
                         onClickCapture={close}>`</button>
                     </li>
@@ -66,6 +66,6 @@ export const Avadakedavra = props => {
         }
       </Popup>
     :
-      <div>{console.log("SEPIERDE EL CONTEXTTTT")}</div>
+      <div id='misspath'>{console.log("The game is not in this phase")}</div>
   );
 }
