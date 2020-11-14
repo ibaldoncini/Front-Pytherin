@@ -1,0 +1,14 @@
+.fig-inline{
+    display: inline-block;
+    padding: 1.5%;
+}
+
+.fig-inline img {
+    height: 120px;
+    width: 120px;
+    border:1px solid black;
+}
+
+.align-cntr{
+    text-align: center;
+}
