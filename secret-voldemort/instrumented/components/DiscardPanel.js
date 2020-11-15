@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../custom.css';
 import { Card } from './Card';
 import { userContext } from '../user-context';
 import { sendRequest } from '../services/request';
@@ -32,9 +31,8 @@ export const DiscardPanel = (props) => {
         const path = "http://127.0.0.1:8000/" + room.toString() +"/cards";
         sendRequest('GET', headers, {}, path).then(async response => {
             const data = await response.json();
-            console.log("Aca va la response perrix: " + data.cards);
             if(!response.ok){ 
-               alert(data.detail.toString());
+               console.log(data.detail.toString());
             }else{ 
                 setCards(data.cards.toString());
             }

@@ -1,12 +1,6 @@
 import React from 'react';
 
-
-class Head extends React.Component {
-    constructor(props) {
-      super(props);
-    
-    }
-    render() {
+export const Head = (props) => {
       return (
         <div class='hero is-large header-img'>
           <div class='hero-body'>
@@ -17,6 +11,5 @@ class Head extends React.Component {
           </div>
         </div>
       );
-    }
-  } export {Head};
+  }
   

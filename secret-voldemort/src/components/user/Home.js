@@ -1,6 +1,6 @@
 
 import React, { useContext, useState, useEffect } from 'react';
-import Button from '../utils/Button';
+import { Button } from '../utils/Button';
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../../user-context';

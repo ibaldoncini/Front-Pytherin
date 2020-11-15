@@ -7,6 +7,6 @@ function verifyEmail(email) {
       return true;
       
     } else {
-      alert("The inpunt haven't e-mail format.")
+      return false;
     }
 } export default verifyEmail

@@ -1,5 +1,19 @@
+<<<<<<< Updated upstream:secret-voldemort/instrumented/components/Home.js
 import React, { useContext, useEffect, useState } from 'react';
 import Button from './Button';
+||||||| constructed merge base:secret-voldemort/src/components/Home.js
+import React, { useContext, useState } from 'react';
+<<<<<<< Updated upstream:secret-voldemort/instrumented/components/Home.js
+import Button from './Button';
+=======
+import React, { useContext, useState } from 'react';
+import { Button } from './Button';
+>>>>>>> Stashed changes:secret-voldemort/src/components/Home.js
+||||||| constructed merge base:secret-voldemort/src/components/Home.js
+import Button from './Button';
+=======
+import { Button } from './Button';
+>>>>>>> Stashed changes:secret-voldemort/src/components/Home.js
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../user-context';

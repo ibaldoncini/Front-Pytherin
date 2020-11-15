@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { sendRequest } from '../../services/request';
 import { userContext } from '../../user-context';
 import { Redirect } from 'react-router-dom';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import '../../custom.css';
+import '../../popup_custom.css';
 
 /* This component allows you to join a room through a url, 
 or by selecting the room from a list. */
-
+const OTHER_ERROR = -1;
+const ALREADY_IN_ROOM = 409;
 class JoinRoom extends Component {
   constructor(props) {
     super(props);
@@ -14,13 +19,25 @@ class JoinRoom extends Component {
       redirect: false,
       redirectPath: '',
     };
+    this.handleErrors = this.handleErrors.bind(this)
   }
   
   static contextType = userContext;
 
 
-  /* Before rendering, I set the name of the room that comes in the parameters, prepare 
-  the link to where the user will be redirected if he is logged in and there is room in the room. */
+ handleErrors = (status, detail) => {
+    let btnModal = document.getElementById("btnModal")
+    let modalText = document.getElementById('modalText')
+    switch(status){
+      case ALREADY_IN_ROOM:
+        this.setState({redirect: true, redirectPath: "./lobbyRoom/" + this.props.match.params.room})
+        break
+      default:
+        btnModal.click()
+        setTimeout(this.setState({redirect: true, redirectPath: "/home"}),1500)
+        break
+    }
+  }
 
   componentWillMount() {
 
@@ -47,22 +64,19 @@ class JoinRoom extends Component {
           const data = await response.json();
 
           if(!response.ok) {
-            const error = (data && data.message) || response.status;
+            //const error = (data && data.message) || response.status;
             return( 
-              alert(data.detail)
+              this.handleErrors(response.status, data.detail)
             )
           }
           this.setState({redirect: true, redirectPath: link_room})
-
         })
         .catch(error => {
-          console.error('There was an error', error);
+          this.handleErrors(OTHER_ERROR, "There was an error")
         })
     } else {
-        alert("You need to be logged in to enter the room")
-        this.setState({redirect: true, redirectPath: ""})
+      this.handleErrors(OTHER_ERROR, "You need to be logged in to enter the room")
     }
-    
   }
 
   render() {
@@ -70,7 +84,13 @@ class JoinRoom extends Component {
       return (<Redirect to={this.state.redirectPath}/>);
     } else {
       return (
+        <div>
+        <Popup trigger={<button id='btnModal' style={{display:"none"}}></button>} modal position='right center'>
+            <p id='modalText'>
+            </p>
+        </Popup>
         <div></div>
+        </div>
       )
     }
   }

@@ -11,6 +11,8 @@ import CreateRoom from './components/room/CreateRoom';
 import JoinRoom from './components/room/JoinRoom';
 import { UpdateProfile } from './components/user/UpdateProfile';
 import { ListRoom } from './components/room/ListRoom';
+import { De_won } from './components/game/De_won';
+import { Fo_won } from './components/game/Fo_won';
 
 // This is the "main".
 // We use rout for organization of our single page app.
@@ -48,7 +50,7 @@ class App extends Component {
     setIcon: this.setIcon
   };
 
-  render() { 
+  render() {  //<Route exact path='/fo_won' component={Fo_won}/>
     return (
       <Router>
         <userContext.Provider value={this.state}>
@@ -62,6 +64,8 @@ class App extends Component {
             <Route exact path='/gameRoom/:room' render= {(props) => <Game {...props}/>}/>
             <Route exact path='/joinRoom/:room' component={JoinRoom}/>
             <Route exact path='/listRoom' component={ListRoom}/>
+            <Route exact path='/de_won' component={De_won}/>
+            <Route exact path='/fo_won' component={Fo_won}/>
           </section>
         </userContext.Provider>
       </Router>

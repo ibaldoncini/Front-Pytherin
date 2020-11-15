@@ -11,7 +11,7 @@ export const Piece = props => {
         ((props.imgSrc === 'phoenix') ? Phoenix_Order : None)
 
         setImg(card);
-    })
+    },[props])
   
     return (
         <div class='column is-2'>

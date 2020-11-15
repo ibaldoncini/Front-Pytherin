@@ -2,6 +2,10 @@ import React from 'react';
 import { sendRequest } from '../../services/request';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../../user-context';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import '../../custom.css';
+import '../../popup_custom.css';
 
 class LobbyRoom extends React.Component{
     constructor(props){
@@ -12,22 +16,29 @@ class LobbyRoom extends React.Component{
             owner : '',
             start: false,
             redirectPath: '/gameRoom/' + this.props.match.params.room,
-            timer: null
+            timer: null,
+            modalText: ''
         }
         this.getGameState = this.getGameState.bind(this);
         this.handleStart = this.handleStart.bind(this);
+        this.handleErrors = this.handleErrors.bind(this);
     }
 
 
     static contextType = userContext
 
+    handleErrors(detail){
+        this.setState({ modalText: detail })
+        let btnModal = document.getElementById("btnModal")
+        btnModal.click()
+    }
 
     getGameState(headers, path){
         try {
             const timerId = setInterval((h=headers,p=path) => {sendRequest('GET', h, {}, p).then(
                 async response => {
                     if(!response.ok){ 
-                        alert (response.detail)
+                        this.handleErrors(response.detail)
                     }else{
                         const data = await response.json()
                         if(data.room_status === "In game") {
@@ -36,6 +47,7 @@ class LobbyRoom extends React.Component{
                         const users = data.users;
                         this.setState({owner: data.owner})
                         this.setState({players: users})
+                        console.log(this.context.email + "  +  " + this.state.owner)
                     }
                 }
             ).catch(error => {
@@ -44,7 +56,7 @@ class LobbyRoom extends React.Component{
             }, 2000);
             this.setState({timer: timerId});
         }catch(e){
-            alert ("Error al obtener datos sobre los usuarios de la sala. Consulte con el soporte.")
+            this.handleErrors("Error obtaining users data. Please ask for the support team")
         }
     }
 
@@ -60,9 +72,8 @@ class LobbyRoom extends React.Component{
             const path = "http://127.0.0.1:8000/" + room + "/game_state"
             // the component will re-render every setInterval, take care...
             this.getGameState(headers,path)
-            console.log(this.state.room);
         }catch(e){
-            alert("Hubo un error al procesar lo requerido por favor nuevamente desde la plataforma.")
+            this.handleErrors("There was an error processing the data, please try again from the platform.")
         }
     }
 
@@ -83,12 +94,12 @@ class LobbyRoom extends React.Component{
         sendRequest("PUT", headers, {}, path).then(async response => {
             const data = await response.json()
             if(!response.ok){ 
-               alert(data.detail.toString())
+                this.handleErrors(data.detail)
             }else{
                 this.setState({start: true})
             }
         }).catch(error => {
-            console.log("There was an error at" + path.toString());
+            this.handleErrors("There was an error at" + path.toString())
         })
     }
 
@@ -105,6 +116,11 @@ class LobbyRoom extends React.Component{
                 />) :
             (<section>
                 <div class="container room-bg my-6 py-6">
+                    <Popup className='alert-modal' trigger={<button id='btnModal' style={{display:"none"}}></button>} modal position='right center'>
+                        <p>
+                            {this.state.modalText}
+                        </p>
+                    </Popup>
                     <div class='container has-text-centered'>
                         <h2 id='title' class='room-title'>Lobby</h2>
                     </div>
@@ -112,7 +128,7 @@ class LobbyRoom extends React.Component{
                         <div class='column is-4'>
                             <div class='room-card'>
                                 <div class='card-header'>
-                                    <h3 class='card-header-title is-centered'>Jugadores en partida</h3>
+                                    <h3 class='card-header-title is-centered'>Players in room</h3>
                                 </div>
                                 <div class='card-content is-centered'>
                                     <ul name='players-list' id='unique-list'>

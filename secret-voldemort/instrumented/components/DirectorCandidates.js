@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
 import { sendRequest } from '../services/request';
 import { userContext } from '../user-context';
+import '../custom.css';
+import '../popup_custom.css';
 
 export function DirectorCandidates(props) {
 
@@ -18,6 +21,13 @@ export function DirectorCandidates(props) {
     setLastDirector(props.last_director)
     setPlayers(props.players)
   }, [props]);
+
+  const handleMessage = (message) => {
+    let btnModalDir = document.getElementById("btnModal_director")
+    let p_director = document.getElementById("p_director")
+    p_director.innerText = message
+    btnModalDir.click()
+  }
   
   const handleSelection = (e) => {
     const selectedUser = e.target.name;
@@ -36,12 +46,17 @@ export function DirectorCandidates(props) {
       if (response.ok){
         console.log(data.message);
       } else {
-        console.log(data.detail)
+        handleMessage(data.detail)
       }
-    }).catch(error => console.log(error));
+    }).catch(error => handleMessage(error));
   }
 
   return(
+  <div>
+    <Popup className='alert-modal' trigger={<button id='btnModal_director' style={{display:"none"}}></button>} modal position='right center'>
+      <p id='p_director'> 
+      </p>
+    </Popup>
     <Popup trigger={<button class='panel-button'>Propose Director</button>} modal position='right center' >
       {close =>
         <div class='container has-text-centered'>
@@ -64,5 +79,6 @@ export function DirectorCandidates(props) {
         </div>
       }
     </Popup>
+  </div>
   );
 }

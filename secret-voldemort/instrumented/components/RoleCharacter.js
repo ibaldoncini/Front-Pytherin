@@ -3,7 +3,6 @@ import '../custom.css';
 import  Phoenix  from '../images/phoenix_order.png';
 import Death_Eater from '../images/death_eaters.jpg';
 import Voldemort from '../images/voldemort.jpg';
-import  Dean  from '../images/dean.png';
 
 export const RoleCharacter = (props) => {
 

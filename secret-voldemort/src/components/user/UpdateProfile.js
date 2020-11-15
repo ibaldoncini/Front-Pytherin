@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { userContext } from '../../user-context';
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
-import Button from '../utils/Button';
+import { Button } from '../utils/Button';
 import { sendRequest } from '../../services/request';
 import { SetCookies } from '../utils/SetCookies';
 

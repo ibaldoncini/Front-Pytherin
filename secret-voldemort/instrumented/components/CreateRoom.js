@@ -2,8 +2,14 @@ import React from 'react';
 import { sendRequest } from '../services/request';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../user-context';
-import Button from './Button'
+import { Button } from './Button';
 
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import '../custom.css';
+import '../popup_custom.css';
+const ALL_EMPTY = 1;
+const OTHER_ERROR = -1;
 /* This component is in charge of collecting the 
 data entered by the user and sending it to the corresponding endpoint. */
 
@@ -16,16 +22,41 @@ class CreateRoom extends React.Component {
       room_name: '',
       room_max_players: 5,
       redirect: false,
-      redirectPath: ''
+      redirectPath: '',
+      modalText: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChangeMaxPlayers = this.handleChangeMaxPlayers.bind(this);
     this.handleChangeRoomName = this.handleChangeRoomName.bind(this);
     this.join_room = this.join_room.bind(this);
+    this.handleErrors = this.handleErrors.bind(this);
   }
 
   static contextType = userContext;
 
+  handleErrors(status, detail){
+    let allEmpty = document.getElementById('allEmptyValid')
+    let btnModal = document.getElementById("btnModal")
+    let formatedDetail = "* " + detail
+    // Restart messages
+    var msgElements = document.getElementsByClassName("validation")
+    Array.from(msgElements).forEach(element => {
+        element.innerText = ""
+    });
+    switch (status){
+        case ALL_EMPTY:
+          allEmpty.innerText = formatedDetail
+          break
+        default: // default case is when modal has to show
+          this.setState({modalText: detail})
+          btnModal.click()
+          break        
+    }
+    Array.from(msgElements).forEach(element => {
+      element.style.display = "block"
+    });
+}
+  
   // methods
   join_room(headers){
     // send request for joining the room
@@ -34,7 +65,7 @@ class CreateRoom extends React.Component {
       const snd_data = await response.json()
       if(!response.ok){
         return(
-          alert(snd_data.detail)
+          this.handleErrors(response.status, snd_data.detail)
         )
       }else {
         this.setState({redirect: true, redirectPath: `/lobbyRoom/${this.state.room_name}`})
@@ -42,7 +73,7 @@ class CreateRoom extends React.Component {
       
     })
     .catch(error => {
-      console.error("There was an error", error) 
+      this.handleErrors(OTHER_ERROR, "There was an error " + error)
     })
     // end join request
   }
@@ -65,20 +96,20 @@ class CreateRoom extends React.Component {
           const data = await response.json();
 
           if(!response.ok) {
-            const error = (data && data.message) || response.status;
+            //const error = (data && data.message) || response.status;
             return(
-              alert(data.detail)
+              this.handleErrors(response.status, data.detail)
             )
           }else {
             this.join_room(headers)
           } 
         })
         .catch(error => {
-          console.error('There was an error', error);
+          this.handleErrors(OTHER_ERROR, "There was an error")
         })
 
     } else {
-      alert('Please fill in all fields correctly.')
+      this.handleErrors(ALL_EMPTY, "Please fill in all fields correctly.")
     }
   }
   
@@ -113,7 +144,11 @@ class CreateRoom extends React.Component {
           <section class='room-bg'>
               <div class='container has-text-centered mt-6'>
                 <h2 class='room-title'>Creation of room</h2>
-                
+                <Popup className='alert-modal' trigger={<button id='btnModal' style={{display:"none"}}></button>} modal position='right center'>
+                    <p>
+                        {this.state.modalText}
+                    </p>
+                </Popup>
                 <form name="form" onSubmit={this.handleSubmit}>
                     <div class="field">
                         <label class='room-label'>Room name </label>
@@ -130,7 +165,8 @@ class CreateRoom extends React.Component {
                               min='3' max='10' onChange={this.handleChangeMaxPlayers} 
                               name="maxPlayers" />
                           </div>
-                    </div> 
+                    </div> <br/>
+                    <div id='allEmptyValid' class='validation'></div> <br/>
                     <input class='room-button mx-2 my-2' type='submit' value='Create room'/>
                     <Button style='room-button mx-2 my-2' path="/home" text="Cancel"></Button>
                 </form>

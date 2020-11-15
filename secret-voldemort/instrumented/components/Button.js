@@ -1,36 +1,39 @@
-import React from 'react'
+import React, { useState,  useEffect } from 'react';
 import {Route} from 'react-router-dom'
 import Cookies from 'js-cookie';
 
 /* This component allows you to generate a custom redirectable button. */
-class Button extends React.Component {
-  constructor(props) {
-    super(props);
+export const Button = (props) => {
 
-    this.state = {
-      namebutton: props.type,
-      path: props.path,
-      text: props.text,
-      username: props.username,
-      logout: props.logout
-    }
-  }
+  const [path, setPath] = useState('')
+  const [text, setText] = useState('')
+  const [username, setUsername] = useState('')
+  const [logout, setLogout] = useState('')
+  const [style, setStyle] = useState('')
+  const [namebutton, setNameButton] = useState('')
 
-  render() {
-    if (this.state.logout) {
-      Cookies.remove(this.state.username)
+  useEffect(() => {
+    setPath(props.path)
+    setText(props.text)
+    setUsername(props.username)
+    setLogout(props.logout)
+    setStyle(props.style)
+    setNameButton(props.type)
+  }, [props])
+
+    if (logout) {
+      Cookies.remove(username)
     } else {
       return (
         <Route render={({history}) => (
           <button
-            type={this.state.namebutton}
-            class={this.props.style}
-            onClick={() => { history.push(this.state.path) }}
+            type={namebutton}
+            class={style}
+            onClick={() => { history.push(path) }}
           >
-          {this.state.text}
+          {text}
           </button>
         )} />
       )
     }
-  }
-} export default Button;
+}

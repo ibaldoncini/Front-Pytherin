@@ -7,7 +7,13 @@ import { userContext } from '../../user-context';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
 import { SetCookies } from '../utils/SetCookies';
+import '../../custom.css';
 
+const NOT_VALID_EMAIL = -1
+const BAD_REQUEST = 400
+const UNAUTHORIZED = 401
+const ALL_EMPTY = 1
+const OTHER_ERROR = 2;
 
 /* Login	/users/	POST		{email,password}	Token	200 OK-401 UNAUTHORIZED-400 BAD REQUEST */ 
 
@@ -23,10 +29,15 @@ class Login extends React.Component {
       psw: '',
       redirect: false,
       auth: false,
+      validations: { 
+                    emailValid: '', 
+                    pswValid: ''
+                  }
     }
    
     this.handleLogin = this.handleLogin.bind(this);
     this.tokenDecode = this.tokenDecode.bind(this);
+    this.handleError = this.handleError.bind(this);
   }
   
   static contextType = userContext;
@@ -44,16 +55,59 @@ class Login extends React.Component {
     
     this.setState({redirect: true});
   }
-
+  /* Simple error handler function, shows messages in the divs that are below the fields */
+  handleError(status, detail){
+      let emailValid = document.getElementById('emailValid')
+      let pswValid = document.getElementById('pswValid')
+      let allEmpty = document.getElementById('allEmptyValid')
+      let formatedDetail = "* " + detail
+      // Restart messages
+      var msgElements = document.getElementsByClassName("validation")
+      Array.from(msgElements).forEach(element => {
+          element.innerText = ""
+      });
+      switch (status){
+        case OTHER_ERROR:
+          allEmpty.innerText = formatedDetail
+          break
+        case NOT_VALID_EMAIL:
+          emailValid.innerText = formatedDetail
+          break
+        case BAD_REQUEST:
+          emailValid.innerText = formatedDetail
+          break
+        case UNAUTHORIZED:
+          pswValid.innerText = formatedDetail
+          break
+        case ALL_EMPTY:
+          allEmpty.innerText = formatedDetail
+          break
+        default:
+          Array.from(msgElements).forEach(element => {
+            element.innerText = ""
+          });
+          break
+          
+      }
+      Array.from(msgElements).forEach(element => {
+        element.style.display = "block"
+      });
+  }
   /* Here i want to stablish the connection with the endpoint for login.
   I think that i need to add redux for this.*/
   handleLogin(e) {
-    
+    // Message dissapear 
+    var msgElements = document.getElementsByClassName("validation")
+    Array.from(msgElements).forEach(element => {
+        element.style.display = 'none'
+    });
+
     e.preventDefault();
+    
     const email = this.state.email;
     
     if(this.state.psw === '' || this.state.username === '') {
-      alert("You left empty fields");
+      this.handleError(ALL_EMPTY,"There are empty fields")
       document.getElementById('inemail').value="";
       document.getElementById('inpsw').value="";
     } else {
@@ -85,17 +139,17 @@ class Login extends React.Component {
 
             // Now we decode the token to complete the user context
             this.tokenDecode();
-            
           } else {
-            document.getElementById('inemail').value="";
-            document.getElementById('inpsw').value="";
-            console.log(data);
-            alert(data.detail);
+            /*document.getElementById('inemail').value="";
+            document.getElementById('inpsw').value="";*/
+            this.handleError(response.status, data.detail)
           }
           
         }).catch(error => {
-          console.log("There was an error", error);
+          this.handleError(OTHER_ERROR, "There was an error")
         })
+      }else{
+        this.handleError(NOT_VALID_EMAIL, 'The input does not have a valid e-mail format')
       }
     }
   }
@@ -125,23 +179,25 @@ class Login extends React.Component {
                             <label class='login-label is-large'> E-mail: </label>
                             <div class='control'>
                               <input  class='login-input is-rounded is-large' id='inemail' type='email' value={this.state.email} 
-                              onChange={e => this.setState({email: e.target.value})}/>                   
+                              onChange={e => this.setState({email: e.target.value})}/>   
+                              <div id='emailValid' class='validation'></div>                
                             </div>
                           </div>
-                          
                           <div class='field'>
                             <label class='login-label is-large'> Password: </label>
                             <div class='control'>
-                              <input class='login-input is-rounded is-large' id='inpsw' type='password' value={this.state.psw} 
-                              onChange={e => this.setState({psw: e.target.value})}/>
+                              <input class='login-input is-rounded is-large' id='inpsw' type='password' value={this.state.psw}
+                               onChange={e => this.setState({psw: e.target.value})}/>
+                              <div id='pswValid' class='validation'></div>
                             </div>
                           </div>
                           <div class='field'>
-                            <input class='login-button is-medium is-fullwidht is-rounded mb-2' type='submit' value='Login'/> 
+                            <div id='allEmptyValid' class='validation'></div>
                           </div>
-                        </form>
-                      </div>
-                    
+                          <div class='field'>
+                            <input class='login-button is-medium is-fullwidht is-rounded mb-2 log-btn-margin' type='submit' value='Login'/> 
+                          </div>
+                      </form>
                     </div>
 
                   </div>
@@ -154,7 +210,8 @@ class Login extends React.Component {
                       </p>
                     </div>
                   </div>
-                </div>   
+                </div>
+              </div>
               </section>
             </div>
            

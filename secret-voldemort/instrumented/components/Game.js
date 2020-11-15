@@ -1,5 +1,4 @@
 import React from 'react';
-import '../custom.css';
 import { sendRequest } from '../services/request';
 import { userContext } from '../user-context';
 import { Vote } from './Vote';
@@ -11,7 +10,14 @@ import { PlayersList } from './PlayersList';
 import { DiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
 import { VotesList } from './VotesList';
+import { Divination } from './Divination';
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+import '../custom.css';
+import '../popup_custom.css';
 
+const OTHER_ERROR = -1;
+const NOT_IN_ROOM = 403;
 
 class Game extends React.Component{
     constructor(props){
@@ -34,13 +40,40 @@ class Game extends React.Component{
             timer: null,
             redirect: false,
             redirectPath: '',
+            modalText: '',
         }
 
         this.update = this.update.bind(this)
+        this.handleMessages = this.handleMessages.bind(this)
     }
     static contextType = userContext;
     // uncomment when the endpoint is done.
 
+    handleMessages(status, detail){
+        let btnModal = document.getElementById('btnModal')
+        switch (status) { 
+          case OTHER_ERROR:
+            this.setState({modalText: detail})
+            break
+          case NOT_IN_ROOM:
+            this.setState({
+              modalText: detail,
+              redirectPath: '/home',
+              redirect: true
+            })
+            break
+          default:
+            this.setState({
+              modalText: detail,
+              redirectPath: '',
+              redirect: false
+              })
+            break
+        } 
+        if(this.state.modalText != '' &&  null != btnModal) {
+          btnModal.click()
+        }
+    }
 
     update(headers, room, path) {
 
@@ -48,10 +81,9 @@ class Game extends React.Component{
         .then(async response => {const data = await response.json()
         
           console.log(data)
-          if(!response.ok) { 
-            alert ("Error al obtener algunos datos de la partida.")
+          if(!response.ok) {
+            this.handleMessages(response.status, data.detail)
           } else {
-              console.log("Status game: " + data)
               if(data.phase !== 5 && data.phase !== 6) {
                 this.setState({
                   room_name: room,
@@ -71,11 +103,9 @@ class Game extends React.Component{
                 })
               } else {
                   if (data.phase === 5) {
-                    alert("The game is over. The team Death Eater won. Redirecting to the home page.")
-                    this.setState({redirect: true, redirectPath: '/home'})
-                  } else {
-                    alert("The game is over. The team Fenix Order won. Redirecting to the home page.")
-                    this.setState({redirect: true, redirectPath: '/home'})
+                    this.setState({redirect: true, redirectPath: '/de_won'})
+                  } else if(data.phase === 6) {
+                    this.setState({redirect: true, redirectPath: '/fo_won'})
                   }
               }
               console.log("Contexto actual: " + this.state.minister)
@@ -96,7 +126,7 @@ class Game extends React.Component{
             const timer = setInterval(()=> this.update(headers, room, path), 1000);
             this.setState({timer: timer})
         }catch(e){
-            alert("Error al obtener datos de la partida.")
+            this.handleMessages(OTHER_ERROR, "Error obtaining match data")
         }
     }
 
@@ -117,6 +147,11 @@ class Game extends React.Component{
               token ? 
               <section id='game-form'>
                   <div class="container my-6">
+                    <Popup className='alert-modal' trigger={<button id='btnModal' style={{display:"none"}}></button>} modal position='right center'>
+                        <p> 
+                            {this.state.modalText}
+                        </p>
+                    </Popup>
                       <h1 class="game-title is-large"> {this.state.room_name}</h1>
                           <Dashboard proclam_de = {this.state.de_procs} 
                           proclam_op={this.state.fo_procs} />
@@ -148,6 +183,10 @@ class Game extends React.Component{
                             players={this.state.player_list}
                             last_minister={this.state.last_minister}
                             last_director={this.state.last_director}/>
+                             {(this.state.phase === 7 && this.state.minister === this.context.email) ?
+                              <Divination room_name={this.state.room_name} minister={this.state.minister} />
+                              : <div></div>
+                            }
                         </div>
                         <div class="column is-2">
                             <Director name={this.state.director} />

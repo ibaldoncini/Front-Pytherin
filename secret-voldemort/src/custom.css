@@ -43,16 +43,20 @@
     transform: translate(-50%, -50%);
 }
 .triumph_text_de{
-    color:#2bde00;
+    font-size: large;
+    color: #00c8de;
     position: absolute;
+    margin-top: 1%;
     top: 10%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 .triumph_text_fo{
+    font-size: large;
     color: #f7fb18;
     position: absolute;
+    margin-top: 1%;
     top: 10%;
     left: 50%;
     transform: translate(-50%, -50%);

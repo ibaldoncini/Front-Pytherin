@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { sendRequest } from '../services/request';
-import { VotesList } from './VotesList';
 import { userContext } from '../user-context';
 
 /* TODO: Need to add the list of users and polling to obtain the votes of the 

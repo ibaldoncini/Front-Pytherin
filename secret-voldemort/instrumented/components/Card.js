@@ -4,7 +4,6 @@ import Phoenix from '../images/phoenix_order.png';
 import Cancel from '../images/cancel.png';
 import { sendRequest } from '../services/request';
 import { userContext } from '../user-context';
-
 /* This component will get the cards to discard  for minister and director */
 
 /* PROPS_NEEDED: room_name, imgSrc, ind  */
@@ -41,22 +40,21 @@ export const Card = (props) => {
             sendRequest('PUT', headers, keys, path).then(async response => {
                 const data = await response.json();
                 if(!response.ok){ 
-                    alert(data.detail)
+                    console.log(data.detail)
                 }else{
-                    alert(data.message)
+                    console.log(data.message)
                 }
             }).catch(error => {
-                alert("Ups! Something went wrong.")
+                console.log("Ups! Something went wrong.")
             })
         }catch(e){
-            alert("Error getting data from the current match.")
+            console.log("Error getting data from the current match.")
         }
     }
-
     return (
-        <figure class="image is-256x256 fig-inline">
-            <img height='256' onClick={async () => {discard(index)}} 
-            width='256' src={ imgSrc } alt=""/>
+        <figure class="image fig-inline-block">
+            <img height='32' onClick={async () => {discard(index)}} 
+            width='32' src={ imgSrc } alt=""/>
         </figure>
     );
 }
