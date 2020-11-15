@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "babel-cli": "^6.26.0",
     "babel-preset-react-app": "^3.1.2",
+    "browserslist": "^4.14.7",
+    "cypress": "^5.6.0",
     "dependencies": "0.0.1",
     "js-cookie": "^2.2.1",
     "jsframe.js": "^1.6.2",
     "jwt-decode": "^3.0.0",
     "react": "^16.14.0",
+    "react-dialog": "^1.0.2",
     "react-dom": "^16.14.0",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
@@ -27,7 +31,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:integration": "cypress open"
+    "test:components": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -47,10 +51,12 @@
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
   "main": "index.js",
   "devDependencies": {
+    "@cypress/code-coverage": "^3.8.3",
     "bulma": "^0.9.1",
     "cypress": "^5.6.0",
     "cypress-react-unit-test": "^4.16.10",
     "node-sass": "^4.14.1",
+    "nyc": "^15.1.0",
     "react-dev-utils": "^10.2.1",
     "redux-devtools": "^3.7.0"
   },
