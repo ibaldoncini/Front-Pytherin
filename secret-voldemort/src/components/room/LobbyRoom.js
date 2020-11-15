@@ -106,7 +106,7 @@ class LobbyRoom extends React.Component{
             (<section>
                 <div class="container room-bg my-6 py-6">
                     <div class='container has-text-centered'>
-                        <h2 class='room-title'>Lobby</h2>
+                        <h2 id='title' class='room-title'>Lobby</h2>
                     </div>
                     <div class='columns py-6'>
                         <div class='column is-4'>

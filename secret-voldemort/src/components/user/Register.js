@@ -12,14 +12,14 @@ export class Register extends React.Component{
                     passUser: '',
                     passUser2: '',
                     mailUser: '',
-                    redir: false,
+                    redirect: false,
                     toPage: '',
                     img: React.createRef()
                     };
         // Event handlers
         this.handleChange = this.handleChange.bind(this)
         this.handleChangeImg = this.handleChangeImg.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.validate = this.validate.bind(this)
         this.cleanFile = this.cleanFile.bind(this)
         this.handleRedirect = this.handleRedirect.bind(this)
         this.sendData = this.sendData.bind(this)
@@ -40,14 +40,14 @@ export class Register extends React.Component{
 
 
     // validation
-    handleSubmit(e){
+    validate(e){
         e.preventDefault()
         var regExpMail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
         var regExpPsw = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/
         if(this.state.nameUser === ""){
             alert("Deberá seleccionar un nombre.")
-        }else if(this.state.nameUser.length < 8 || this.state.nameUser.length > 15){ //fixed
-            alert("Nickname must contain between 8 and 15 characters.")
+        }else if(this.state.nameUser.length < 8){
+            alert("El nombre de usuario deberá ser de al menos 8 caracteres.")
         }else if(this.state.passUser === ""){
             alert("Deberá seleccionar una contraseña.")
         }else if(this.state.passUser.length < 8 || this.state.passUser.length > 54){
@@ -95,17 +95,17 @@ export class Register extends React.Component{
         this.setState({toPage : '/home'})
     }
     render(){
-            if(this.state.redir){
+            if(this.state.redirect){
                 return <Redirect to={this.state.toPage} />    
             }
             return(
                 <section>
                     <div className="container reg-bg py-6 px-6">
                         <h1 class='reg-title has-text-centered'>User registration</h1>
-                        <form encType="multipart/form-data" onSubmit={this.handleSubmit}>
+                        <form encType="multipart/form-data" onSubmit={this.validate}>
                             <div class='field'>
                                 <div class='container'>
-                                    <label class='login-label is-large'>Nickname: </label>
+                                    <label class='login-label is-large'>Username: </label>
                                     <div class='column is-3'>
                                         <input class='login-input' type="text" name="nameUser" id="nameUser" 
                                             value={this.state.nameUser} onChange={this.handleChange}/>  

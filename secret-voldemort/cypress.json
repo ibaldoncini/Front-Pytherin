@@ -4,5 +4,7 @@
       "serverUrl": "http://127.0.0.1:8000"
     },
     "pluginsFile": "node_modules/@cypress/code-coverage/plugins",
-    "supportFile": "node_modules/@cypress/code-coverage/support"
-  }
+    "supportFile": "node_modules/@cypress/code-coverage/support",
+    "experimentalComponentTesting": true,
+    "componentFolder": "src/components"
+}
