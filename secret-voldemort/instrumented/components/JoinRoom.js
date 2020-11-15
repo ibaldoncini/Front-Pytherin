@@ -27,7 +27,7 @@ class JoinRoom extends Component {
     const cookie = Cookies.getJSON("user");
     if(cookie !== undefined) {
       
-      this.context.setNickname(cookie.nickname);
+      this.context.setUsername(cookie.username);
       this.context.setEmail(cookie.email);
       this.context.setToken(cookie.token);
       this.context.setIcon(cookie.icon);

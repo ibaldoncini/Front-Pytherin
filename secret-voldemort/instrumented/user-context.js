@@ -149,13 +149,13 @@ cov_lu3cr5d6v();
 import { createContext } from 'react';
 export const userContext = (cov_lu3cr5d6v().s[0]++, createContext({
   token: '',
-  nickname: '',
+  username: '',
   email: '',
   icon: {},
   setToken: () => {
     cov_lu3cr5d6v().f[0]++;
   },
-  setNickname: () => {
+  setUsername: () => {
     cov_lu3cr5d6v().f[1]++;
   },
   setEmail: () => {

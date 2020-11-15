@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import  Death_Eater  from '../images/death_eaters.jpg';
-import Phoenix_Order from '../images/phoenix_order.png';
-import None from '../images/cancel.png';
+import  Death_Eater  from '../../images/death_eaters.jpg';
+import Phoenix_Order from '../../images/phoenix_order.png';
+import None from '../../images/cancel.png';
 export const Piece = props => {
    
     const [img, setImg] = useState('');

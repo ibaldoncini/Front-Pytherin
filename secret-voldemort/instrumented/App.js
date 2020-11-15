@@ -24,8 +24,8 @@ class App extends Component {
      this.setState({token});
   }
   
-  setNickname = nickname => {
-    this.setState({nickname});
+  setUsername = username => {
+    this.setState({username});
   }
 
   setEmail =  email => {
@@ -38,11 +38,11 @@ class App extends Component {
 
   state = {
     token: '',
-    nickname: '',
+    username: '',
     email: '',
     icon: {},
     setToken: this.setToken,
-    setNickname: this.setNickname,
+    setUsername: this.setUsername,
     setEmail: this.setEmail,
     setIcon: this.setIcon
   };

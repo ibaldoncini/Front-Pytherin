@@ -1,11 +1,12 @@
 import React from 'react';
 import { Head } from './Head';
 import { Link, Redirect } from 'react-router-dom';
-import verifyEmail from '../services/verification';
-import { sendRequest } from '../services/request';
-import { userContext } from '../user-context';
+import verifyEmail from '../../services/verification';
+import { sendRequest } from '../../services/request';
+import { userContext } from '../../user-context';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
+import { SetCookies } from '../utils/SetCookies';
 
 
 /* Login	/users/	POST		{email,password}	Token	200 OK-401 UNAUTHORIZED-400 BAD REQUEST */ 
@@ -36,15 +37,10 @@ class Login extends React.Component {
 
     const uData = jwt_decode(this.context.token);
     
-    this.context.setNickname(uData.username);
+    this.context.setUsername(uData.username);
     this.context.setEmail(uData.email);
    
-    Cookies.set("user", {
-      nickname: this.context.nickname,
-      token: this.context.token,
-      email: this.context.email,
-      icon: this.context.icon
-    });
+    SetCookies("user",this.context.username,this.context.token,this.context.email,this.context.icon)
     
     this.setState({redirect: true});
   }
@@ -56,7 +52,7 @@ class Login extends React.Component {
     e.preventDefault();
     const email = this.state.email;
     
-    if(this.state.psw === '' || this.state.nickname === '') {
+    if(this.state.psw === '' || this.state.username === '') {
       alert("You left empty fields");
       document.getElementById('inemail').value="";
       document.getElementById('inpsw').value="";
@@ -107,7 +103,7 @@ class Login extends React.Component {
   render() {
     const cookie = Cookies.getJSON("user");
     if (cookie !== undefined || this.state.redirect) {
-      this.context.setNickname(cookie.nickname);
+      this.context.setUsername(cookie.username);
       this.context.setEmail(cookie.email);
       this.context.setToken(cookie.token);
       this.context.setIcon(cookie.icon);
@@ -153,7 +149,7 @@ class Login extends React.Component {
                     <div class='container py-6'>
                       <p class='has-text-white is-large is-size-2'>
                         Don't have an account yet? 
-                        <Link class='login-button is-rounded mx-2' 
+                        <Link id='toReg' class='login-button is-rounded mx-2' 
                           to={`/registerPage`}> Sign up here </Link> 
                       </p>
                     </div>

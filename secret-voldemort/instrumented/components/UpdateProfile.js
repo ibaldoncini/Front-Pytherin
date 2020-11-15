@@ -16,10 +16,10 @@ export function UpdateProfile(props) {
   const [redirect, setRedirect] = useState(false)
 
   useEffect(() => {
-    if(context.nickname === '') {
+    if(context.username === '') {
         const cookie = Cookies.getJSON("user");
         if(cookie !== undefined) {
-            context.setNickname(cookie.nickname);
+            context.setUsername(cookie.username);
             context.setEmail(cookie.email);
             context.setToken(cookie.token);
             context.setIcon(cookie.icon);
@@ -100,12 +100,12 @@ export function UpdateProfile(props) {
                   return setBadResponseDetail(data2.detail)
                 } else {
                   
-                  context.setNickname(nickname)
+                  context.setUsername(nickname)
                   context.setToken(data2.access_token)
                   console.log(context.token)
                   Cookies.remove("user")
                   Cookies.set("user", {
-                    nickname: nickname,
+                    username: nickname,
                     token: data2.access_token,             
                     email: context.email,
                     icon: context.icon

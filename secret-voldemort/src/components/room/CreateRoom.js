@@ -1,8 +1,8 @@
 import React from 'react';
-import { sendRequest } from '../services/request';
+import { sendRequest } from '../../services/request';
 import { Redirect } from 'react-router-dom';
-import { userContext } from '../user-context';
-import Button from './Button'
+import { userContext } from '../../user-context';
+import Button from '../utils/Button'
 
 /* This component is in charge of collecting the 
 data entered by the user and sending it to the corresponding endpoint. */

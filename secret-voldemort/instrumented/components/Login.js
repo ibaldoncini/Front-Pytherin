@@ -36,11 +36,11 @@ class Login extends React.Component {
 
     const uData = jwt_decode(this.context.token);
     
-    this.context.setNickname(uData.username);
+    this.context.setUsername(uData.username);
     this.context.setEmail(uData.email);
    
     Cookies.set("user", {
-      nickname: this.context.nickname,
+      username: this.context.username,
       token: this.context.token,
       email: this.context.email,
       icon: this.context.icon
@@ -56,7 +56,7 @@ class Login extends React.Component {
     e.preventDefault();
     const email = this.state.email;
     
-    if(this.state.psw === '' || this.state.nickname === '') {
+    if(this.state.psw === '' || this.state.username === '') {
       alert("You left empty fields");
       document.getElementById('inemail').value="";
       document.getElementById('inpsw').value="";
@@ -107,7 +107,7 @@ class Login extends React.Component {
   render() {
     const cookie = Cookies.getJSON("user");
     if (cookie !== undefined || this.state.redirect) {
-      this.context.setNickname(cookie.nickname);
+      this.context.setUsername(cookie.username);
       this.context.setEmail(cookie.email);
       this.context.setToken(cookie.token);
       this.context.setIcon(cookie.icon);

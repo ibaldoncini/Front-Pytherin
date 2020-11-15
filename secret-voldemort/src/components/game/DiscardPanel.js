@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../custom.css';
+import '../../stylesheet/custom.css';
 import { Card } from './Card';
-import { userContext } from '../user-context';
-import { sendRequest } from '../services/request';
+import { userContext } from '../../user-context';
+import { sendRequest } from '../../services/request';
 
 /* PROPS_NEEDED:  room_name, minister, director, phase */
 export const DiscardPanel = (props) => {

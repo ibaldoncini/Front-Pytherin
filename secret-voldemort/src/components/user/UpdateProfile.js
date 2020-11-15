@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { userContext } from '../user-context';
+import { userContext } from '../../user-context';
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
-import Button from './Button';
-import { sendRequest } from '../services/request';
+import Button from '../utils/Button';
+import { sendRequest } from '../../services/request';
+import { SetCookies } from '../utils/SetCookies';
 
 export function UpdateProfile(props) {
 
@@ -16,10 +17,10 @@ export function UpdateProfile(props) {
   const [redirect, setRedirect] = useState(false)
 
   useEffect(() => {
-    if(context.nickname === '') {
+    if(context.username === '') {
         const cookie = Cookies.getJSON("user");
         if(cookie !== undefined) {
-            context.setNickname(cookie.nickname);
+            context.setUsername(cookie.username);
             context.setEmail(cookie.email);
             context.setToken(cookie.token);
             context.setIcon(cookie.icon);
@@ -100,16 +101,11 @@ export function UpdateProfile(props) {
                   return setBadResponseDetail(data2.detail)
                 } else {
                   
-                  context.setNickname(nickname)
+                  context.setUsername(nickname)
                   context.setToken(data2.access_token)
                   console.log(context.token)
                   Cookies.remove("user")
-                  Cookies.set("user", {
-                    nickname: nickname,
-                    token: data2.access_token,             
-                    email: context.email,
-                    icon: context.icon
-                  })
+                  SetCookies("user", nickname, data2.access_token, context.email, context.icon)
                   setOpen(true)
                   return setGoodResponseDetail(data.message)
                 }

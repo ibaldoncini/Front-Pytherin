@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../custom.css';
+import '../../stylesheet/custom.css';
 
 export const PlayersList = (props) => {
     const [players, setPlayers] = useState([])

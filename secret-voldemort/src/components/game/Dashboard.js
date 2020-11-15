@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import '../custom.css';
+import '../../stylesheet/custom.css';
 import { Piece } from './Piece';
 
 /* This component will show the proclamations for each team*/

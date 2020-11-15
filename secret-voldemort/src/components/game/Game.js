@@ -1,7 +1,7 @@
 import React from 'react';
-import '../custom.css';
-import { sendRequest } from '../services/request';
-import { userContext } from '../user-context';
+import '../../stylesheet/custom.css';
+import { sendRequest } from '../../services/request';
+import { userContext } from '../../user-context';
 import { Vote } from './Vote';
 import { Dashboard } from './Dashboard';
 import { Minister } from './Minister';
