@@ -17,7 +17,8 @@ class LobbyRoom extends React.Component{
             start: false,
             redirectPath: '/gameRoom/' + this.props.match.params.room,
             timer: null,
-            modalText: ''
+            modalText: '',
+            exit: false
         }
         this.getGameState = this.getGameState.bind(this);
         this.handleStart = this.handleStart.bind(this);
@@ -104,12 +105,37 @@ class LobbyRoom extends React.Component{
     }
 
 
+    handleExit(token){
+
+        clearInterval(this.state.timer)
+        console.log(token);
+        const path = `http://localhost:8000/room/leave/${this.state.room_name}`
+
+        const header = {
+            Accept: "application/json",
+            Authorization: "Bearer " + token
+        }
+
+        sendRequest("GET", header, '', path).then(async response =>{
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log("Player exit succesfuly");
+            } else {
+                console.log("Player exit unsuccesfuly: " + data.detail);
+            }
+        }).catch(error => console.log("There was an error on player's exit: " + error.detail));
+
+        this.setState({exit: true});
+    }
+
+
     render(){
         
         return(
             <userContext.Consumer>
             {({ token }) => (
-            token ? (this.state.start ? (<Redirect to={{
+            token && !(this.state.exitexit) ? (this.state.start ? (<Redirect to={{
                 pathname: this.state.redirectPath,
                 state: { room: this.state.room_name }
             }}
@@ -148,7 +174,7 @@ class LobbyRoom extends React.Component{
                             :   
                                 ""
                             }
-                            <input class='room-button is-fullwidth my-2 is-rounded' type='button' value='Salir de partida' onClick={this.handleExit}/>
+                            <input class='room-button is-fullwidth my-2 is-rounded' type='button' value='Salir de partida' onClick={() => this.handleExit(token)}/>
                         </div>
                     </div>
                 </div>
