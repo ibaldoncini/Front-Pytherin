@@ -98,7 +98,11 @@ class CreateRoom extends React.Component {
           if(!response.ok) {
             //const error = (data && data.message) || response.status;
             return(
+<<<<<<< HEAD:secret-voldemort/instrumented/components/CreateRoom.js
               this.handleErrors(response.status, data.detail)
+=======
+              alert("Error on create room" + data.detail)
+>>>>>>> 3edaa45f910ac3fa2cbc64519b95a4c1b0d8e71f:secret-voldemort/src/components/CreateRoom.js
             )
           }else {
             this.join_room(headers)
@@ -153,7 +157,7 @@ class CreateRoom extends React.Component {
                     <div class="field">
                         <label class='room-label'>Room name </label>
                         <div class='column is-4 is-offset-4'>
-                          <input class='room-input is-medium' type="text" maxLength='30' minLength='6'
+                          <input id='inroomname' class='room-input is-medium' type="text" maxLength='30' minLength='6'
                             value={this.state.room_name} min='5' max='10'
                             onChange={this.handleChangeRoomName} name="roomName"/>
                         </div>

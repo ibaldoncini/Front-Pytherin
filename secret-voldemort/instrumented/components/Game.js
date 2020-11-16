@@ -10,6 +10,7 @@ import { PlayersList } from './PlayersList';
 import { DiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
 import { VotesList } from './VotesList';
+<<<<<<< HEAD:secret-voldemort/instrumented/components/Game.js
 import { Divination } from './Divination';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -17,6 +18,9 @@ import '../custom.css';
 import '../popup_custom.css';
 import { Avadakedavra } from './Avadakedavra';
 
+=======
+import { Avadakedavra } from './Avadakedavra/Avadakedavra';
+>>>>>>> 3edaa45f910ac3fa2cbc64519b95a4c1b0d8e71f:secret-voldemort/src/components/Game.js
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -176,7 +180,7 @@ class Game extends React.Component{
                         <div class="column is-2">
                           <RoleCharacter role={this.state.my_role} charac={ this.state.myChar} />
                         </div>
-                        <div class="column is-2 ">
+                        <div class="column is-2 align-cntr">
                           <Minister
                             room_name={this.state.room_name} 
                             mail_context={this.context.email}
@@ -185,6 +189,7 @@ class Game extends React.Component{
                             players={this.state.player_list}
                             last_minister={this.state.last_minister}
                             last_director={this.state.last_director}/>
+<<<<<<< HEAD:secret-voldemort/instrumented/components/Game.js
                              {(this.state.phase === 7 && this.state.minister === this.context.email) ?
                               <Divination room_name={this.state.room_name} minister={this.state.minister} />
                               : <div></div>
@@ -197,6 +202,16 @@ class Game extends React.Component{
                             room_name={this.state.room_name}
                             minister={this.state.minister} 
                             players={this.state.player_list}/>
+=======
+                          <Avadakedavra 
+                            phase={this.state.phase}
+                            room_name={this.state.room_name}
+                            players={this.state.player_list}
+                            minister={this.state.minister}
+                            token={this.context.token}
+                            email={this.context.email}
+                          />
+>>>>>>> 3edaa45f910ac3fa2cbc64519b95a4c1b0d8e71f:secret-voldemort/src/components/Game.js
                         </div>
                         <div class="column is-2">
                             <Director name={this.state.director} />

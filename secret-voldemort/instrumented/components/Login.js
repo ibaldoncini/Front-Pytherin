@@ -208,7 +208,7 @@ class Login extends React.Component {
                     <div class='container py-6'>
                       <p class='has-text-white is-large is-size-2'>
                         Don't have an account yet? 
-                        <Link class='login-button is-rounded mx-2' 
+                        <Link id='toReg' class='login-button is-rounded mx-2' 
                           to={`/registerPage`}> Sign up here </Link> 
                       </p>
                     </div>
