@@ -27,7 +27,6 @@ class JoinRoom extends Component {
 
  handleErrors = (status, detail) => {
     let btnModal = document.getElementById("btnModal")
-    let modalText = document.getElementById('modalText')
     switch(status){
       case ALREADY_IN_ROOM:
         this.setState({redirect: true, redirectPath: "./lobbyRoom/" + this.props.match.params.room})

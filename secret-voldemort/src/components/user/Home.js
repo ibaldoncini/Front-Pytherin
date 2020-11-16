@@ -40,7 +40,6 @@ export function Home(props) {
 									<Button id='join' style='home-button is-rounded is-large is-fullwidth m-6' path='/listRoom' text='Join room' type='btncr'/>
 									<Button id='change_nickname' style='home-button is-rounded is-large is-fullwidth m-6' path='/change_nickname' text='Change nickname' type='btncn'/>
 									<Button id='change_password' style='home-button is-rounded is-large is-fullwidth m-6' path='/change_password' text='Change password' type='btncp'/>
-									<button class='home-button is-rounded is-large is-fullwidth m-6'>Profile</button>
 									<button id='logout' class='home-button is-rounded is-large is-fullwidth m-6' onClick={logOut}>Logout</button>
 								</div>
 							</div> 

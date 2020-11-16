@@ -71,7 +71,7 @@ class Game extends React.Component{
               })
             break
         } 
-        if(this.state.modalText != '' &&  null != btnModal) {
+        if(this.state.modalText !== '' &&  null !== btnModal) {
           btnModal.click()
         }
     }
@@ -184,7 +184,7 @@ class Game extends React.Component{
                             players={this.state.player_list}
                             last_minister={this.state.last_minister}
                             last_director={this.state.last_director}/>
-                             {(this.state.phase === 7 && this.state.minister === this.context.email) ?
+                             {(this.state.phase === 7 && this.state.minister === this.context.username) ?
                               <Divination room_name={this.state.room_name} minister={this.state.minister} />
                               : <div></div>
                             }
@@ -198,8 +198,8 @@ class Game extends React.Component{
                     </div>
                   </div>
                   <div class='container align-cntr'>   
-                    {((this.state.phase === 3 && this.state.minister === this.context.email) 
-                      || (this.state.phase === 4 && this.state.director === this.context.email)) 
+                    {((this.state.phase === 3 && this.state.minister === this.context.username) 
+                      || (this.state.phase === 4 && this.state.director === this.context.username)) 
                       ? <DiscardPanel minister={this.state.minister} 
                         director={this.state.director} 
                         room_name={this.state.room_name} 

@@ -48,7 +48,7 @@ class LobbyRoom extends React.Component{
                         const users = data.users;
                         this.setState({owner: data.owner})
                         this.setState({players: users})
-                        console.log(this.context.email + "  +  " + this.state.owner)
+                        console.log(this.context.username + "  +  " + this.state.owner)
                     }
                 }
             ).catch(error => {
@@ -135,7 +135,7 @@ class LobbyRoom extends React.Component{
         return(
             <userContext.Consumer>
             {({ token }) => (
-            token && !(this.state.exitexit) ? (this.state.start ? (<Redirect to={{
+            token && !(this.state.exit) ? (this.state.start ? (<Redirect to={{
                 pathname: this.state.redirectPath,
                 state: { room: this.state.room_name }
             }}
@@ -169,7 +169,7 @@ class LobbyRoom extends React.Component{
                             <h1 class='room-title'> {this.state.room_name} </h1> 
                         </div>
                         <div class='column is-4'>
-                            {(this.context.email === this.state.owner) ? 
+                            {(this.context.username === this.state.owner) ? 
                                 <input class='room-button is-fullwidth my-2 is-rounded' type='button' value='Empezar partida' onClick={this.handleStart}/> 
                             :   
                                 ""

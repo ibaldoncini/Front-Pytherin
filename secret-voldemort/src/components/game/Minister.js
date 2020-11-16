@@ -37,7 +37,7 @@ export const Minister = (props) => {
             <span class='i-playerlist'>{name}</span>
             
             <div>
-              { ((phase === 1) && (name === context.email)) ?  
+              { ((phase === 1) && (name === context.username)) ?  
                 <DirectorCandidates 
                   room_name = {roomName}
                   user_token = {context.token}

@@ -44,10 +44,10 @@ export const DiscardPanel = (props) => {
     };
     // Depending on phase and if its a minister or director will get cards (or not)
      const showCards = async () => {
-        if(phase === 3 && (context.email === minister)){
+        if(phase === 3 && (context.username === minister)){
             await getCards()
             return true
-        }else if(phase === 4 && (context.email === director)){
+        }else if(phase === 4 && (context.username === director)){
             await getCards()
             return true
         }
