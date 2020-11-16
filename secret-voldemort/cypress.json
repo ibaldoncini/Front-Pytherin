@@ -1,0 +1,13 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "env": {
+      "serverUrl": "http://127.0.0.1:8000"
+    },
+<<<<<<< HEAD
+    "pluginsFile": "node_modules/@cypress/code-coverage/plugins",
+    "supportFile": "node_modules/@cypress/code-coverage/support",
+=======
+>>>>>>> Test complete maybe missing some cases
+    "experimentalComponentTesting": true,
+    "componentFolder": "src/components"
+}
