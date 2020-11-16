@@ -32,8 +32,6 @@ export const Avadakedavra = props => {
   }
 
   return (
-    (props.phase === 8 && props.email === props.minister) 
-    ? 
       <Popup 
         trigger={
           <button id='trigger' class='panel-button'>
@@ -47,12 +45,12 @@ export const Avadakedavra = props => {
             <div class='column is-6 is-offset-3 align-cntr is-vcentered'>
               <ul>
                 {
-                  props.players.map(p =>
-                  p !== props.minister ?
-                    <li id={'i-' + p}class='i-payerlist'>
-                      {p} 
-                      <button id={'cast-' + p} class='room-button my-2 mx-2' 
-                        onClick={handleSpeell(p)} 
+                  props.players.map(player =>
+                  player !== props.minister ?
+                    <li id={'i-' + player}class='i-payerlist'>
+                      {player} 
+                      <button id={'cast-' + player} class='room-button my-2 mx-2' 
+                        onClick={handleSpeell(player)} 
                         onClickCapture={close}>`</button>
                     </li>
                   :
@@ -65,7 +63,5 @@ export const Avadakedavra = props => {
           </div>
         }
       </Popup>
-    :
-      <div id='misspath'>{console.log("The game is not in this phase")}</div>
   );
 }
