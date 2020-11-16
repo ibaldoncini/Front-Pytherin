@@ -4,6 +4,7 @@ import { Button } from '../utils/Button';
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../../user-context';
+import { SetContext } from '../utils/SetContext';
 
 
 export function Home(props) {
@@ -18,13 +19,7 @@ export function Home(props) {
 
 	useEffect(() => {
 		if(context.username === '') {
-			const cookie = Cookies.getJSON("user");
-			if(cookie !== undefined) {
-				context.setUsername(cookie.username);
-				context.setEmail(cookie.email);
-				context.setToken(cookie.token);
-				context.setIcon(cookie.icon);
-			}
+			SetContext("user")
 		}
 	}, [context])
 	console.log(context.token)

@@ -5,6 +5,14 @@ import { Redirect } from 'react-router-dom';
 import { Button } from '../utils/Button';
 import { sendRequest } from '../../services/request';
 import { SetCookies } from '../utils/SetCookies';
+import { SetContext } from '../utils/SetContext';
+
+/* 
+* Here are those functions related to the user's profile. 
+*/
+
+
+/* This function allows you to update the nickname, requiring that the new nickname meets the established requirements. */
 
 export function ChangeNickname() {
 
@@ -17,13 +25,7 @@ export function ChangeNickname() {
 
   useEffect(() => {
     if(context.username === '') {
-        const cookie = Cookies.getJSON("user");
-        if(cookie !== undefined) {
-            context.setUsername(cookie.username);
-            context.setEmail(cookie.email);
-            context.setToken(cookie.token);
-            context.setIcon(cookie.icon);
-        }
+      SetContext("user")
     }
   }, [context])
 
@@ -141,6 +143,8 @@ export function ChangeNickname() {
 
 }
 
+/* This function allows you to update the password, requiring that the new password meets the established requirements. */
+
 export function ChangePassword() {
 
 	const context = useContext(userContext);
@@ -150,17 +154,10 @@ export function ChangePassword() {
 	const [goodResponseDetail, setGoodResponseDetail] = useState('')
 	const [validationOldpass, setValidationOldpass] = useState('')
 	const [validationNewpass, setValidationNewpass] = useState('')
-	const [redirect, setRedirect] = useState(false)
 
 	useEffect(() => {
     if(context.username === '') {
-        const cookie = Cookies.getJSON("user");
-        if(cookie !== undefined) {
-            context.setUsername(cookie.username);
-            context.setEmail(cookie.email);
-            context.setToken(cookie.token);
-            context.setIcon(cookie.icon);
-        }
+      SetContext("user")
     }
   }, [context])
 	
@@ -188,12 +185,12 @@ export function ChangePassword() {
 					}
 			})
 		} else {
-      if (newPassword === '') {
-        setValidationNewpass('Please enter a new password.')
-			}
-			if (oldPassword === '') {
-        setValidationOldpass('Please enter a old password.')
-      }
+        if (newPassword === '') {
+          setValidationNewpass('Please enter a new password.')
+        }
+        if (oldPassword === '') {
+          setValidationOldpass('Please enter a old password.')
+        }
     }
 	}
 
@@ -244,8 +241,7 @@ export function ChangePassword() {
 	
 	return (
 		<div>
-			{ (redirect === false) ?  
-          ((Cookies.get("user") !== undefined) ?
+			{ (Cookies.get("user") !== undefined) ?
           <section class='room-bg'>
           <div class='container has-text-centered mt-6'>
             <form onSubmit={handleSubmit}>
@@ -279,9 +275,7 @@ export function ChangePassword() {
           </div>
           </section>
           :
-          <Redirect to='/'/> )
-        :
-        <Redirect to='/'/>
+          <Redirect to='/'/> 
       }
 		</div>
 	)
