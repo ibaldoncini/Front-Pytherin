@@ -98,7 +98,7 @@ export const Register = (props) => {
         var regExpPsw = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,32}$/
         if(nameUser === ""){
             handleErrors(ALL_EMPTY,"There are empty fields")
-        }else if(nameUser.length < 8 || nameUser.length > 15){ 
+        }else if(nameUser.length < 3 || nameUser.length > 15){ 
             handleErrors(NICK_OUT_OF_BOUNDS, "The nickname must contain between 8 and 15 characters")
         }else if(passUser === ""){
             handleErrors(ALL_EMPTY,"There are empty fields")
