@@ -132,14 +132,17 @@ class Game extends React.Component{
         }
     }
 
-    
+    isDead(nickname){
+      return this.state.player_list.includes(nickname)
+    }
+
     componentWillUnmount(){
         clearInterval(this.state.timer);
     }
 
 
     render(){
-      if(this.state.redirect) {
+      if(this.state.redirect || !this.isDead(this.context.username)) {
         return (<Redirect to={this.state.redirectPath}/>);
       } else {
         return(

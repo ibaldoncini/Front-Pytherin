@@ -50,7 +50,7 @@ export const Avadakedavra = props => {
                     <li id={'i-' + player}class='i-payerlist'>
                       {player} 
                       <button id={'cast-' + player} class='room-button my-2 mx-2' 
-                        onClick={handleSpeell(player)} 
+                        onClick={() => handleSpeell(player)} 
                         onClickCapture={close}>`</button>
                     </li>
                   :
