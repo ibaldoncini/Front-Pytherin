@@ -105,7 +105,7 @@ export const Register = (props) => {
         }else if(passUser.length < 8 || passUser.length > 54){
             handleErrors(PASS_OUT_OF_BOUNDS, "The password must contain between 8 and 54 characters")
         }else if(!regExpPsw.test(passUser)){
-            handleErrors(PASS_CONSTRAINTS, "The password must contant at least one number and one capital letter")
+            handleErrors(PASS_CONSTRAINTS, "The password must contain at least one number and one capital letter")
         }else if(passUser !== passUser2){
             handleErrors(NOT_EQUAL_PASS, "The passwords are not equal")
         }else if(mailUser === ""){
@@ -153,7 +153,7 @@ export const Register = (props) => {
         <section>
             <div className="container reg-bg py-6 px-6">
                 <Popup className='alert-modal' trigger={<button id='btnModal' style={{display:"none"}}></button>} modal position='right center'>
-                    <p>
+                    <p id='p_register'>
                         Usuario creado, se envió un mail de verificación a {mailUser}
                     </p>
                 </Popup>
