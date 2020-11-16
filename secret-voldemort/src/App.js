@@ -9,7 +9,7 @@ import { LobbyRoom } from './components/room/LobbyRoom';
 import { Game } from './components/game/Game';
 import CreateRoom from './components/room/CreateRoom';
 import JoinRoom from './components/room/JoinRoom';
-import { UpdateProfile } from './components/user/UpdateProfile';
+import { ChangeNickname, ChangePassword } from './components/user/Profile';
 import { ListRoom } from './components/room/ListRoom';
 import { De_won } from './components/game/De_won';
 import { Fo_won } from './components/game/Fo_won';
@@ -58,7 +58,8 @@ class App extends Component {
             <Route exact path='/' component={Login}/>
             <Route exact path='/home' component={Home}/>
             <Route exact path='/registerPage' component={Register}/>
-            <Route exact path='/update_profile' component={UpdateProfile}/>
+            <Route exact path='/change_nickname' component={ChangeNickname}/>
+            <Route exact path='/change_password' component={ChangePassword}/>
             <Route exact path='/createRoom' component={CreateRoom}/>
             <Route exact path='/lobbyRoom/:room' render= {(props) => <LobbyRoom {...props}/>}/>
             <Route exact path='/gameRoom/:room' render= {(props) => <Game {...props}/>}/>

@@ -27,16 +27,6 @@ export function UpdateProfile(props) {
     }
   }, [context])
 
-  // Dialog   
-
-  const [open, setOpen] = useState(false);
-
-
-  const handleClose = () => {
-    setRedirect(true)
-    setOpen(false);
-  };
-
 
   const validateOne = (e) => {
     const field_name = e.target.name
@@ -110,7 +100,6 @@ export function UpdateProfile(props) {
                     email: context.email,
                     icon: context.icon
                   })
-                  setOpen(true)
                   return setGoodResponseDetail(data.message)
                 }
               })
