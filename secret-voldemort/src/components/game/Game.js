@@ -189,13 +189,13 @@ class Game extends React.Component{
                               <Divination room_name={this.state.room_name} minister={this.state.minister} />
                               : <div></div>
                             }
-                            {(this.state.phase === 8 && this.context.email === this.state.minister) ?   
+                            {(this.state.phase === 8 && this.context.username === this.state.minister) ?   
                               <Avadakedavra 
                                 room_name={this.state.room_name}
                                 players={this.state.player_list}
                                 minister={this.state.minister}
                                 token={this.context.token}
-                                email={this.context.email}
+                                email={this.context.username}
                               />
                               : <div></div>
                             }
