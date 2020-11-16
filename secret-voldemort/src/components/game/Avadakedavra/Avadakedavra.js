@@ -31,41 +31,37 @@ export const Avadakedavra = props => {
     }).catch(error => console.log("there was an error: " + error.detail));
   }
 
-  return (
-    (props.phase === 8 && props.email === props.minister) 
-    ? 
-      <Popup 
-        trigger={
-          <button id='trigger' class='panel-button'>
-            Avadakedavra `
-          </button>
-        } modal position='right center'>
-        
-        {close => 
-          <div class='container has-text-centered panel-bg'>
-            <p id='title' class='panel-title'> Choose who to cast the spell on </p>
-            <div class='column is-6 is-offset-3 align-cntr is-vcentered'>
-              <ul>
-                {
-                  props.players.map(p =>
-                  p !== props.minister ?
-                    <li id={'i-' + p}class='i-payerlist'>
-                      {p} 
-                      <button id={'cast-' + p} class='room-button my-2 mx-2' 
-                        onClick={handleSpeell(p)} 
-                        onClickCapture={close}>`</button>
-                    </li>
-                  :
-                    <div></div>
-                  
-                  )
-                }
-              </ul>
-            </div>
+  return ( 
+    <Popup 
+      trigger={
+        <button id='trigger' class='panel-button'>
+          Avadakedavra `
+        </button>
+      } modal position='right center'>
+      
+      {close => 
+        <div class='container has-text-centered panel-bg'>
+          <p id='title' class='panel-title'> Choose who to cast the spell on </p>
+          <div class='column is-6 is-offset-3 align-cntr is-vcentered'>
+            <ul>
+              {
+                props.players.map(p =>
+                p !== props.minister ?
+                  <li id={'i-' + p}class='i-payerlist'>
+                    {p} 
+                    <button id={'cast-' + p} class='room-button my-2 mx-2' 
+                      onClick={()=> handleSpeell(p)} 
+                      onClickCapture={close}>`</button>
+                  </li>
+                :
+                  <div></div>
+                
+                )
+              }
+            </ul>
           </div>
-        }
-      </Popup>
-    :
-      <div id='misspath'>{console.log("The game is not in this phase")}</div>
+        </div>
+      }
+    </Popup>
   );
 }

@@ -135,7 +135,7 @@ class LobbyRoom extends React.Component{
         return(
             <userContext.Consumer>
             {({ token }) => (
-            token && !(this.state.exitexit) ? (this.state.start ? (<Redirect to={{
+            token && !(this.state.exit) ? (this.state.start ? (<Redirect to={{
                 pathname: this.state.redirectPath,
                 state: { room: this.state.room_name }
             }}

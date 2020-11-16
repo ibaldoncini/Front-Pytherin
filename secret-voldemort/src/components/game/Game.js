@@ -185,18 +185,20 @@ class Game extends React.Component{
                             players={this.state.player_list}
                             last_minister={this.state.last_minister}
                             last_director={this.state.last_director}/>
-                             {(this.state.phase === 7 && this.state.minister === this.context.email) ?
+                            {(this.state.phase === 7 && this.state.minister === this.context.email) ?
                               <Divination room_name={this.state.room_name} minister={this.state.minister} />
                               : <div></div>
                             }
-                          <Avadakedavra 
-                            phase={this.state.phase}
-                            room_name={this.state.room_name}
-                            players={this.state.player_list}
-                            minister={this.state.minister}
-                            token={this.context.token}
-                            email={this.context.email}
-                          />
+                            {(this.state.phase === 8 && this.context.email === this.state.minister) ?   
+                              <Avadakedavra 
+                                room_name={this.state.room_name}
+                                players={this.state.player_list}
+                                minister={this.state.minister}
+                                token={this.context.token}
+                                email={this.context.email}
+                              />
+                              : <div></div>
+                            }
                         </div>
                         <div class="column is-2">
                             <Director name={this.state.director} />
