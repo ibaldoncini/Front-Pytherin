@@ -1,22 +1,9 @@
-<<<<<<< Updated upstream:secret-voldemort/instrumented/components/Home.js
-import React, { useContext, useEffect, useState } from 'react';
-import Button from './Button';
-||||||| constructed merge base:secret-voldemort/src/components/Home.js
 import React, { useContext, useState } from 'react';
-<<<<<<< Updated upstream:secret-voldemort/instrumented/components/Home.js
-import Button from './Button';
-=======
-import React, { useContext, useState } from 'react';
-import { Button } from './Button';
->>>>>>> Stashed changes:secret-voldemort/src/components/Home.js
-||||||| constructed merge base:secret-voldemort/src/components/Home.js
-import Button from './Button';
-=======
-import { Button } from './Button';
->>>>>>> Stashed changes:secret-voldemort/src/components/Home.js
+import { Button } from '../../src/components/utils/Button'
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../user-context';
+import { SetContext } from '../../src/components/utils/SetContext';
 
 
 export function Home(props) {
@@ -31,13 +18,7 @@ export function Home(props) {
 
 	useEffect(() => {
         if(context.username === '') {
-            const cookie = Cookies.getJSON("user");
-            if(cookie !== undefined) {
-                context.setUsername(cookie.username);
-                context.setEmail(cookie.email);
-                context.setToken(cookie.token);
-                context.setIcon(cookie.icon);
-            }
+            SetContext("user")
         }
     }, [context])
 	console.log(context.token)

@@ -4,6 +4,7 @@ import { Button } from '../utils/Button';
 import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../../user-context';
+import { SetContext } from '../utils/SetContext';
 
 
 export function Home(props) {
@@ -18,13 +19,7 @@ export function Home(props) {
 
 	useEffect(() => {
 		if(context.username === '') {
-			const cookie = Cookies.getJSON("user");
-			if(cookie !== undefined) {
-				context.setUsername(cookie.username);
-				context.setEmail(cookie.email);
-				context.setToken(cookie.token);
-				context.setIcon(cookie.icon);
-			}
+			SetContext("user")
 		}
 	}, [context])
 	console.log(context.token)
@@ -43,8 +38,9 @@ export function Home(props) {
 								<div class='column'> 
 									<Button id='create' style='home-button is-rounded is-large is-fullwidth m-6' path='/createRoom' text='Create room' type='btncr'/>
 									<Button id='join' style='home-button is-rounded is-large is-fullwidth m-6' path='/listRoom' text='Join room' type='btncr'/>
-                  					<Button id='change'style='home-button is-rounded is-large is-fullwidth m-6' path='/update_profile' text='Change nickname' type='btncn'/>
-									<button id='profile' class='home-button is-rounded is-large is-fullwidth m-6'>Profile</button>
+									<Button id='change_nickname' style='home-button is-rounded is-large is-fullwidth m-6' path='/change_nickname' text='Change nickname' type='btncn'/>
+									<Button id='change_password' style='home-button is-rounded is-large is-fullwidth m-6' path='/change_password' text='Change password' type='btncp'/>
+									<button class='home-button is-rounded is-large is-fullwidth m-6'>Profile</button>
 									<button id='logout' class='home-button is-rounded is-large is-fullwidth m-6' onClick={logOut}>Logout</button>
 								</div>
 							</div> 

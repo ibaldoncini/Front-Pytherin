@@ -4,8 +4,9 @@ import Cookies from 'js-cookie';
 import { Redirect } from 'react-router-dom';
 import Button from './Button';
 import { sendRequest } from '../services/request';
+import { SetContext } from '../../src/components/utils/SetContext';
 
-export function UpdateProfile(props) {
+export function UpdateProfile() {
 
   const context = useContext(userContext);
   const [nickname, setNickname] = useState('');
@@ -13,29 +14,12 @@ export function UpdateProfile(props) {
   const [badResponseDetail, setBadResponseDetail] = useState('')
   const [goodResponseDetail, setGoodResponseDetail] = useState('')
   const [fieldValidation, setFieldValidations] = useState('')
-  const [redirect, setRedirect] = useState(false)
 
   useEffect(() => {
     if(context.username === '') {
-        const cookie = Cookies.getJSON("user");
-        if(cookie !== undefined) {
-            context.setUsername(cookie.username);
-            context.setEmail(cookie.email);
-            context.setToken(cookie.token);
-            context.setIcon(cookie.icon);
-        }
+      SetContext("user")
     }
   }, [context])
-
-  // Dialog   
-
-  const [open, setOpen] = useState(false);
-
-
-  const handleClose = () => {
-    setRedirect(true)
-    setOpen(false);
-  };
 
 
   const validateOne = (e) => {
@@ -110,7 +94,6 @@ export function UpdateProfile(props) {
                     email: context.email,
                     icon: context.icon
                   })
-                  setOpen(true)
                   return setGoodResponseDetail(data.message)
                 }
               })
@@ -126,8 +109,7 @@ export function UpdateProfile(props) {
 
   return(
     <div>
-      { (redirect === false) ?  
-          ((Cookies.get("user") !== undefined) ?
+      { (Cookies.get("user") !== undefined) ?
           <section class='room-bg'>
           <div class='container has-text-centered mt-6'>
             <form onSubmit={handleSubmit}>
@@ -153,9 +135,7 @@ export function UpdateProfile(props) {
           </div>
           </section>
           :
-          <Redirect to='/'/> )
-        :
-        <Redirect to='/'/>
+          <Redirect to='/'/> 
       }
     </div>
   )
