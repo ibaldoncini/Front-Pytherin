@@ -196,5 +196,19 @@ context('Create a new room', () => {
             cy.get("input[value=Cancel]")
         })
     })
+<<<<<<< HEAD
     // Never test end to end, to seek for the response
+=======
+
+    describe("Cancel register", () => {
+        it("Press cancel button, sould render home page", () => {
+            cy.visit("http://localhost:3000/registerPage")
+            cy.get("#cancelBtn").click()
+            cy.wait(500)
+            cy.get('h1').should("be.visible").and("contain","Pytherin Project")
+            cy.get('input[type=submit]').should("be.visible").and("contain", "Login")
+        })
+    })
+
+>>>>>>> Unmanaged bad response bug corrected
 })
