@@ -172,10 +172,10 @@ context('Create a new room', () => {
         .and("contain", 'Lobby')
       cy.get('h3')
         .should('be.visible')
-        .and("contain", 'Jugadores en partida')
+        .and("contain", 'Players in room')
       cy.wait(500)
       cy.get('ul')
-        .eq('0').contains('player1@example.com')
+        .eq('0').contains('player1')
     })
 
   })

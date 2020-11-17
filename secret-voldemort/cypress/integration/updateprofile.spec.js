@@ -4,7 +4,7 @@ context('Update nickname', () => {
   describe('User is not logged in', () => {
     
     it('Try to access the updateprofile page\n [*] should render the login page', () => {
-      cy.visit('http://localhost:3000/update_profile')
+      cy.visit('http://localhost:3000/change_nickname')
       cy.get('h2')
       .contains('To play you need to be logged in')
     })
