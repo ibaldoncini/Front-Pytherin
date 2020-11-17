@@ -1,7 +1,7 @@
 import React from 'react';
 import Popup from 'reactjs-popup';
 import { sendRequest } from '../../../services/request';
-
+import Wand from '../../../images/wand.png' 
 // PROPS {phase, room_name, players, minister, token, email}
 export const Avadakedavra = props => {
 
@@ -34,14 +34,17 @@ export const Avadakedavra = props => {
   return (
       <Popup 
         trigger={
-          <button id='trigger' class='panel-button'>
-            Avadakedavra `
+          <button id='btn-spell' class="btn-spell">
+            <figure class="image is-64x64">
+                <img height='128' width='128' src={ Wand }
+                alt=""/>
+            </figure>
           </button>
         } modal position='right center'>
         
         {close => 
           <div class='container has-text-centered panel-bg'>
-            <p id='title' class='panel-title'> Choose who to cast the spell on </p>
+            <p id='title' class='panel-title'> Choose who to cast Avadakedavra on </p>
             <div class='column is-6 is-offset-3 align-cntr is-vcentered'>
               <ul>
                 {
@@ -51,7 +54,7 @@ export const Avadakedavra = props => {
                       {player} 
                       <button id={'cast-' + player} class='room-button my-2 mx-2' 
                         onClick={() => handleSpeell(player)} 
-                        onClickCapture={close}>`</button>
+                        onClickCapture={close}>Kill</button>
                     </li>
                   :
                     <div></div>
