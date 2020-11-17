@@ -154,7 +154,7 @@ export const Register = (props) => {
             <div className="container reg-bg py-6 px-6">
                 <Popup className='alert-modal' trigger={<button id='btnModal' style={{display:"none"}}></button>} modal position='right center'>
                     <p id='p_register'>
-                        Usuario creado, se envió un mail de verificación a {mailUser}
+                        User created, a verification email was sent to {mailUser}
                     </p>
                 </Popup>
                 <h1 class='reg-title has-text-centered'>User registration</h1>

@@ -2,7 +2,7 @@
   To be able to run these tests it is necessary to install certain dependencies: 
       npm install cypress --save-dev 
    To run these tests use the command and select the test: 
-      npm run test:register
+      npm run test:integration
 */
 context('Create a new room', () => {
     describe('Accessing the register page', () => {
@@ -61,7 +61,7 @@ context('Create a new room', () => {
             cy.visit("http://localhost:3000/registerPage")
             cy.get("#nameUser").type("estebanquito")
             cy.get("#passUser").type("Esteban7")
-            cy.get("#passUser2").type("Esteban3")
+            cy.get("#passUser2").type("Esteban7")
             cy.get("#mailUser").type("sad")
             cy.get("input[id=regBtn]").click()
             /* Should display the next div */ 
@@ -74,7 +74,7 @@ context('Create a new room', () => {
             cy.visit("http://localhost:3000/registerPage")
             cy.get("#nameUser").type("estebanquito")
             cy.get("#passUser").type("Esteban7")
-            cy.get("#passUser2").type("Esteban3")
+            cy.get("#passUser2").type("Esteban7")
             cy.get("#mailUser").type("sad@")
             cy.get("input[id=regBtn]").click()
             /* Should display the next div */ 
@@ -97,7 +97,7 @@ context('Create a new room', () => {
     describe("All but nickname are full", () => {
         it("The nickname input is empty should not register", () => {
             cy.visit("http://localhost:3000/registerPage")
-            cy.get("#passUser2").type("Esteban7")
+            cy.get("#passUser").type("Esteban7")
             cy.get("#passUser2").type("Esteban7")
             cy.get("#mailUser").type("esteban_ae@hotmail.com")
             cy.get("input[id=regBtn]").click()
@@ -110,7 +110,7 @@ context('Create a new room', () => {
         it("The email is already in use should not register", () => {
             cy.visit("http://localhost:3000/registerPage")
             cy.get("#nameUser").type("esteban7")
-            cy.get("#passUser2").type("Esteban7")
+            cy.get("#passUser").type("Esteban7")
             cy.get("#passUser2").type("Esteban7")
             cy.get("#mailUser").type("player0@example.com")
             cy.get("input[id=regBtn]").click()
@@ -123,7 +123,7 @@ context('Create a new room', () => {
         it("The email is already in use should not register", () => {
             cy.visit("http://localhost:3000/registerPage")
             cy.get("#nameUser").type("Esteban7")
-            cy.get("#passUser2").type("Esteban7")
+            cy.get("#passUser").type("Esteban7")
             cy.get("#passUser2").type("Esteban7")
             cy.get("#mailUser").type("player0@example.com")
             cy.get("input[id=regBtn]").click()
@@ -132,13 +132,13 @@ context('Create a new room', () => {
         })
     })
 
-    describe("Nickname length < 8", () => {
-        it("The nickname length < 8 should not register", () => {
+    describe("Nickname length < 3", () => {
+        it("The nickname length < 3 should not register", () => {
             cy.visit("http://localhost:3000/registerPage")
-            cy.get("#nameUser").type("esteban")
+            cy.get("#nameUser").type("es")
+            cy.get("#passUser").type("Esteban7")
             cy.get("#passUser2").type("Esteban7")
-            cy.get("#passUser2").type("Esteban7")
-            cy.get("#mailUser").type("player0@example.com")
+            cy.get("#mailUser").type("player99@example.com")
             cy.get("input[id=regBtn]").click()
             /* Should display the next div */ 
             cy.get("#nickValid")
@@ -150,7 +150,7 @@ context('Create a new room', () => {
         it("The nickname length > 15 should not register", () => {
             cy.visit("http://localhost:3000/registerPage")
             cy.get("#nameUser").type("estebanquito1233321123")
-            cy.get("#passUser2").type("Esteban7")
+            cy.get("#passUser").type("Esteban7")
             cy.get("#passUser2").type("Esteban7")
             cy.get("#mailUser").type("player0@example.com")
             cy.get("input[id=regBtn]").click()
@@ -163,10 +163,11 @@ context('Create a new room', () => {
     describe("Password length > 54", () => {
         it("The password length > 54 should not register", () => {
             cy.visit("http://localhost:3000/registerPage")
-            cy.get("#nameUser")
-            .type("estebanquito123332112311233212312312312313123123123123123123123123123123111111111111111111111111111111111111111")
-            cy.get("#passUser2").type("Esteban7")
-            cy.get("#passUser2").type("Esteban7")
+            cy.get("#nameUser").type("estebanquito")
+            cy.get("#passUser").
+            type("Estebanquito123332112311233212312312312313123123123123123123123123123123111111111111111111111111111111111111111")
+            cy.get("#passUser2")
+            .type("Estebanquito123332112311233212312312312313123123123123123123123123123123111111111111111111111111111111111111111")
             cy.get("#mailUser").type("player0@example.com")
             cy.get("input[id=regBtn]").click()
             /* Should display the next div */ 
@@ -179,8 +180,8 @@ context('Create a new room', () => {
         it("The password length < 8 should not register", () => {
             cy.visit("http://localhost:3000/registerPage")
             cy.get("#nameUser").type("steb")
-            cy.get("#passUser2").type("Esteban7")
-            cy.get("#passUser2").type("Esteban7")
+            cy.get("#passUser").type("Steb7")
+            cy.get("#passUser2").type("Steb7")
             cy.get("#mailUser").type("player0@example.com")
             cy.get("input[id=regBtn]").click()
             /* Should display the next div */ 
@@ -189,17 +190,10 @@ context('Create a new room', () => {
         })
     })
 
-    describe("All ok to register", () => {
-        it("All the fields are filled in correctly, should register", () => {
+    describe("Cancel button is rendered", () => {
+        it("Cancel should be rendered on page", () => {
             cy.visit("http://localhost:3000/registerPage")
-            cy.get("#nameUser").type("Esteban223")
-            cy.get("#passUser2").type("Esteban8")
-            cy.get("#passUser2").type("Esteban8")
-            cy.get("#mailUser").type("player21@example.com")
-            cy.get("input[id=regBtn]").click()
-            /* Should display the next div */ 
-            cy.get("#p_register")
-            .contains("Usuario creado, se envió un mail de verificación a player21@example.com")
+            cy.get("input[value=Cancel]")
         })
     })
 
@@ -213,4 +207,5 @@ context('Create a new room', () => {
         })
     })
 
+    // Never test end to end, to seek for the response
 })
