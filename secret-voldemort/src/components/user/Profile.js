@@ -5,7 +5,7 @@ import { Redirect } from 'react-router-dom';
 import { Button } from '../utils/Button';
 import { sendRequest } from '../../services/request';
 import { SetCookies } from '../utils/SetCookies';
-import { SetContext } from '../utils/SetContext';
+import App from '../../App';
 
 /* 
 * Here are those functions related to the user's profile. 
@@ -25,8 +25,14 @@ export function ChangeNickname() {
 
   useEffect(() => {
     if(context.username === '') {
-      SetContext("user")
-    }
+      const cookie = Cookies.getJSON("user");
+      if(cookie !== undefined) {
+          context.setUsername(cookie.username);
+          context.setEmail(cookie.email);
+          context.setToken(cookie.token);
+          context.setIcon(cookie.icon);
+      }
+  }
   }, [context])
 
   const validateFields = (e) => {
@@ -157,8 +163,14 @@ export function ChangePassword() {
 
 	useEffect(() => {
     if(context.username === '') {
-      SetContext("user")
-    }
+      const cookie = Cookies.getJSON("user");
+      if(cookie !== undefined) {
+          context.setUsername(cookie.username);
+          context.setEmail(cookie.email);
+          context.setToken(cookie.token);
+          context.setIcon(cookie.icon);
+      }
+  }
   }, [context])
 	
 	const handleSubmit = (e) => {
@@ -179,6 +191,9 @@ export function ChangePassword() {
 					const data = await response.json()
 
 					if(!response.ok) {
+            if(data.detail === 'Wrong old password') {
+              return setValidationOldpass(data.detail)
+            }
             return setBadResponseDetail(data.detail)
           } else {
 						return setGoodResponseDetail(data.message)
@@ -246,20 +261,20 @@ export function ChangePassword() {
           <div class='container has-text-centered mt-6'>
             <form onSubmit={handleSubmit}>
               <div class="field">
-                  <label class='room-label'>Old password</label>
+                  <label id='oldpass' class='room-label'>Old password</label>
                   <div>
                     <input type="password" name="Old password" id="Oldpass" 
                       value={oldPassword} onChange={handleOldpass} onBlur={validateFields}/> 
                   </div>
-                  <div class="help is-danger">{validationOldpass}</div>
+                  <div id="valOldpass" class="help is-danger">{validationOldpass}</div>
               </div>
 							<div class="field">
-                  <label class='room-label'>New password</label>
+                  <label id='newpass' class='room-label'>New password</label>
                   <div>
                     <input type="password" name="New password" id="Newpass" 
                       value={newPassword} onChange={handleNewpass} onBlur={validateFields}/> 
                   </div>
-                  <div class="help is-danger">{validationNewpass}</div>
+                  <div id="valNewpass" class="help is-danger">{validationNewpass}</div>
               </div>
               <input class='room-button mx-2 my-2' name='Change' type='submit' value='Change'/>
               <Button style='room-button mx-2 my-2' path='/home' text='Home' type='btncp'/>
@@ -267,9 +282,9 @@ export function ChangePassword() {
             
             <br/>
             {(badResponseDetail !== '') ? 
-              <p class="help is-danger">{badResponseDetail}</p>
+              <p id='badrsp' class="help is-danger">{badResponseDetail}</p>
             :
-            <p class="help is-success">{goodResponseDetail}</p>
+            <p id='goodrsp' class="help is-success">{goodResponseDetail}</p>
             }
             <p class="help is-danger">{}</p>
           </div>
