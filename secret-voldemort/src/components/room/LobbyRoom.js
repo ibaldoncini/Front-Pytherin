@@ -174,7 +174,7 @@ class LobbyRoom extends React.Component{
                             :   
                                 ""
                             }
-                            <input class='room-button is-fullwidth my-2 is-rounded' type='button' value='Salir de partida' onClick={() => this.handleExit(token)}/>
+                            <input id='exitlobby' class='room-button is-fullwidth my-2 is-rounded' type='button' value='Salir de partida' onClick={() => this.handleExit(token)}/>
                         </div>
                     </div>
                 </div>
