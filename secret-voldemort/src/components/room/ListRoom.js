@@ -23,10 +23,6 @@ export const ListRoom = props => {
           document.getElementById("refresh").click()
         }
       } 
-    } else {
-      if (roomList.length === 0) {
-        document.getElementById("refresh").click()
-      }
     }
   }, [context]);
 

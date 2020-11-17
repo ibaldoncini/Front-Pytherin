@@ -43,6 +43,7 @@ class Game extends React.Component{
             redirect: false,
             redirectPath: '',
             modalText: '',
+            isAlive: true
         }
 
         this.update = this.update.bind(this)
@@ -102,6 +103,7 @@ class Game extends React.Component{
                   last_director: data.last_director,
                   phase: data.phase,
                   votes: data.votes,
+                  isAlive: data.player_list.includes(this.context.username)
                 })
               } else {
                   if (data.phase === 5) {
@@ -142,8 +144,12 @@ class Game extends React.Component{
 
 
     render(){
-      if(this.state.redirect || !this.isDead(this.context.username)) {
-        return (<Redirect to={this.state.redirectPath}/>);
+      if(this.state.redirect || !this.state.isAlive) {
+        if (!this.state.isAlive){
+          return(<Redirect to='/killed'/>);
+        } else {
+          return (<Redirect to={this.state.redirectPath}/>);
+        }
       } else {
         return(
             // uncomment once its connected with endpoints
