@@ -126,19 +126,19 @@ export function ChangeNickname() {
                     <input type="text" name="Nickname" id="nameUser" 
                       value={nickname} onChange={handleNickname} onBlur={validateFields}/> 
                   </div>
-                  <div class="help is-danger">{nameValidation}</div>
+                  <div id='nameValidation' class="help is-danger">{nameValidation}</div>
               </div>
-              <input class='room-button mx-2 my-2' name='Update' type='submit' value='Update'/>
-              <Button style='room-button mx-2 my-2' path='/home' text='Home' type='btncn'/>
+              <input class='room-button mx-2 my-2' id='Update' name='Update' type='submit' value='Update'/>
+              <Button style='room-button mx-2 my-2' id='Home' path='/home' text='Home' type='btncn'/>
             </form>
             
             <br/>
             {(badResponseDetail !== '') ? 
-              <p class="help is-danger">{badResponseDetail}</p>
+              <p id='badResponseDetail' class="help is-danger">{badResponseDetail}</p>
             :
-            <p class="help is-success">{goodResponseDetail}</p>
+            <p id='goodResponseDetail' class="help is-success">{goodResponseDetail}</p>
             }
-            <p class="help is-danger">{fieldValidation}</p>
+            <p id='fieldValid' class="help is-danger">{fieldValidation}</p>
           </div>
           </section>
           :
