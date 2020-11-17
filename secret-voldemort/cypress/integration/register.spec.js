@@ -204,10 +204,13 @@ context('Create a new room', () => {
     })
 
     describe("Cancel register", () => {
-        cy.visit("http://localhost:3000/registerPage")
-        cy.get("#cancelBtn").click()
-        cy.get('h1').should("be.visible").and("contain","Pytherin Project")
-        cy.get('input[type=submit]').should("be.visible").and("contain", "Login")
+        it("Press cancel button, sould render home page", () => {
+            cy.visit("http://localhost:3000/registerPage")
+            cy.get("#cancelBtn").click()
+            cy.wait(500)
+            cy.get('h1').should("be.visible").and("contain","Pytherin Project")
+            cy.get('input[type=submit]').should("be.visible").and("contain", "Login")
+        })
     })
 
 })

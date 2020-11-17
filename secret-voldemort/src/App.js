@@ -13,6 +13,7 @@ import { ChangeNickname, ChangePassword } from './components/user/Profile';
 import { De_won } from './components/game/De_won';
 import { Fo_won } from './components/game/Fo_won';
 import { ListRoom } from './components/room/ListRoom';
+import Cookies from 'js-cookie';
 // This is the "main".
 // We use rout for organization of our single page app.
 class App extends Component {
