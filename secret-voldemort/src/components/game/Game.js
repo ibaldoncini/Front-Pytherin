@@ -43,7 +43,8 @@ class Game extends React.Component{
             redirect: false,
             redirectPath: '',
             modalText: '',
-            isAlive: true
+            isAlive: true,
+            chaos_counter: 0
         }
 
         this.update = this.update.bind(this)
@@ -103,6 +104,7 @@ class Game extends React.Component{
                   last_director: data.last_director,
                   phase: data.phase,
                   votes: data.votes,
+                  chaos_counter:data.chaos_counter,
                   isAlive: data.player_list.includes(this.context.username)
                 })
               } else {
