@@ -69,7 +69,6 @@ class App extends Component {
             <Route exact path='/listRoom' component={ListRoom}/>
             <Route exact path='/de_won' component={De_won}/>
             <Route exact path='/fo_won' component={Fo_won}/>
-            <Route exact path='/chaos' component={() => <ChaosCounter chaos_counter='2'/>}/>
           </section>
         </userContext.Provider>
       </Router>
