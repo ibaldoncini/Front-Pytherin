@@ -14,7 +14,7 @@ export const Avadakedavra = props => {
     }
 
     const keys = {
-      target_email: target
+      target_uname: target
     }
     
     const path = `http://localhost:8000/${props.room_name}/cast/avada-kedavra`
