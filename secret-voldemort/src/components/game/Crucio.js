@@ -12,13 +12,12 @@ import '../../popup_custom.css';
 
 /* This component will get the cards to discard  for minister and director */
 
-/* PROPS_NEEDED: room_name, imgSrc, ind  */
+/* PROPS_NEEDED: room_name, players, my_name */
 
 export const Crucio = (props) => {
 
     const context = useContext(userContext);
     const [room_name, setRoomName] = useState('')
-    const [minister, setMinister] = useState('')
     const [modalText, setModalText] = useState('')
     const [player_list, setPlayerList]  = useState([])
     const [loyalty, setLoyalty] = useState(None)
@@ -28,7 +27,6 @@ export const Crucio = (props) => {
 
     useEffect(() => {
        setRoomName(props.room_name)
-       setMinister(props.minister)
        setPlayerList(props.players)
        setMyName(props.my_name)
     }, [props])

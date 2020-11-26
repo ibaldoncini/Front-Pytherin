@@ -220,7 +220,6 @@ class Game extends React.Component{
                           {(this.state.phase === 10 && this.state.minister === this.context.username) ?
                             <Crucio 
                               room_name={this.state.room_name} 
-                              minister={this.state.minister}
                               players = {this.state.player_list}
                               my_name={this.context.username}
                             />
