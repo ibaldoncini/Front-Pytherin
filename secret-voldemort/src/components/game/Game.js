@@ -210,13 +210,13 @@ class Game extends React.Component{
                             : <div></div>
                             
                           }
-                          {//(this.state.phase === 9 && this.state.minister === this.context.username) ?
+                          {(this.state.phase === 9 && this.state.minister === this.context.username) ?
                               <Imperio
                               room_name={this.state.room_name} 
                               my_name={this.context.username}
                               players = {this.state.player_list}
                             />
-                          //: <div></div>
+                          : <div></div>
                           }
                           {(this.state.phase === 10 && this.state.minister === this.context.username) ?
                             <Crucio 
