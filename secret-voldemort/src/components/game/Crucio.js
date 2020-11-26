@@ -23,12 +23,14 @@ export const Crucio = (props) => {
     const [player_list, setPlayerList]  = useState([])
     const [loyalty, setLoyalty] = useState(None)
     const [loyaltyText, setLoyaltyText] = useState("You should cast the spell to see the player's loyalty")
+    const [my_name, setMyName] = useState("")
     
 
     useEffect(() => {
        setRoomName(props.room_name)
        setMinister(props.minister)
-       setPlayerList(props.player_list)
+       setPlayerList(props.players)
+       setMyName(props.my_name)
     }, [props])
 
     /* A simple handle error function */
@@ -51,7 +53,7 @@ export const Crucio = (props) => {
         try {
             const path = "http://127.0.0.1:8000/" + room_name + "/cast/crucio"
             const keys = {
-                username: user
+                target_uname: user
             }
             sendRequest('PUT', headers, keys, path).then(async response => {
                 const data = await response.json();
@@ -92,7 +94,8 @@ export const Crucio = (props) => {
     /* This function is to set the display text and src of the loyalty */
     const showLoyalty = (username, loyalty) => { // check this one with the backstreet boys too
         setLoyaltyText("The player " + username + " is a member of the " + loyalty)
-        const imgLoyalty = (loyalty === "Death eaters") ? Death_Eater : Phoenix 
+        const imgLoyalty = (loyalty === "Death eater") ? Death_Eater : 
+        ((loyalty === "Member of the Fenix Order") ? Phoenix : None)
         setLoyalty(imgLoyalty)
         const list = document.getElementById("list_crucio_disable")
         const buttons = document.getElementsByClassName("disable_btn_crucio")
@@ -103,51 +106,52 @@ export const Crucio = (props) => {
     }
 
     return (
-            <div class="align-cntr">
-                <Popup className='alert-modal' 
-                trigger={<button id='btnModalCrucio' 
-                style={{display:"none"}}></button>} 
-                modal position='right center'>
-                        <p> 
-                            {modalText}
-                        </p>
-                </Popup>
-                <Popup className='crucio-modal' 
-                    trigger={
-                        <button id='btn-spell' class="btn-spell">
-                            <figure class="image is-64x64">
-                                <img height='128' width='128' src={ Wand }
-                                alt=""/>
+        <div class="align-cntr">
+            <Popup className='alert-modal' 
+            trigger={<button id='btnModalCrucio' 
+            style={{display:"none"}}></button>} 
+            modal position='right center'>
+                    <p> 
+                        {modalText}
+                    </p>
+            </Popup>
+            <Popup className='spell-modal' 
+                trigger={
+                    <button id='btn-spell' class="btn-spell">
+                        <figure class="image is-64x64">
+                            <img height='128' width='128' src={ Wand }
+                            alt=""/>
+                        </figure>
+                    </button>
+                }
+                    modal position='right center'
+            > 
+                <div class='container has-text-centered'>
+                    <div class="columns">
+                        <div class="column">
+                            <ul class='list_crucio_disable'>
+                                {player_list.map((player, index) =>
+                                    (player !== my_name) ? (
+                                    <li class='i-playerlist li-spacing-modal'><span>{player}</span> 
+                                        <button 
+                                        class='panel-button disable_btn_crucio' 
+                                        onClick={() => castCrucio(player)}>
+                                        Select</button>
+                                    </li>) : ""
+                                )}
+                            </ul>
+                        </div>
+                        <div class="column">
+                            <p class='panel-title is-medium'>{loyaltyText}</p>
+                            <figure class="image is-128x128 fig-inline">
+                                <img height='128' width='128' src={loyalty} alt="" />
                             </figure>
-                        </button>
-                    }
-                     modal position='right center'
-                > 
-                    <div class='container has-text-centered'>
-                        <div class="columns">
-                            <div class="column">
-                                <ul class='list_crucio_disable'>
-                                    {player_list.map((player, index) =>
-                                        (player !== minister) ? (
-                                        <li class='i-playerlist'>{player} 
-                                            <button 
-                                            class='login-button disable_btn_crucio' 
-                                            onClick={castCrucio(player)}>
-                                            </button>
-                                        </li>) : ""
-                                    )}
-                                </ul>
-                            </div>
-                            <div class="column">
-                                <p class='panel-title is-medium'>{loyaltyText}</p>
-                                <figure class="image is-128x128 fig-inline">
-                                    <img height='128' width='128' src={loyalty} alt="" />
-                                </figure>
-                            </div>
                         </div>
                     </div>
-                    <br /><button class='login-button' onClick={confirmCrucio}>Ready</button>
-                </Popup>
-            </div>
+                </div>
+                <br /><button class='panel-button' 
+                onClick={() => confirmCrucio()}>Ready</button>
+            </Popup>
+        </div>
     );
 }
