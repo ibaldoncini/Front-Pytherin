@@ -57,7 +57,7 @@ export const Crucio = (props) => {
                 if(!response.ok){ 
                     handleMessages(data.detail)
                 }else{
-                    showLoyalty(user,data.player_loyalty) // Check the name of this thing with the backstreet boys
+                    showLoyalty(user,data.loyalty) // Check the name of this thing with the backstreet boys
                 }
             }).catch(error => {
                 handleMessages("Ups! something went wrong.")
