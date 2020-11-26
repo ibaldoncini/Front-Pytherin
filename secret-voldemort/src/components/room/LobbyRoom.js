@@ -6,6 +6,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import '../../custom.css';
 import '../../popup_custom.css';
+import { Chat } from '../Chat';
 
 class LobbyRoom extends React.Component{
     constructor(props){
@@ -177,6 +178,8 @@ class LobbyRoom extends React.Component{
                             <input id='exitlobby' class='room-button is-fullwidth my-2 is-rounded' type='button' value='Salir de partida' onClick={() => this.handleExit(token)}/>
                         </div>
                     </div>
+                    {/* <Chat room_name={this.state.room_name} token={token}/> */}
+                    
                 </div>
             </section>))
             :

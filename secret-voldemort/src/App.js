@@ -14,6 +14,7 @@ import { De_won } from './components/game/De_won';
 import { Fo_won } from './components/game/Fo_won';
 import { ListRoom } from './components/room/ListRoom';
 import { Killed } from './components/game/Killed';
+import { Chat } from "./components/Chat";
 // This is the "main".
 // We use rout for organization of our single page app.
 class App extends Component {
@@ -68,6 +69,7 @@ class App extends Component {
             <Route exact path='/listRoom' component={ListRoom}/>
             <Route exact path='/de_won' component={De_won}/>
             <Route exact path='/fo_won' component={Fo_won}/>
+            <Route exact path='/chat' component={Chat}/>
           </section>
         </userContext.Provider>
       </Router>
