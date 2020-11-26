@@ -18,7 +18,7 @@ import '../../custom.css';
 import '../../popup_custom.css';
 import { Avadakedavra } from './Avadakedavra/Avadakedavra';
 import { Crucio } from './Crucio'
-import { Imperio } from './Imperio'
+//import { Imperio } from './Imperio'
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -211,12 +211,12 @@ class Game extends React.Component{
                             
                           }
                           {//(this.state.phase === 9 && this.state.minister === this.context.username) ?
-                              <Imperio
+                              /*<Imperio
                               room_name={this.state.room_name} 
                               minister={this.state.minister}
                               players = {this.state.player_list}
                               my_name= {this.context.username}
-                            />
+                            />*/
                           //: <div></div>
                           }
                           {(this.state.phase === 10 && this.state.minister === this.context.username) ?
