@@ -28,11 +28,11 @@ export const Imperio = (props) => {
 
     /* A simple handle error function */
     const handleMessages = (message) => {
-        let btnDivination = document.getElementById("btn-spell")
-        btnDivination.click()
         let btnModal = document.getElementById("btnModalImperio")
-        setModalText(message)
-        btnModal.click()
+        if(btnModal !== null){
+            btnModal.click()
+            setModalText(message)
+        }
     }
 
 
@@ -44,7 +44,7 @@ export const Imperio = (props) => {
             "Content-Type": "application/json"
         }
         try {
-            const path = "http://127.0.0.1:8000/" + room_name + "/cast/imperio"
+            const path = "http://127.0.0.1:8000/" + room_name + "/cast/imperius"
             const keys = {
                 target_uname: user
             }
@@ -53,6 +53,7 @@ export const Imperio = (props) => {
                 if(!response.ok){ 
                     handleMessages(data.detail)
                 }else{
+                    // This is in case of something wrong with server, the buttons will dissapear
                     const list = document.getElementById("list_imperio_disable")
                     const buttons = document.getElementsByClassName("disable_btn_imperio")
                     list.style.display = "None"
@@ -91,7 +92,7 @@ export const Imperio = (props) => {
             > 
                 <div class='container has-text-centered'>
                     <label>Select the next minister</label>
-                    <ul class='list_imperio_disable'>
+                    <ul id='list_imperio_disable' class='list_imperio_disable'>
                         {player_list.map((player, index) =>
                             (player !== my_name) ? (
                             <li class='i-playerlist li-spacing-modal'><span>{player}</span> 

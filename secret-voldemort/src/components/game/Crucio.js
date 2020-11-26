@@ -33,11 +33,11 @@ export const Crucio = (props) => {
 
     /* A simple handle error function */
     const handleMessages = (message) => {
-        let btnDivination = document.getElementById("btn-spell")
-        btnDivination.click()
         let btnModal = document.getElementById("btnModalCrucio")
         setModalText(message)
-        btnModal.click()
+        if(btnModal !== null){
+            btnModal.click()
+        }   
     }
 
 
@@ -58,10 +58,10 @@ export const Crucio = (props) => {
                 if(!response.ok){ 
                     handleMessages(data.detail)
                 }else{
-                    showLoyalty(user,data.player_loyalty) // Check the name of this thing with the backstreet boys
+                    showLoyalty(user,data.loyalty) // Check the name of this thing with the backstreet boys
                 }
             }).catch(error => {
-                handleMessages("Ups! something went wrong.")
+                handleMessages("Ups! something went wrong. " + error)
             })
         }catch(e){
             handleMessages("Error getting data from the current match")
@@ -76,31 +76,45 @@ export const Crucio = (props) => {
             "Content-Type": "application/json"
         }
         try {
-            const path = "http://127.0.0.1:8000/" + room_name + "/cast/confirm_crucio"
+            const path = "http://127.0.0.1:8000/" + room_name + "/cast/confirm-crucio"
             sendRequest('PUT', headers, {}, path).then(async response => {
                 const data = await response.json();
                 if(!response.ok){  // nothing will be displayed if the response is ok.
                     handleMessages(data.detail)
                 }
             }).catch(error => {
-                handleMessages("Ups! something went wrong.")
+                handleMessages("Ups! something went wrong." + error) 
             })
         }catch(e){
             handleMessages("Error getting data from the current match")
         }
     }
     /* This function is to set the display text and src of the loyalty */
-    const showLoyalty = (username, loyalty) => { // check this one with the backstreet boys too
-        setLoyaltyText("The player " + username + " is a member of the " + loyalty)
+    const showLoyalty = (username, loyalty) => {
         const imgLoyalty = (loyalty === "Death eater") ? Death_Eater : 
         ((loyalty === "Member of the Fenix Order") ? Phoenix : None)
-        setLoyalty(imgLoyalty)
-        const list = document.getElementById("list_crucio_disable")
-        const buttons = document.getElementsByClassName("disable_btn_crucio")
+
+        // Hide the list
+        const list = document.getElementById("list_crucio_disable") 
         list.style.display = "None"
+
+        // Hide the column that contains the list
+        const list_off = document.getElementById("list_crucio_hide") 
+        list_off.style.display = "None"
+
+        // Hide the crucio "Select" buttons
+        const buttons = document.getElementsByClassName("disable_btn_crucio") 
         Array.from(buttons).forEach(element => {
             element.style.display = "None"
           });
+          
+        // To show the "Ready" button
+        const btn_confirm_crucio = document.getElementById("btn_confirm_crucio")
+        btn_confirm_crucio.classList.remove("hidden");
+
+        // Set display text and image
+        setLoyaltyText("The player " + username + " is a member of the " + loyalty)
+        setLoyalty(imgLoyalty)
     }
 
     return (
@@ -126,8 +140,8 @@ export const Crucio = (props) => {
             > 
                 <div class='container has-text-centered'>
                     <div class="columns">
-                        <div class="column">
-                            <ul class='list_crucio_disable'>
+                        <div id='list_crucio_hide' class="column">
+                            <ul id='list_crucio_disable' class='list_crucio_disable'>
                                 {player_list.map((player, index) =>
                                     (player !== my_name) ? (
                                     <li class='i-playerlist li-spacing-modal'><span>{player}</span> 
@@ -147,7 +161,7 @@ export const Crucio = (props) => {
                         </div>
                     </div>
                 </div>
-                <br /><button class='panel-button' 
+                <br /><button id='btn_confirm_crucio' class='panel-button hidden' 
                 onClick={() => confirmCrucio()}>Ready</button>
             </Popup>
         </div>
