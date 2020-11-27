@@ -17,6 +17,7 @@ import 'reactjs-popup/dist/index.css';
 import '../../custom.css';
 import '../../popup_custom.css';
 import { Avadakedavra } from './Avadakedavra/Avadakedavra';
+import { Expelliarmus } from './Expelliarmus';
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -223,11 +224,23 @@ class Game extends React.Component{
                       ? <DiscardPanel minister={this.state.minister} 
                         director={this.state.director} 
                         room_name={this.state.room_name} 
-                        phase = {this.state.phase} /> 
+                        phase = {this.state.phase}
+                        de_procs = {this.state.de_procs} 
+                        /> 
                       :
                       <div></div>
                     }
                   </div>    
+                  <div class='container align-cntr'>   
+                    { (this.state.phase === 10 && this.state.minister == this.context.username) ?
+                      <Expelliarmus minister={this.state.minister} 
+                        director={this.state.director} 
+                        room_name={this.state.room_name} 
+                      />
+                      :
+                      {}
+                    }
+                  </div>
               </section>
               :
                 <Redirect to='/'/>
