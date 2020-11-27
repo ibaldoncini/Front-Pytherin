@@ -11,6 +11,7 @@ export const DiscardPanel = (props) => {
     const [room_name, setRoomName] = useState('');
     const [minister, setMinister] = useState('');
     const [director, setDirector] = useState('');
+    const [de_procs, setDEprocs] = useState('');
     const [phase, setPhase] = useState(-1);
     const [cards, setCards] = useState('');
 
@@ -19,6 +20,7 @@ export const DiscardPanel = (props) => {
         setMinister(props.minister);
         setDirector(props.director);
         setPhase(props.phase);
+        setDEprocs(props.de_procs);
     },[props]);
 
     // Getting into the server for card getting
@@ -59,14 +61,38 @@ export const DiscardPanel = (props) => {
             <p class='game-title align-cntr'>Discard</p>
             <div class="columns">
                 {               
-                    
-                    showCards() === false ? console.log("DIO FALSOOO")
+                    (de_procs < 5) ?
+                        showCards() === false ? console.log("never")
+                        :
+                            cards.split(',').map((card, index) =>
+                            <div class='column is-4 align-cntr'> 
+                                <Card ind={index} room_name={room_name}
+                                    image={card} />
+                            </div>)
                     :
-                    cards.split(',').map((card, index) =>
-                    <div class='column is-4 align-cntr'> 
-                        <Card ind={index} room_name={room_name}
-                            image={card} />
-                    </div>)
+                    (director === context.username) ?
+                        showCards() === false ? console.log("never")
+                            :
+                                (<div>
+                                {cards.split(',').map((card, index) =>
+                                    <div class='column is-4 align-cntr'> 
+                                        <Card ind={index} room_name={room_name}
+                                            image={card} />
+                                    </div>)}
+                                    <div> 
+                                        <Card ind={3} room_name={room_name}/>
+                                    </div>
+                                </div>
+                                )
+                    :
+                    showCards() === false ? console.log("never")
+                        :
+                            cards.split(',').map((card, index) =>
+                            <div class='column is-4 align-cntr'> 
+                                <Card ind={index} room_name={room_name}
+                                    image={card} />
+                            </div>)
+                            
                 }   
                 
                 
