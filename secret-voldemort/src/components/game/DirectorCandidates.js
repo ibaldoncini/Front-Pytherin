@@ -31,7 +31,7 @@ export function DirectorCandidates(props) {
   
   const handleSelection = (e) => {
     const selectedUser = e.target.name;
-    const keys = {director_email: selectedUser};
+    const keys = {director_uname: selectedUser};
     const authorizationToken = "Bearer " + context.token;
     const header = {
       Accept: "application/json",

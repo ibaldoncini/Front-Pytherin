@@ -16,6 +16,7 @@ $bluegreen: hsla(184, 72%, 17%, 1);
 
 $card-header-color: $black
 $body-background-color: $black
+$progress-value-background-color: $gold
 // Import only what you need from Bulma
 
 @import "../../node_modules/bulma/bulma.sass";
@@ -29,6 +30,7 @@ $body-background-color: $black
 @import '../../node_modules/bulma/sass/layout/hero.sass';
 @import '../../node_modules/bulma/sass/layout/section.sass';
 @import '../../node_modules/bulma/sass/components/card.sass'
+@import '../../node_modules/bulma/sass/elements/progress.sass';
 
 //HEADER
 .header-img 
@@ -186,3 +188,14 @@ $body-background-color: $black
     background-color: $black;
 .container-border
     border-color: $gold;
+
+.chaos-card
+    @extend .card
+    height: fit-conten
+    background-color: $black
+    
+.chaos-text
+    @extend .title
+    color: $gold
+    font-size: 25px
+        

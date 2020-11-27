@@ -17,6 +17,7 @@ import 'reactjs-popup/dist/index.css';
 import '../../custom.css';
 import '../../popup_custom.css';
 import { Avadakedavra } from './Avadakedavra/Avadakedavra';
+import { ChaosCounter } from "./Chaos";
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -43,7 +44,8 @@ class Game extends React.Component{
             redirect: false,
             redirectPath: '',
             modalText: '',
-            isAlive: true
+            isAlive: true,
+            chaos: 0
         }
 
         this.update = this.update.bind(this)
@@ -103,6 +105,7 @@ class Game extends React.Component{
                   last_director: data.last_director,
                   phase: data.phase,
                   votes: data.votes,
+                  chaos:data.chaos,
                   isAlive: data.player_list.includes(this.context.username)
                 })
               } else {
@@ -166,6 +169,7 @@ class Game extends React.Component{
                       <h1 class="game-title is-large"> {this.state.room_name}</h1>
                           <Dashboard proclam_de = {this.state.de_procs} 
                           proclam_op={this.state.fo_procs} />
+                      <ChaosCounter token={this.context.token} room_name={this.state.room_name} chaos={this.state.chaos} />         
                   </div>
                   <div class='container panel-bg'> 
                     <div class="columns">
@@ -227,7 +231,7 @@ class Game extends React.Component{
                       :
                       <div></div>
                     }
-                  </div>    
+                  </div>   
               </section>
               :
                 <Redirect to='/'/>
