@@ -20,6 +20,7 @@ import { Avadakedavra } from './Avadakedavra/Avadakedavra';
 import { Crucio } from './Crucio'
 import { Imperio } from './Imperio'
 import { ChaosCounter } from "./Chaos";
+import { Expelliarmus } from './Expelliarmus';
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -248,7 +249,9 @@ class Game extends React.Component{
                       ? <DiscardPanel minister={this.state.minister} 
                         director={this.state.director} 
                         room_name={this.state.room_name} 
-                        phase = {this.state.phase} /> 
+                        phase = {this.state.phase}
+                        de_procs = {this.state.de_procs} 
+                        /> 
                       :
                       <div></div>
                     }
