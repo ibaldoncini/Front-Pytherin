@@ -31,7 +31,10 @@ class LobbyRoom extends React.Component{
     handleErrors(detail){
         this.setState({ modalText: detail })
         let btnModal = document.getElementById("btnModal")
-        btnModal.click()
+        if(btnModal != null){
+            btnModal.click()
+        }
+        
     }
 
     getGameState(headers, path){

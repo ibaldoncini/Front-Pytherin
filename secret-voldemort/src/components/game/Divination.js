@@ -116,7 +116,7 @@ export const Divination = (props) => {
                      modal position='right center'
                      onOpen={castDivination}
                      > 
-                    {(cards.length != 0) ? 
+                    {(cards.length !== 0) ? 
                         cards.map((card, index) => (getCard(card)))
                         : <p></p>
                     }

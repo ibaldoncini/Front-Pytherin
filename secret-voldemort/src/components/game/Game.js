@@ -17,6 +17,8 @@ import 'reactjs-popup/dist/index.css';
 import '../../custom.css';
 import '../../popup_custom.css';
 import { Avadakedavra } from './Avadakedavra/Avadakedavra';
+import { Crucio } from './Crucio'
+import { Imperio } from './Imperio'
 import { ChaosCounter } from "./Chaos";
 
 const OTHER_ERROR = -1;
@@ -198,10 +200,10 @@ class Game extends React.Component{
                             players={this.state.player_list}
                             last_minister={this.state.last_minister}
                             last_director={this.state.last_director}/>
-                             {(this.state.phase === 7 && this.state.minister === this.context.username) ?
-                              <Divination room_name={this.state.room_name} minister={this.state.minister} />
-                              : <div></div>
-                            }
+                            {(this.state.phase === 7 && this.state.minister === this.context.username) ?
+                            <Divination room_name={this.state.room_name} minister={this.state.minister} />
+                            : <div></div>
+                          }
                           {(this.state.phase === 8 && this.state.minister === this.context.username) ?
                             <Avadakedavra 
                               room_name={this.state.room_name}
@@ -211,6 +213,22 @@ class Game extends React.Component{
                             />
                             : <div></div>
                             
+                          }
+                          {(this.state.phase === 9 && this.state.minister === this.context.username) ?
+                              <Imperio
+                              room_name={this.state.room_name} 
+                              my_name={this.context.username}
+                              players = {this.state.player_list}
+                            />
+                          : <div></div>
+                          }
+                          {(this.state.phase === 10 && this.state.minister === this.context.username) ?
+                            <Crucio 
+                              room_name={this.state.room_name} 
+                              players = {this.state.player_list}
+                              my_name={this.context.username}
+                            />
+                            : <div></div>
                           }
                         </div>
                         <div class="column is-2">
