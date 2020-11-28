@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import  Death_Eater  from '../../images/de.jpg';
 import Phoenix_Order from '../../images/po.jpg';
 import Crucio from '../../images/crucio.jpg';
-import Imperio from '../../images/crucio.jpg';
+import Imperio from '../../images/imperio.jpg';
 import Expelliarmus from '../../images/castle1.jpg';
 import Avada from '../../images/avada.jpg';
+import Divination from '../../images/divination.jpg';
 import None_po from '../../images/empty_po.jpg';
-import None_de from '../../images/empty_de.jpg'
+import None_de from '../../images/empty_de.jpg';
+import Win_po_card from '../../images/win_po_card.jpg';
+import Win_de_card from '../../images/win_de_card.jpg';
+
 export const Piece = props => {
    
     const [img, setImg] = useState('');
@@ -25,6 +29,12 @@ export const Piece = props => {
             card = Expelliarmus
         }else if (props.imgSrc === 'avada'){
             card = Avada
+        }else if(props.imgSrc === 'divination'){
+            card = Divination
+        }else if(props.imgSrc === 'win_po'){
+            card = Win_po_card
+        }else if(props.imgSrc === 'win_de'){
+            card = Win_de_card
         }else{
             if(props.faction === 'phoenix'){
                 card = None_po
@@ -32,8 +42,6 @@ export const Piece = props => {
                 card = None_de
             }
         }
-       /*const card = (props.imgSrc === "death") ? Death_Eater : 
-        ((props.imgSrc === 'phoenix') ? Phoenix_Order : None)*/
 
         setImg(card);
     }, [props])

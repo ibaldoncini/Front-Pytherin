@@ -27,6 +27,7 @@ class Game extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            n_of_players: 5, // This is the Total number of players
             room_name : '',
             my_role : '',
             voldemort: '',
@@ -92,6 +93,7 @@ class Game extends React.Component{
               if(data.phase !== 5 && data.phase !== 6) {
                 this.setState({
                   room_name: room,
+                  n_of_players: data.n_of_players, // This is the Total number of players
                   my_role: data.my_role,
                   voldemort: data.voldemort,
                   death_eaters: data.death_eaters,
@@ -167,7 +169,7 @@ class Game extends React.Component{
                     </Popup>
                       <h1 class="game-title is-large"> {this.state.room_name}</h1>
                           <Dashboard proclam_de = {this.state.de_procs} 
-                          proclam_op={this.state.fo_procs} />
+                          proclam_op={this.state.fo_procs} n_of_players={this.state.n_of_players}/>
                   </div>
                   <div class='container panel-bg'> 
                     <div class="columns">
