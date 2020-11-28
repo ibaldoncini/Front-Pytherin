@@ -17,12 +17,9 @@ import 'reactjs-popup/dist/index.css';
 import '../../custom.css';
 import '../../popup_custom.css';
 import { Avadakedavra } from './Avadakedavra/Avadakedavra';
-<<<<<<< HEAD
 import { Crucio } from './Crucio'
 import { Imperio } from './Imperio'
 import { ChaosCounter } from "./Chaos";
-=======
->>>>>>> Implemented logic,need to test it.
 import { Expelliarmus } from './Expelliarmus';
 
 const OTHER_ERROR = -1;
@@ -60,7 +57,7 @@ class Game extends React.Component{
     }
     static contextType = userContext;
     // uncomment when the endpoint is done.
-
+    
     handleMessages(status, detail){
         let btnModal = document.getElementById('btnModal')
         switch (status) { 
@@ -252,8 +249,8 @@ class Game extends React.Component{
                       ? <DiscardPanel minister={this.state.minister} 
                         director={this.state.director} 
                         room_name={this.state.room_name} 
-                        phase = {this.state.phase}
-                        de_procs = {this.state.de_procs} 
+                        phase={this.state.phase}
+                        de_procs={this.state.de_procs}
                         /> 
                       :
                       <div></div>

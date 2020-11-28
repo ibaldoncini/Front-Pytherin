@@ -38,6 +38,7 @@ export const DiscardPanel = (props) => {
             if(!response.ok){ 
                console.log(data.detail.toString());
             }else{ 
+                console.log(data.cards.toString())
                 setCards(data.cards.toString());
             }
         }).catch(error => {
@@ -60,29 +61,17 @@ export const DiscardPanel = (props) => {
         <div class='container align-cntr my-6 py-3'> 
             <p class='game-title align-cntr'>Discard</p>
             <div class="columns">
-                {               
-                    (de_procs < 5) ?
-                        showCards() === false ? console.log("never")
-                        :
-                            cards.split(',').map((card, index) =>
-                            <div class='column is-4 align-cntr'> 
-                                <Card ind={index} room_name={room_name}
-                                    image={card} />
-                            </div>)
-                    :
-                    (director === context.username) ?
+                {   
+                    (director === context.username && de_procs >= 5) ?
                         showCards() === false ? console.log("never")
                             :
-                                (<div>
-                                {cards.split(',').map((card, index) =>
-                                    <div class='column is-4 align-cntr'> 
-                                        <Card ind={index} room_name={room_name}
-                                            image={card} />
-                                    </div>)}
-                                    <div> 
-                                        <Card ind={3} room_name={room_name}/>
-                                    </div>
-                                </div>
+                                (
+                                /* Insert one more index since the Expelliarmus was enabled */
+                                cards.concat(',Expelliarmus').split(',').map((card, index) =>
+                                <div class='column is-4 align-cntr'>
+                                <Card ind={(index === 2) ? (index+1) : index} room_name={room_name}
+                                    image={card} />
+                                </div>)
                                 )
                     :
                     showCards() === false ? console.log("never")
