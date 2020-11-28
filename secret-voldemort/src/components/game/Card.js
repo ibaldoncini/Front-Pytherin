@@ -55,7 +55,7 @@ export const Card = (props) => {
     return (
         <figure class="image fig-inline-block">
             <img height='32' onClick={async () => {discard(index)}} 
-            width='32' src={ imgSrc } alt=""/>
+            width='32' src={ (index !== 3) ? imgSrc : Cancel } alt=""/>
         </figure>
     );
 }

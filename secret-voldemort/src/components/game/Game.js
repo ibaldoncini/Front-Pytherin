@@ -54,7 +54,7 @@ class Game extends React.Component{
     }
     static contextType = userContext;
     // uncomment when the endpoint is done.
-
+    
     handleMessages(status, detail){
         let btnModal = document.getElementById('btnModal')
         switch (status) { 
@@ -242,21 +242,18 @@ class Game extends React.Component{
                       ? <DiscardPanel minister={this.state.minister} 
                         director={this.state.director} 
                         room_name={this.state.room_name} 
-                        phase = {this.state.phase}
-                        de_procs = {this.state.de_procs} 
+                        phase={this.state.phase}
+                        de_procs={this.state.de_procs}
                         /> 
                       :
                       <div></div>
                     }
                   </div>    
                   <div class='container align-cntr'>   
-                    { (this.state.phase === 11 && this.state.minister == this.context.username) ?
-                      <Expelliarmus minister={this.state.minister} 
-                        director={this.state.director} 
-                        room_name={this.state.room_name} 
-                      />
+                    { (this.state.phase === 11 && this.state.minister === this.context.username) ?
+                      <Expelliarmus room_name={this.state.room_name}/>
                       :
-                      null
+                      <div></div>
                     }
                   </div>
               </section>
