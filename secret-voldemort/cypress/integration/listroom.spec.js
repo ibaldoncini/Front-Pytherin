@@ -68,7 +68,7 @@ context("See the list of created room and select one to join", () =>{
         cy.get('button[id=refresh]').click()
 
         // looks for room called JoinTEST1
-        const roomtag = cy.get('div[id=JoinTEST44join]')
+        const roomtag = cy.get('div[id=JoinTEST44]')
           .contains('JoinTEST44')
 
         //enter to the room
@@ -97,7 +97,7 @@ context("See the list of created room and select one to join", () =>{
         cy.get('input[type=submit]').click()
         cy.get('button[id=join]').click()
         cy.get('button[id=refresh]').click()
-        cy.get('button[id=JoinTEST44]').click()
+        cy.get('button[id=JoinTEST44join]').click()
         cy.get('h1[id=welcome]').contains('Hello notverifiedtest')
         
       })
