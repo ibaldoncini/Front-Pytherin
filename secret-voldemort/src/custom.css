@@ -79,3 +79,7 @@
 .hidden{
     display: None;
 }
+
+.dashboard_card{
+    border: 1px solid #0c464b;
+}
