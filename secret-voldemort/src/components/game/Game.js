@@ -250,13 +250,13 @@ class Game extends React.Component{
                     }
                   </div>    
                   <div class='container align-cntr'>   
-                    { (this.state.phase === 10 && this.state.minister == this.context.username) ?
+                    { (this.state.phase === 11 && this.state.minister == this.context.username) ?
                       <Expelliarmus minister={this.state.minister} 
                         director={this.state.director} 
                         room_name={this.state.room_name} 
                       />
                       :
-                      {}
+                      null
                     }
                   </div>
               </section>
