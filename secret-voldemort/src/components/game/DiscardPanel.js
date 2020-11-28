@@ -34,7 +34,7 @@ export const DiscardPanel = (props) => {
             const data = await response.json();
             console.log("Aca va la response perrix: " + data.cards);
             if(!response.ok){ 
-               console.log(data.detail.toString());
+               alert(data.detail.toString());
             }else{ 
                 setCards(data.cards.toString());
             }

@@ -4,17 +4,12 @@ import { Piece } from './Piece';
 
 /* This component will show the proclamations for each team*/
 /* PROPS_NEEDED: proclam_de, proclam_op */
-export const Dashboard = (props) => {
-    const [proclam_de, setProclamDe] = useState(-1)
-    const [proclam_op, setProclamOp] = useState(-1)
-
-    useEffect(() => {
-        setProclamDe(props.proclam_de);
-        setProclamOp(props.proclam_op);
-    }, [props])
-
+export const Dashboard_Test = (props) => {
+    const [proclam_de, setProclamDe] = useState(0)
+    const [proclam_op, setProclamOp] = useState(0)
+    
     const getPieces = (img) => {
-        var to = 0
+        /*var to = 0
         var cantProclam = 0
         var components = [];
         if(img === 'death'){
@@ -30,7 +25,8 @@ export const Dashboard = (props) => {
             }else{
                 components.push("none")
             }
-        }
+        }*/
+        var components = ['death', 'phoenix', 'crucio', 'empty', 'imperio', 'avada']
         return components;
     }
     return (
@@ -42,7 +38,7 @@ export const Dashboard = (props) => {
                         <div class='columns'>
                             {
                                 getPieces('death').map( (name) => 
-                                    <Piece imgSrc = {name} />
+                                    <Piece imgSrc = {name} faction='death'/>
                                 )
                             }
                         </div>
@@ -54,7 +50,7 @@ export const Dashboard = (props) => {
                         <div class='columns'>
                         {
                             getPieces('phoenix').map( name =>
-                                <Piece imgSrc = { name } />
+                                <Piece imgSrc = { name } faction='phoenix' />
                             )
                         }
                         </div>
