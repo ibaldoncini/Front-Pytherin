@@ -122,10 +122,14 @@ context('Create a new room', () => {
     describe("Create user with nick already in use", () => {
         it("The email is already in use should not register", () => {
             cy.visit("http://localhost:3000/registerPage")
+<<<<<<< HEAD
             cy.get("#nameUser").type("Esteban7")
+=======
+            cy.get("#nameUser").type("player0")
+>>>>>>> 3d0e95d25957ad065b9212191795b535ad945ecc
             cy.get("#passUser").type("Esteban7")
             cy.get("#passUser2").type("Esteban7")
-            cy.get("#mailUser").type("player0@example.com")
+            cy.get("#mailUser").type("player43@example.com")
             cy.get("input[id=regBtn]").click()
             /* Should display the next div */ 
             cy.get("#allEmptyValid").contains("* Username already registered")
@@ -207,4 +211,5 @@ context('Create a new room', () => {
         })
     })
 
+    // Never test end to end, to seek for the response
 })
