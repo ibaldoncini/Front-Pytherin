@@ -15,10 +15,6 @@ import { Fo_won } from './components/game/Fo_won';
 import { ListRoom } from './components/room/ListRoom';
 import { Killed } from './components/game/Killed';
 import { ChaosCounter } from './components/game/Chaos';
-
-// REMOVE THE NEX IMPORT IF APPEAR
-import { Dashboard_Test } from './components/game/Dashboard_Test'
-
 // This is the "main".
 // We use rout for organization of our single page app.
 class App extends Component {
@@ -73,7 +69,6 @@ class App extends Component {
             <Route exact path='/listRoom' component={ListRoom}/>
             <Route exact path='/de_won' component={De_won}/>
             <Route exact path='/fo_won' component={Fo_won}/>
-            <Route exact path='/dboard' component={Dashboard_Test}/> {/* THIS IS NOT PART OF THE GAME, REMOVE.*/} 
           </section>
         </userContext.Provider>
       </Router>
