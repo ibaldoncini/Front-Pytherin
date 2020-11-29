@@ -95,16 +95,18 @@ class LobbyRoom extends React.Component{
         }
         const room = this.state.room_name
         const path = "http://127.0.0.1:8000/" + room.toString() + "/start";
-        sendRequest("PUT", headers, {}, path).then(async response => {
-            const data = await response.json()
-            if(!response.ok){ 
-                this.handleErrors(data.detail)
-            }else{
-                this.setState({start: true})
-            }
-        }).catch(error => {
-            this.handleErrors("There was an error at" + path.toString())
-        })
+        sendRequest("PUT", headers, {}, path)
+            .then(async response => {
+                const data = await response.json()
+                if(!response.ok){ 
+                    this.handleErrors(data.detail)
+                }else{
+                    this.setState({start: true})
+                }
+            })
+            .catch(error => {
+                this.handleErrors("There was an error at" + path.toString())
+            })
     }
 
 

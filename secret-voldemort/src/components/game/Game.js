@@ -20,6 +20,7 @@ import { Avadakedavra } from './Avadakedavra/Avadakedavra';
 import { Crucio } from './Crucio'
 import { Imperio } from './Imperio'
 import { ChaosCounter } from "./Chaos";
+import { Expelliarmus } from './Expelliarmus';
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -56,7 +57,7 @@ class Game extends React.Component{
     }
     static contextType = userContext;
     // uncomment when the endpoint is done.
-
+    
     handleMessages(status, detail){
         let btnModal = document.getElementById('btnModal')
         switch (status) { 
@@ -244,15 +245,25 @@ class Game extends React.Component{
                   </div>
                   <div class='container align-cntr'>   
                     {((this.state.phase === 3 && this.state.minister === this.context.username) 
-                      || (this.state.phase === 4 && this.state.director === this.context.username)) 
+                      || (this.state.phase === 4 && this.state.director === this.context.username)
+                      || (this.state.phase === 12 && this.state.director === this.context.username)) 
                       ? <DiscardPanel minister={this.state.minister} 
                         director={this.state.director} 
                         room_name={this.state.room_name} 
-                        phase = {this.state.phase} /> 
+                        phase={this.state.phase}
+                        de_procs={this.state.de_procs}
+                        /> 
                       :
                       <div></div>
                     }
-                  </div>   
+                  </div>  
+                  <div class='container align-cntr'>   
+                    { (this.state.phase === 11 && this.state.minister === this.context.username) ?
+                      <Expelliarmus room_name={this.state.room_name}/>
+                      :
+                      <div></div>
+                    }
+                  </div> 
               </section>
               :
                 <Redirect to='/'/>
