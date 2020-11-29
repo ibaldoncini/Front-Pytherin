@@ -238,7 +238,8 @@ class Game extends React.Component{
                   </div>
                   <div class='container align-cntr'>   
                     {((this.state.phase === 3 && this.state.minister === this.context.username) 
-                      || (this.state.phase === 4 && this.state.director === this.context.username)) 
+                      || (this.state.phase === 4 && this.state.director === this.context.username)
+                      || (this.state.phase === 12 && this.state.director === this.context.username)) 
                       ? <DiscardPanel minister={this.state.minister} 
                         director={this.state.director} 
                         room_name={this.state.room_name} 
