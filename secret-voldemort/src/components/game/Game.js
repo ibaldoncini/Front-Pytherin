@@ -17,6 +17,7 @@ import 'reactjs-popup/dist/index.css';
 import '../../custom.css';
 import '../../popup_custom.css';
 import { Avadakedavra } from './Avadakedavra/Avadakedavra';
+import { Chat } from "../utils/Chat";
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -43,7 +44,8 @@ class Game extends React.Component{
             redirect: false,
             redirectPath: '',
             modalText: '',
-            isAlive: true
+            isAlive: true,
+            chat: []
         }
 
         this.update = this.update.bind(this)
@@ -103,6 +105,7 @@ class Game extends React.Component{
                   last_director: data.last_director,
                   phase: data.phase,
                   votes: data.votes,
+                  chat: data.messages,
                   isAlive: data.player_list.includes(this.context.username)
                 })
               } else {
@@ -227,6 +230,14 @@ class Game extends React.Component{
                       :
                       <div></div>
                     }
+                    <Chat room_name={this.state.room_name} 
+                      messages={this.state.chat} 
+                      token={token}
+                      name={this.context.username}
+                      minister={this.state.minister}
+                      director={this.state.director}
+                      phase={this.state.phase}
+                    />
                   </div>    
               </section>
               :

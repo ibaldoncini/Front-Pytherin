@@ -9,11 +9,11 @@ export const Chat = props => {
   const sendMessage = e => {
     e.preventDefault()
     const method = 'PUT'
-    const path = `http://localhost:8000/${props.room_name}`
+    const path = `http://localhost:8000/${props.room_name}/chat`
     const body = {msg: text}
     const header = {
       Accept: "application/json",
-      Authorize: 'Bearer ' + props.token,
+      Authorization: 'Bearer ' + props.token,
       "Content-Type": "application/json"
     }
     sendRequest(method, header, body, path).then(async response => {
@@ -39,12 +39,16 @@ export const Chat = props => {
           )}
         </ul>
       </div>
-      <input class='chat-input' type='text' value={text} onChange={e => setText(e.target.value)} onKeyDown={e => {
-        if(e.key == "Enter") {
-          sendMessage()
-          setText('')
-        }
-      }}/>
+      {
+        (props.name == '' || (props.phase !== 3 && props.phase !== 4) || (props.name !== props.minister && props.name !== props.director)) ? 
+          <input class='chat-input' type='text' placeholder='write a message - "Enter" to send' value={text} onChange={e => setText(e.target.value)} onKeyDown={e => {
+            if(e.key == "Enter") {
+              sendMessage(e)
+              setText('')
+            }
+          }}/>
+        : <input class='chat-input' type='text' placeholder="Legislation phase, silent please" value={text} onChange={e => setText(e.target.value)}/>
+      }
     </div>
   )
 }

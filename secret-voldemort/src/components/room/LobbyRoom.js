@@ -183,6 +183,8 @@ class LobbyRoom extends React.Component{
                             <input id='exitlobby' class='room-button is-fullwidth my-2 is-rounded' type='button' value='Salir de partida' onClick={() => this.handleExit(token)}/>
                         </div>
                     </div>
+                </div>
+                <div class='container'>
                     <Chat room_name={this.state.room_name} token={token} messages={this.state.chat}/>  
                 </div>
             </section>))
