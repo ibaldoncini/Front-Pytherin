@@ -50,42 +50,54 @@ export const DiscardPanel = (props) => {
         if(phase === 3 && (context.username === minister)){
             await getCards()
             return true
-        }else if(phase === 4 && (context.username === director)){
+        } else if(phase === 4 && (context.username === director)){
             await getCards()
             return true
+        } else if(phase === 12 && (context.username === director)){
+          await getCards()
+          return true
         }
         return false
     };
 
     return(
-        <div class='container align-cntr my-6 py-3'> 
-            <p class='game-title align-cntr'>Discard</p>
-            <div class="columns">
-                {   
-                    (director === context.username && de_procs >= 5) ?
-                        showCards() === false ? console.log("never")
-                            :
-                                (
-                                /* Insert one more index since the Expelliarmus was enabled */
-                                cards.concat(',Expelliarmus').split(',').map((card, index) =>
-                                <div class='column is-4 align-cntr'>
-                                <Card ind={(index === 2) ? (index+1) : index} room_name={room_name}
-                                    image={card} />
-                                </div>)
-                                )
-                    :
-                    showCards() === false ? console.log("never")
-                        :
-                            cards.split(',').map((card, index) =>
-                            <div class='column is-4 align-cntr'> 
-                                <Card ind={index} room_name={room_name}
-                                    image={card} />
-                            </div>)
-                            
-                }   
-                
-                
-            </div>
+      <div class='container align-cntr my-6 py-3'> 
+        <p class='game-title align-cntr'>Discard</p>
+        <div class="columns">
+          {   
+          (director === context.username && phase === 12) ?
+            showCards() === false ? console.log(cards.split(','))
+              : (
+                cards.split(',').map((card, index) =>
+                <div class='column is-4 align-cntr'> 
+                  <Card ind={index} room_name={room_name}
+                    image={card} />
+                </div>)
+                )
+          : (
+            (director === context.username && de_procs >= 5) ?
+              showCards() === false ? console.log("never")
+                : (
+                  /* Insert one more index since the Expelliarmus was enabled */
+                  cards.concat(',Expelliarmus').split(',').map((card, index) =>
+                  <div class='column is-4 align-cntr'>
+                  <Card ind={(index === 2) ? (index+1) : index} room_name={room_name}
+                    image={card} />
+                  </div>)
+                  )
+            : (
+              showCards() === false ? console.log("never")
+                : (
+                  cards.split(',').map((card, index) =>
+                  <div class='column is-4 align-cntr'> 
+                    <Card ind={index} room_name={room_name}
+                      image={card} />
+                  </div>)
+                  )
+              )
+          )
+          }   
         </div>
+      </div>
     );
 }
