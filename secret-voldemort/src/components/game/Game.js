@@ -230,28 +230,17 @@ class Game extends React.Component{
                       :
                       <div></div>
                     }
-                    <div class='dropdown is-up'>
-                      <div class="dropdown-trigger">
-                        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu7">
-                          <span>Chat</span>
-                          <span class="icon is-small">
-                            <i class="fas fa-angle-up" aria-hidden="true"></i>
-                          </span>
-                        </button>
-                      </div>
-                      <div class='dropdown-content'>
-                        <Chat room_name={this.state.room_name} 
-                          messages={this.state.chat} 
-                          token={token}
-                          name={this.context.username}
-                          minister={this.state.minister}
-                          director={this.state.director}
-                          phase={this.state.phase}
-                        />
-                      </div>
-
-                    </div>
-                  </div>    
+                    <div class='container my-1'>
+                      <Chat room_name={this.state.room_name} 
+                        messages={this.state.chat} 
+                        token={token}
+                        name={this.context.username}
+                        minister={this.state.minister}
+                        director={this.state.director}
+                        phase={this.state.phase}
+                      />
+                    </div>  
+                  </div>
               </section>
               :
                 <Redirect to='/'/>

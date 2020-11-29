@@ -8,6 +8,10 @@ import { sendRequest } from "../../services/request";
 export const Chat = props => {
   const [text, setText] = useState('')
 
+  useEffect(()=>{
+    let chat = document.getElementById('chat')
+    chat.scrollTo(0,chat.scrollHeight)
+  })
   
   const sendMessage = e => {
     e.preventDefault()
@@ -35,12 +39,11 @@ export const Chat = props => {
     <div class='column is-6 is-offset-3 '>
       <div id='chat' class='chat py-0 my-0'>
         {
-          document.getElementById('chat').scrollTo(0)
         }
         <ul>
-          {props.messages.map(m => 
+          {props.messages.map(m =>
             <li>
-              <p>{m}</p>  
+              <p><strong>{m.split(':')[0]}:</strong> {m.split(':')[1]}</p>  
             </li>
           )}
         </ul>

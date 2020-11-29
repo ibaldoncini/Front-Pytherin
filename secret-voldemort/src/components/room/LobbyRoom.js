@@ -147,7 +147,7 @@ class LobbyRoom extends React.Component{
             }}
                 />) :
             (<section>
-                <div class="container room-bg my-6 py-6">
+                <div class="container room-bg my-3 py-6">
                     <Popup className='alert-modal' trigger={<button id='btnModal' style={{display:"none"}}></button>} modal position='right center'>
                         <p>
                             {this.state.modalText}
