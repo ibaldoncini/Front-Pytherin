@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, memo } from 'react';
 import '../../stylesheet/custom.css';
 import { Card } from './Card';
 import { userContext } from '../../user-context';
 import { sendRequest } from '../../services/request';
+import Popup from 'reactjs-popup';
 
 /* PROPS_NEEDED:  room_name, minister, director, phase */
-export const DiscardPanel = (props) => {
+function DiscardPanel(props) {
     
     const context = useContext(userContext);
     const [room_name, setRoomName] = useState('');
@@ -21,6 +22,8 @@ export const DiscardPanel = (props) => {
         setDirector(props.director);
         setPhase(props.phase);
         setDEprocs(props.de_procs);
+        let btnOnModal = document.getElementById("btnOnModal")
+        btnOnModal.click()
     },[props]);
 
     // Getting into the server for card getting
@@ -61,32 +64,14 @@ export const DiscardPanel = (props) => {
     };
 
     return(
-      <div class='container align-cntr my-6 py-3'> 
-        <p class='game-title align-cntr'>Discard</p>
-        <div class="columns">
-          {   
-          (director === context.username && phase === 12) ?
-            showCards() === false ? console.log(cards.split(','))
-              : (
-                cards.split(',').map((card, index) =>
-                <div class='column is-4 align-cntr'> 
-                  <Card ind={index} room_name={room_name}
-                    image={card} />
-                </div>)
-                )
-          : (
-            (director === context.username && de_procs >= 5) ?
-              showCards() === false ? console.log("never")
-                : (
-                  /* Insert one more index since the Expelliarmus was enabled */
-                  cards.concat(',Expelliarmus').split(',').map((card, index) =>
-                  <div class='column is-4 align-cntr'>
-                  <Card ind={(index === 2) ? (index+1) : index} room_name={room_name}
-                    image={card} />
-                  </div>)
-                  )
-            : (
-              showCards() === false ? console.log("never")
+      <Popup className='divination-modal' trigger={<button id='btnOnModal' style={{display:"none"}}></button>} modal position='right center'>
+        {(close) => (
+        <div class='container align-cntr my-6 py-3'> 
+          <p class='game-title align-cntr'>Discard</p>
+          <div class="columns">
+            {   
+            (director === context.username && phase === 12) ?
+              showCards() === false ? console.log(cards.split(','))
                 : (
                   cards.split(',').map((card, index) =>
                   <div class='column is-4 align-cntr'> 
@@ -94,10 +79,34 @@ export const DiscardPanel = (props) => {
                       image={card} />
                   </div>)
                   )
-              )
-          )
-          }   
+            : (
+              (director === context.username && de_procs >= 5) ?
+                showCards() === false ? console.log("never")
+                  : (
+                    /* Insert one more index since the Expelliarmus was enabled */
+                    cards.concat(',Expelliarmus').split(',').map((card, index) =>
+                    <div class='column is-4 align-cntr'>
+                    <Card ind={(index === 2) ? (index+1) : index} room_name={room_name}
+                      image={card} />
+                    </div>)
+                    )
+              : (
+                showCards() === false ? console.log("never")
+                  : (
+                    cards.split(',').map((card, index) =>
+                    <div class='column is-4 align-cntr'> 
+                      <Card ind={index} room_name={room_name}
+                        image={card} />
+                    </div>)
+                    )
+                )
+            )
+            }   
+          </div>
         </div>
-      </div>
-    );
+        )}
+      </Popup>
+    )
 }
+
+export const MemoizedDiscardPanel = memo(DiscardPanel)

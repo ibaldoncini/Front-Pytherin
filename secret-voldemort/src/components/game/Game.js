@@ -8,7 +8,7 @@ import { Minister } from './Minister';
 import { RoleCharacter } from './RoleCharacter';
 import { Director } from './Director';
 import { PlayersList } from './PlayersList';
-import { DiscardPanel } from './DiscardPanel';
+import { DiscardPanel, MemoizedDiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
 import { VotesList } from './VotesList';
 import { Divination } from './Divination';
@@ -247,7 +247,7 @@ class Game extends React.Component{
                     {((this.state.phase === 3 && this.state.minister === this.context.username) 
                       || (this.state.phase === 4 && this.state.director === this.context.username)
                       || (this.state.phase === 12 && this.state.director === this.context.username)) 
-                      ? <DiscardPanel minister={this.state.minister} 
+                      ? <MemoizedDiscardPanel minister={this.state.minister} 
                         director={this.state.director} 
                         room_name={this.state.room_name} 
                         phase={this.state.phase}

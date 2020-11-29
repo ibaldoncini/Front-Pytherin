@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import  Death_Eater  from '../../images/de.jpg';
-import Phoenix_Order from '../../images/po.jpg';
+import  Death_Eater  from '../../images/DE_Dashboard.jpg';
+import Phoenix_Order from '../../images/PO_Dashboard.jpg';
 import Crucio from '../../images/crucio.jpg';
 import Imperio from '../../images/imperio.jpg';
 import Expelliarmus from '../../images/castle1.jpg';
