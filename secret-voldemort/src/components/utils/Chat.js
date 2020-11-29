@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect, Component }  from "react";
 import { sendRequest } from "../../services/request";
 
+// TODO: Mayor ancho, autoscrolear hacie abajo
+
+
 // props: messages, room_name, token
 export const Chat = props => {
   const [text, setText] = useState('')
@@ -29,8 +32,11 @@ export const Chat = props => {
   }
 
   return(
-    <div class='column is-4 is-offset-8 '>
-      <div class='chat py-0 my-0'>
+    <div class='column is-6 is-offset-3 '>
+      <div id='chat' class='chat py-0 my-0'>
+        {
+          document.getElementById('chat').scrollTo(0)
+        }
         <ul>
           {props.messages.map(m => 
             <li>
