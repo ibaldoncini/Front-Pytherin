@@ -256,7 +256,14 @@ class Game extends React.Component{
                       :
                       <div></div>
                     }
-                  </div>   
+                  </div>  
+                  <div class='container align-cntr'>   
+                    { (this.state.phase === 11 && this.state.minister === this.context.username) ?
+                      <Expelliarmus room_name={this.state.room_name}/>
+                      :
+                      <div></div>
+                    }
+                  </div> 
               </section>
               :
                 <Redirect to='/'/>

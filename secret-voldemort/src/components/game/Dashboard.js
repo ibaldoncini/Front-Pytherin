@@ -21,13 +21,13 @@ export const Dashboard = (props) => {
         var dashboard_de = []
         var components = ['none','none','none','none','none','none']
         // Preparing dashboard for the death eaters
-        if(n_of_players == 5 || n_of_players == 6){
+        if(n_of_players === 5 || n_of_players === 6){
             dashboard_de = ["none", "none", "divination", "avada", "avada","win_de"]
         }
-        if(n_of_players == 7 || n_of_players == 8){
+        if(n_of_players === 7 || n_of_players === 8){
             dashboard_de = ["none", "crucio", "imperio", "avada", "avada","win_de"]
         }
-        if(n_of_players == 9 || n_of_players == 10){
+        if(n_of_players === 9 || n_of_players === 10){
             dashboard_de = ["crucio", "crucio", "imperio", "avada", "avada","win_de"]
         }
         /* Setting the correct image for each proclamation */

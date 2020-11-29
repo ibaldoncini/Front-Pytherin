@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React  from 'react';
 import { sendRequest } from '../../services/request';
 import { userContext } from '../../user-context';
-import Phoenix from '../../images/phoenix_order.png'; // Cambiar por algo significativo a expelliarmus
 import Popup from 'reactjs-popup';
 import '../../popup_custom.css';
 
