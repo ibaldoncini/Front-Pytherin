@@ -29,6 +29,8 @@ $body-background-color: $black
 @import '../../node_modules/bulma/sass/layout/hero.sass';
 @import '../../node_modules/bulma/sass/layout/section.sass';
 @import '../../node_modules/bulma/sass/components/card.sass'
+@import '../../node_modules/bulma/sass/elements/box.sass'
+@import '../../node_modules/bulma/sass/form/input-textarea'
 
 //HEADER
 .header-img 
@@ -186,3 +188,15 @@ $body-background-color: $black
     background-color: $black;
 .container-border
     border-color: $gold;
+
+.chat
+    @extend .box
+    max-height: 300px
+    overflow-y: scroll
+    overflow-wrap: break-word
+    color: $black
+    background-color: $sand
+    border-radius: 5px
+.chat-input
+    border-radius: 5px
+    @extend .input

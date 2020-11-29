@@ -6,7 +6,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import '../../custom.css';
 import '../../popup_custom.css';
-import { Chat } from '../Chat';
+import { Chat } from "../utils/Chat";
 
 class LobbyRoom extends React.Component{
     constructor(props){
@@ -19,6 +19,7 @@ class LobbyRoom extends React.Component{
             redirectPath: '/gameRoom/' + this.props.match.params.room,
             timer: null,
             modalText: '',
+            chat: [],
             exit: false
         }
         this.getGameState = this.getGameState.bind(this);
@@ -47,8 +48,12 @@ class LobbyRoom extends React.Component{
                             this.setState({start: true})
                         }
                         const users = data.users;
-                        this.setState({owner: data.owner})
-                        this.setState({players: users})
+                        this.setState({
+                            owner: data.owner,
+                            players: users,
+                            chat: data.messages
+                        })
+
                         console.log(this.context.username + "  +  " + this.state.owner)
                     }
                 }
@@ -178,8 +183,7 @@ class LobbyRoom extends React.Component{
                             <input id='exitlobby' class='room-button is-fullwidth my-2 is-rounded' type='button' value='Salir de partida' onClick={() => this.handleExit(token)}/>
                         </div>
                     </div>
-                    {/* <Chat room_name={this.state.room_name} token={token}/> */}
-                    
+                    <Chat room_name={this.state.room_name} token={token} messages={this.state.chat}/>  
                 </div>
             </section>))
             :
