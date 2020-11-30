@@ -2,7 +2,8 @@ import React from 'react';
 import { sendRequest } from '../../services/request';
 import { Redirect } from 'react-router-dom';
 import { userContext } from '../../user-context';
-import { Button } from '../utils/Button'
+import { Button } from '../utils/Button';
+import Cookies from 'js-cookie';
 
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -68,6 +69,14 @@ class CreateRoom extends React.Component {
           this.handleErrors(response.status, snd_data.detail)
         )
       }else {
+        const cookie = Cookies.getJSON("user")
+        Cookies.set("user", { //  We need to fill ALL the fields of the cookie, They get lost.
+            username: cookie.username,
+            token: cookie.token,
+            email: cookie.email,
+            icon: cookie.icon,
+            room_name: this.state.room_name // This is the new field.
+        })
         this.setState({redirect: true, redirectPath: `/lobbyRoom/${this.state.room_name}`})
       }
       

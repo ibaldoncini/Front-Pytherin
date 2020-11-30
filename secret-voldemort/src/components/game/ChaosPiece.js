@@ -10,7 +10,7 @@ export const ChaosPiece = props => {
   }, [props])
 
   return(
-    <div class='column is-4 mx-4 is-vcentered align-cntr'>
+    <div class='column is-3 mx-3 is-vcentered align-cntr'>
       <figure class="image is-64x64">
         <img  class='is-rounded' src={Image} alt='Chaos'/>
       </figure>

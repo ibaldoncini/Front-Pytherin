@@ -7,6 +7,7 @@ import 'reactjs-popup/dist/index.css';
 import '../../custom.css';
 import '../../popup_custom.css';
 import { Chat } from "../utils/Chat";
+import Cookies from 'js-cookie';
 
 class LobbyRoom extends React.Component{
     constructor(props){
@@ -195,7 +196,8 @@ class LobbyRoom extends React.Component{
                     </div>
                 </div>
             </section>))
-            :
+            : (!this.state.exit && Cookies.getJSON("user").room_name != '') ? (<Redirect to={'/joinRoom/' + Cookies.getJSON("user").room_name} />)
+            : (this.state.exit) ? <Redirect to='/'/> :
             <Redirect to='/'/>
             )}
             </userContext.Consumer>

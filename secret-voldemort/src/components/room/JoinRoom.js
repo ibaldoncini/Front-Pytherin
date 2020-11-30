@@ -21,7 +21,7 @@ class JoinRoom extends Component {
     };
     this.handleErrors = this.handleErrors.bind(this)
   }
-  
+
   static contextType = userContext;
 
 
@@ -39,7 +39,6 @@ class JoinRoom extends Component {
   }
 
   componentWillMount() {
-
     const cookie = Cookies.getJSON("user");
     if(cookie !== undefined) {
       
@@ -49,8 +48,17 @@ class JoinRoom extends Component {
       this.context.setIcon(cookie.icon);
   
       const link_room = "/lobbyRoom/" + this.props.match.params.room
+
       const authorizationToken = "Bearer " + cookie.token
-  
+      /* Setting the cookie for redirection. */ 
+      Cookies.set("user", { //  We need to fill ALL the fields of the cookie, They get lost.
+          username: cookie.username,
+          token: cookie.token,
+          email: cookie.email,
+          icon: cookie.icon,
+          room_name: this.props.match.params.room // This is the new field.
+      })
+
       const headers = {
         Accept: "application/json",
         Authorization: authorizationToken,

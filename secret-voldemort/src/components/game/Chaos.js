@@ -23,29 +23,6 @@ export const ChaosCounter = props =>{
     setImages(array);
   }, [props])
 
-
-  console.log(Images)
-
-  const chaos_begin = () => {
-    const path = `http://localhost:8000/${props.room_name}/chaos`
-
-    const header =  {
-      Accept: "application/json",
-      Authorization: `Bearer + ${props.token}`,
-    }
-
-    sendRequest('PUT', header, path).then(async response =>{
-      const data = await response.json()
-      
-      if (response.ok) {
-        console.log("Chaos casted succesfuly");
-      } else {
-        console.log("there was an error on chaosCouter" + data.detail);
-      }
-    }).then(error => console.log("Error on Chaos request" + error.detail));
-  
-  }
-
   return(
     
     props.chaos === 0 ? <div></div> :
@@ -56,12 +33,11 @@ export const ChaosCounter = props =>{
           <div class='card-content'>
             <div class='columns align-cntr is-vcentered'>
               {(props.chaos > 0 ? 
-                  
-                <p class='chaos-text has-text-centered'>
-                  {chaos_begin()}
-                  Chaos              
-                </p>
-              
+                <div class="column is-3">
+                  <p class='chaos-text has-text-centered'>
+                    Chaos              
+                  </p>
+                </div>
                 : <div></div>
               )}
               { 

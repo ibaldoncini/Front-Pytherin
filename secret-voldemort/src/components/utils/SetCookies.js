@@ -11,7 +11,8 @@ export function SetCookies(name, username, token, email, icon) {
         username: username,
         token: token,
         email: email,
-        icon: icon
+        icon: icon,
+        room_name: ''
       })
 
   } else {

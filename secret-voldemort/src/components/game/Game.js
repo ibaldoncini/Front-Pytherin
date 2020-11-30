@@ -21,6 +21,7 @@ import { Imperio } from './Imperio'
 import { ChaosCounter } from "./Chaos";
 import { Expelliarmus } from './Expelliarmus';
 import { MemoizedVote } from './Vote';
+import Cookies from 'js-cookie';
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -156,10 +157,12 @@ class Game extends React.Component{
     render(){
       if(this.state.redirect || !this.state.isAlive) {
         if (!this.state.isAlive){
-          return(<Redirect to='/killed'/>);
+          return(<Redirect to='/killed'/>); 
         } else {
-          return (<Redirect to={this.state.redirectPath}/>);
+          return (<Redirect to={this.state.redirectPath}/>)
         }
+      }else if(this.context.token == '' && Cookies.getJSON("user").room_name != ''){
+        return <Redirect to={'/joinRoom/' + Cookies.getJSON("user").room_name} />
       } else {
         return(
             // uncomment once its connected with endpoints
@@ -281,8 +284,7 @@ class Game extends React.Component{
                       
                   </div>
               </section>
-              :
-                <Redirect to='/'/>
+              : <Redirect to='/'/>
             )}
           </userContext.Consumer>
         )
