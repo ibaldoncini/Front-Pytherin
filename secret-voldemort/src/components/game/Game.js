@@ -270,7 +270,8 @@ class Game extends React.Component{
                       (this.state.phase === 2) ? 
                       (<MemoizedVote room_name={this.state.room_name} 
                       usersVotes={this.state.votes}
-                      token = {this.context.token} />)
+                      token = {this.context.token}
+                      director = {this.state.director} />)
                     :
                       (<div></div>)
                     }

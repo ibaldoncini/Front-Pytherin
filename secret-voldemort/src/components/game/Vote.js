@@ -16,11 +16,13 @@ function Vote(props) {
   const [room_name, setRoomName] = useState('');
   const [usersVotes, setUsersVotes] = useState([]);
   const [token, setToken] = useState('');
+  const [director, setDirector] = useState('');
 
   useEffect(() => {
     setRoomName(props.room_name)
     setUsersVotes(props.usersVotes)
     setToken(props.token)
+    setDirector(props.director)
     let btnModalVote = document.getElementById("btnModalVote")
     btnModalVote.click()
   },[props]);
@@ -63,7 +65,7 @@ function Vote(props) {
         {(close) => ( 
             (usersVotes.length == 0)  ? (
               <div class='container has-text-centered'>
-                <h3 class='room-title'>Vote for the proposed government</h3>
+                <h3 class='room-title'>Vote for the proposed government: {director}</h3>
                 <button class='panel-button is-medium mx-3' name='Lumos' onClick={(e) => handleVote(e)} /*onClickCapture={close}*/ >Lumos</button>
                 <button class='panel-button is-medium mx-3' name='Nox' onClick={(e) => handleVote(e)} /*onClickCapture={close}*/ >Nox</button>
               </div>) 
