@@ -26,12 +26,13 @@ export function DirectorCandidates(props) {
     let btnModalDir = document.getElementById("btnModal_director")
     btnModalDir.click()
     let p_director = document.getElementById("p_director")
+    btnModalDir.click()
     p_director.innerText = message
   }
   
   const handleSelection = (e) => {
     const selectedUser = e.target.name;
-    const keys = {director_email: selectedUser};
+    const keys = {director_uname: selectedUser};
     const authorizationToken = "Bearer " + context.token;
     const header = {
       Accept: "application/json",

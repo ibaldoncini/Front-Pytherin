@@ -37,3 +37,16 @@
   height:128px !important;
   width: 128px !important;
 }
+
+.spell-modal {
+  cursor: pointer;
+  background-color: #b88d0a;
+  text-align: center;
+  padding: 1%;
+  display: inline-block;
+}
+
+.spell-modal-content {
+  background-color: #e0c580;
+  text-align: center;
+}

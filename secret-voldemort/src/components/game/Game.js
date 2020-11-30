@@ -8,7 +8,7 @@ import { Minister } from './Minister';
 import { RoleCharacter } from './RoleCharacter';
 import { Director } from './Director';
 import { PlayersList } from './PlayersList';
-import { DiscardPanel } from './DiscardPanel';
+import { DiscardPanel, MemoizedDiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
 import { VotesList } from './VotesList';
 import { Divination } from './Divination';
@@ -18,6 +18,10 @@ import '../../custom.css';
 import '../../popup_custom.css';
 import { Avadakedavra } from './Avadakedavra/Avadakedavra';
 import { Chat } from "../utils/Chat";
+import { Crucio } from './Crucio'
+import { Imperio } from './Imperio'
+import { ChaosCounter } from "./Chaos";
+import { Expelliarmus } from './Expelliarmus';
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -26,6 +30,7 @@ class Game extends React.Component{
     constructor(props){
         super(props)
         this.state = {
+            n_of_players: 5, // This is the Total number of players
             room_name : '',
             my_role : '',
             voldemort: '',
@@ -45,7 +50,8 @@ class Game extends React.Component{
             redirectPath: '',
             modalText: '',
             isAlive: true,
-            chat: []
+            chat: [],
+            chaos: 0
         }
 
         this.update = this.update.bind(this)
@@ -53,7 +59,7 @@ class Game extends React.Component{
     }
     static contextType = userContext;
     // uncomment when the endpoint is done.
-
+    
     handleMessages(status, detail){
         let btnModal = document.getElementById('btnModal')
         switch (status) { 
@@ -92,6 +98,7 @@ class Game extends React.Component{
               if(data.phase !== 5 && data.phase !== 6) {
                 this.setState({
                   room_name: room,
+                  n_of_players: data.n_of_players, // This is the Total number of players
                   my_role: data.my_role,
                   voldemort: data.voldemort,
                   death_eaters: data.death_eaters,
@@ -106,6 +113,7 @@ class Game extends React.Component{
                   phase: data.phase,
                   votes: data.votes,
                   chat: data.messages,
+                  chaos:data.chaos,
                   isAlive: data.player_list.includes(this.context.username)
                 })
               } else {
@@ -168,7 +176,9 @@ class Game extends React.Component{
                     </Popup>
                       <h1 class="game-title is-large"> {this.state.room_name}</h1>
                           <Dashboard proclam_de = {this.state.de_procs} 
-                          proclam_op={this.state.fo_procs} />
+                          proclam_op={this.state.fo_procs} n_of_players={this.state.n_of_players}/>
+                          <ChaosCounter token={this.context.token} 
+                          room_name={this.state.room_name} chaos={this.state.chaos} />         
                   </div>
                   <div class='container panel-bg'> 
                     <div class="columns">
@@ -197,10 +207,10 @@ class Game extends React.Component{
                             players={this.state.player_list}
                             last_minister={this.state.last_minister}
                             last_director={this.state.last_director}/>
-                             {(this.state.phase === 7 && this.state.minister === this.context.username) ?
-                              <Divination room_name={this.state.room_name} minister={this.state.minister} />
-                              : <div></div>
-                            }
+                            {(this.state.phase === 7 && this.state.minister === this.context.username) ?
+                            <Divination room_name={this.state.room_name} minister={this.state.minister} />
+                            : <div></div>
+                          }
                           {(this.state.phase === 8 && this.state.minister === this.context.username) ?
                             <Avadakedavra 
                               room_name={this.state.room_name}
@@ -210,6 +220,22 @@ class Game extends React.Component{
                             />
                             : <div></div>
                             
+                          }
+                          {(this.state.phase === 9 && this.state.minister === this.context.username) ?
+                              <Imperio
+                              room_name={this.state.room_name} 
+                              my_name={this.context.username}
+                              players = {this.state.player_list}
+                            />
+                          : <div></div>
+                          }
+                          {(this.state.phase === 10 && this.state.minister === this.context.username) ?
+                            <Crucio 
+                              room_name={this.state.room_name} 
+                              players = {this.state.player_list}
+                              my_name={this.context.username}
+                            />
+                            : <div></div>
                           }
                         </div>
                         <div class="column is-2">
@@ -222,11 +248,21 @@ class Game extends React.Component{
                   </div>
                   <div class='container align-cntr'>   
                     {((this.state.phase === 3 && this.state.minister === this.context.username) 
-                      || (this.state.phase === 4 && this.state.director === this.context.username)) 
-                      ? <DiscardPanel minister={this.state.minister} 
+                      || (this.state.phase === 4 && this.state.director === this.context.username)
+                      || (this.state.phase === 12 && this.state.director === this.context.username)) 
+                      ? <MemoizedDiscardPanel minister={this.state.minister} 
                         director={this.state.director} 
                         room_name={this.state.room_name} 
-                        phase = {this.state.phase} /> 
+                        phase={this.state.phase}
+                        de_procs={this.state.de_procs}
+                        /> 
+                      :
+                      <div></div>
+                    }
+                  </div>  
+                  <div class='container align-cntr'>   
+                    { (this.state.phase === 11 && this.state.minister === this.context.username) ?
+                      <Expelliarmus room_name={this.state.room_name}/>
                       :
                       <div></div>
                     }

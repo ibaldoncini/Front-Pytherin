@@ -16,6 +16,7 @@ $bluegreen: hsla(184, 72%, 17%, 1);
 
 $card-header-color: $black
 $body-background-color: $black
+$progress-value-background-color: $gold
 // Import only what you need from Bulma
 
 @import "../../node_modules/bulma/bulma.sass";
@@ -31,6 +32,7 @@ $body-background-color: $black
 @import '../../node_modules/bulma/sass/components/card.sass'
 @import '../../node_modules/bulma/sass/elements/box.sass'
 @import '../../node_modules/bulma/sass/form/input-textarea'
+@import '../../node_modules/bulma/sass/elements/progress.sass';
 
 //HEADER
 .header-img 
@@ -144,7 +146,7 @@ $body-background-color: $black
 // GAME
 .game-title
     @extend .title
-    color: $gold;
+    color: $bluegreen;
 
 .panel-bg
     background-color: $sand;
@@ -170,7 +172,7 @@ $body-background-color: $black
 
 // DASHBOARD
 .dashboard-bg
-    background-color: $bluegreen
+    background-color: $sand;
     height: 300px;
     width: auto; 
     margin-left: auto;
@@ -197,7 +199,19 @@ $body-background-color: $black
     color: $black
     background-color: $sand
     border-radius: 5px
+    
 .chat-input
     @extend .input
     border-radius: 10px
     border-color: $gold
+
+.chaos-card
+    @extend .card
+    height: fit-conten
+    background-color: $black
+    
+.chaos-text
+    @extend .title
+    color: $gold
+    font-size: 25px
+        
