@@ -181,11 +181,11 @@ class LobbyRoom extends React.Component{
                         </div>
                         <div class='column is-4'>
                             {(this.context.username === this.state.owner) ? 
-                                <input class='room-button is-fullwidth my-2 is-rounded' type='button' value='Start Game' onClick={this.handleStart}/> 
+                                <input class='room-button is-fullwidth my-2' type='button' value='Start Game' onClick={this.handleStart}/> 
                             :   
                                 ""
                             }
-                            <input id='exitlobby' class='room-button is-fullwidth my-2 is-rounded' type='button' value='Exit Room' onClick={() => this.handleExit(token)}/>
+                            <input id='exitlobby' class='room-button is-fullwidth my-2' type='button' value='Exit Room' onClick={() => this.handleExit(token)}/>
                         </div>
                     </div>
                 </div>
