@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 
 
 /* This component take a list of user with their votes as
  * [{user: "username", vote: "lumox/nox"},...] */
-export function VotesList(props) {
+ function VotesList(props) {
     
   const [usersVotes, setUsersVotes] = useState([])
 
@@ -20,4 +20,4 @@ export function VotesList(props) {
       </ul>
     </div>
   );
-}
+} export const MemoizedVotesList = memo(VotesList)

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { sendRequest } from '../../services/request';
-import { userContext } from '../../user-context';
+import { MemoizedVotesList } from './VotesList';
 
 /* TODO: Need to add the list of users and polling to obtain the votes of the 
  * other players.
@@ -10,18 +10,25 @@ import { userContext } from '../../user-context';
  */
 
 
-/* PROPS NEEDED: roomname */ 
-export function Vote(props) {
+/* PROPS NEEDED: roomname, usersVotes, token */ 
+function Vote(props) {
   
-  const context = useContext(userContext);
-  const [roomname, setRoomName] = useState('');
+  const [room_name, setRoomName] = useState('');
+  const [usersVotes, setUsersVotes] = useState([]);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
     setRoomName(props.room_name)
+    setUsersVotes(props.usersVotes)
+    setToken(props.token)
+    let btnModalVote = document.getElementById("btnModalVote")
+    btnModalVote.click()
   },[props]);
 
+  console.log("LAS PROPS O EL STATE: " + room_name + " " + usersVotes + " " + token)
+  
   const handleVote = (e) => {
-    const authorizationToken = "Bearer " + context.token
+    const authorizationToken = "Bearer " + token
     const vote = e.target.name;
     const keys = {"vote": vote}
     const header = {
@@ -29,13 +36,15 @@ export function Vote(props) {
       Authorization: authorizationToken,
       "Content-Type": "application/json"
     };
-    const path = `http://127.0.0.1:8000/${roomname}/vote`
+    const path = `http://127.0.0.1:8000/${room_name}/vote`
 
     /* Send the vote decision */
     sendRequest("PUT", header, keys, path).then(async response => {
       const data = await response.json();
       if (response.ok) {
         console.log("Vote succesfully");
+        let btnModalVote = document.getElementById("btnModalVote")
+        btnModalVote.click()
       } else {
         console.log("Error detail: " + data.detail.json());
       }
@@ -43,22 +52,28 @@ export function Vote(props) {
       console.log("There was an error on voting");
     });
   }
-  
+
   return(
-    <userContext.Consumer>
-      {token => 
-        <div>
-            <Popup trigger={<button class='panel-button is-medium'>Vote</button>} modal position='right center'>
-              {(close) => 
-                  <div class='container has-text-centered'>
-                    <h3 class='room-title'>Vote for the proposed government</h3>
-                    <button class='panel-button is-medium mx-3' name='Lumos' onClick={handleVote} onClickCapture={close} >Lumos</button>
-                    <button class='panel-button is-medium mx-3' name='Nox' onClick={handleVote} onClickCapture={close} >Nox</button>
-                  </div>
-              }
-            </Popup>
-        </div>
+      <Popup className='divination-modal'
+            trigger={<button id='btnModalVote' style={{display:"none"}}></button>}
+            closeOnDocumentClick={false} 
+            modal 
+            position='right center'
+      >
+        {(close) => ( 
+            (usersVotes.length == 0)  ? (
+              <div class='container has-text-centered'>
+                <h3 class='room-title'>Vote for the proposed government</h3>
+                <button class='panel-button is-medium mx-3' name='Lumos' onClick={(e) => handleVote(e)} /*onClickCapture={close}*/ >Lumos</button>
+                <button class='panel-button is-medium mx-3' name='Nox' onClick={(e) => handleVote(e)} /*onClickCapture={close}*/ >Nox</button>
+              </div>) 
+              : (<MemoizedVotesList usersVotes={usersVotes}/>)
+          )
       }
-    </userContext.Consumer>
+      </Popup>
   )
 }
+
+export const MemoizedVote = memo(Vote, (prev, next) => {
+      return prev.usersVotes.toString() === next.usersVotes.toString()
+});

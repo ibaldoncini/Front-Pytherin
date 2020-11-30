@@ -2,7 +2,6 @@ import React from 'react';
 import '../../stylesheet/custom.css';
 import { sendRequest } from '../../services/request';
 import { userContext } from '../../user-context';
-import { Vote } from './Vote';
 import { Dashboard } from './Dashboard';
 import { Minister } from './Minister';
 import { RoleCharacter } from './RoleCharacter';
@@ -10,7 +9,6 @@ import { Director } from './Director';
 import { PlayersList } from './PlayersList';
 import { DiscardPanel, MemoizedDiscardPanel } from './DiscardPanel';
 import { Redirect } from 'react-router-dom';
-import { VotesList } from './VotesList';
 import { Divination } from './Divination';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
@@ -22,6 +20,7 @@ import { Crucio } from './Crucio'
 import { Imperio } from './Imperio'
 import { ChaosCounter } from "./Chaos";
 import { Expelliarmus } from './Expelliarmus';
+import { MemoizedVote } from './Vote';
 
 const OTHER_ERROR = -1;
 const NOT_IN_ROOM = 403;
@@ -91,7 +90,7 @@ class Game extends React.Component{
      sendRequest('GET', headers, {}, path)
         .then(async response => {const data = await response.json()
         
-          console.log(data)
+          //console.log(data)
           if(!response.ok) {
             this.handleMessages(response.status, data.detail)
           } else {
@@ -123,7 +122,7 @@ class Game extends React.Component{
                     this.setState({redirect: true, redirectPath: '/fo_won'})
                   }
               }
-              console.log("Contexto actual: " + this.state.minister)
+              //console.log("Contexto actual: " + this.state.minister)
           }
         })
     }
@@ -182,19 +181,7 @@ class Game extends React.Component{
                   </div>
                   <div class='container panel-bg'> 
                     <div class="columns">
-                        <div class="column is-3 ">
-                          <div class='container align-cntr'>
-                            <p class='panel-title'> Vote </p>
-                            { this.state.phase === 2 ? 
-                              <div class='container'>
-                                  <Vote room_name={this.state.room_name}/>
-                                  <VotesList usersVotes={this.state.votes}/>
-                              </div>
-                            :
-                              <div></div>
-                            }
-                          </div>
-                        </div>
+                        <div class="column is-3"></div>
                         <div class="column is-2">
                           <RoleCharacter role={this.state.my_role} charac={ this.state.myChar} />
                         </div>
@@ -259,7 +246,17 @@ class Game extends React.Component{
                       :
                       <div></div>
                     }
-                  </div>  
+                  </div>
+                  <div class='container align-cntr'>
+                    { 
+                      (this.state.phase === 2) ? 
+                      (<MemoizedVote room_name={this.state.room_name} 
+                      usersVotes={this.state.votes}
+                      token = {this.context.token} />)
+                    :
+                      (<div></div>)
+                    }
+                  </div> 
                   <div class='container align-cntr'>   
                     { (this.state.phase === 11 && this.state.minister === this.context.username) ?
                       <Expelliarmus room_name={this.state.room_name}/>
