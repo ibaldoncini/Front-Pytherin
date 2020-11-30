@@ -51,7 +51,7 @@ export function Vote(props) {
             <Popup trigger={<button class='panel-button is-medium'>Vote</button>} modal position='right center'>
               {(close) => 
                   <div class='container has-text-centered'>
-                    <h3 class='room-title'>Vote for the porposed government</h3>
+                    <h3 class='room-title'>Vote for the proposed government</h3>
                     <button class='panel-button is-medium mx-3' name='Lumos' onClick={handleVote} onClickCapture={close} >Lumos</button>
                     <button class='panel-button is-medium mx-3' name='Nox' onClick={handleVote} onClickCapture={close} >Nox</button>
                   </div>

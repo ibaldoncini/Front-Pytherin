@@ -17,6 +17,7 @@ import 'reactjs-popup/dist/index.css';
 import '../../custom.css';
 import '../../popup_custom.css';
 import { Avadakedavra } from './Avadakedavra/Avadakedavra';
+import { Chat } from "../utils/Chat";
 import { Crucio } from './Crucio'
 import { Imperio } from './Imperio'
 import { ChaosCounter } from "./Chaos";
@@ -49,6 +50,7 @@ class Game extends React.Component{
             redirectPath: '',
             modalText: '',
             isAlive: true,
+            chat: [],
             chaos: 0
         }
 
@@ -110,6 +112,7 @@ class Game extends React.Component{
                   last_director: data.last_director,
                   phase: data.phase,
                   votes: data.votes,
+                  chat: data.messages,
                   chaos:data.chaos,
                   isAlive: data.player_list.includes(this.context.username)
                 })
@@ -263,7 +266,17 @@ class Game extends React.Component{
                       :
                       <div></div>
                     }
-                  </div> 
+                    <div class='container my-1'>
+                      <Chat room_name={this.state.room_name} 
+                        messages={this.state.chat} 
+                        token={token}
+                        name={this.context.username}
+                        minister={this.state.minister}
+                        director={this.state.director}
+                        phase={this.state.phase}
+                      />
+                    </div>  
+                  </div>
               </section>
               :
                 <Redirect to='/'/>

@@ -24,6 +24,7 @@ export function DirectorCandidates(props) {
 
   const handleMessage = (message) => {
     let btnModalDir = document.getElementById("btnModal_director")
+    btnModalDir.click()
     let p_director = document.getElementById("p_director")
     btnModalDir.click()
     p_director.innerText = message

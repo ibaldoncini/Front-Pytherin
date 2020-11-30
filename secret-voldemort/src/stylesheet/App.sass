@@ -30,6 +30,8 @@ $progress-value-background-color: $gold
 @import '../../node_modules/bulma/sass/layout/hero.sass';
 @import '../../node_modules/bulma/sass/layout/section.sass';
 @import '../../node_modules/bulma/sass/components/card.sass'
+@import '../../node_modules/bulma/sass/elements/box.sass'
+@import '../../node_modules/bulma/sass/form/input-textarea'
 @import '../../node_modules/bulma/sass/elements/progress.sass';
 
 //HEADER
@@ -190,6 +192,20 @@ $progress-value-background-color: $gold
     background-color: $black;
 .container-border
     border-color: $gold;
+
+.chat
+    @extend .box
+    height: 150px
+    overflow-y: scroll
+    overflow-wrap: break-word
+    color: $black
+    background-color: $sand
+    border-radius: 5px
+    
+.chat-input
+    @extend .input
+    border-radius: 10px
+    border-color: $gold
 
 .chaos-card
     @extend .card
