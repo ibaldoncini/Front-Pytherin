@@ -9,7 +9,7 @@ export const Director = (props) => {
     }, [props]);
 
         return(
-            <div class="container align-cntr">
+            <div class="container align-cntr my-1">
                 <span class='i-playerlist'> <strong>Director:</strong> {name}</span>
             </div>
         )

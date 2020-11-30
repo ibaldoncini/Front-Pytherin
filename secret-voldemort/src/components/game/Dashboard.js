@@ -49,7 +49,7 @@ export const Dashboard = (props) => {
     return (
         <div class="container dashboard-bg">
             <div class='container px-5'>
-                <div class="columns">
+                <div class="columns is-vcentered">
                     <div class='column is-12'>
                         <div class='columns'>
                             {

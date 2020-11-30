@@ -161,14 +161,14 @@ class LobbyRoom extends React.Component{
                     <div class='container has-text-centered'>
                         <h2 id='title' class='room-title'>Lobby</h2>
                     </div>
-                    <div class='columns py-4'>
+                    <div class='columns py-5'>
                         <div class='column is-4'>
                             <div class='room-card'>
                                 <div class='card-header py-0 my-1'>
                                     <h3 class='card-header-title is-centered'>Players in room</h3>
                                 </div>
-                                <div class='card-content player-list py-0 my-1 is-centered'>
-                                    <ul name='players-list' id='unique-list'>
+                                <div class='card-content py-0 my-1 is-centered'>
+                                    <ul class='player-list' name='players-list' id='unique-list'>
                                     {this.state.players.map(item => {
                                         return <li class='i-playerlist' id={item}>{item}</li>;
                                     })}

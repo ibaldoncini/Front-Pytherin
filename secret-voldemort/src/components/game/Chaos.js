@@ -54,7 +54,16 @@ export const ChaosCounter = props =>{
       <div class='column is-6 is-offset-3 align-cntr is-vcentered'>
         <div class='chaos-card'>
           <div class='card-content'>
-            <div class='columns algin-cntr is-vcentered'>
+            <div class='columns align-cntr is-vcentered'>
+              {(props.chaos > 0 ? 
+                  
+                <p class='chaos-text has-text-centered'>
+                  {chaos_begin()}
+                  Chaos              
+                </p>
+              
+                : <div></div>
+              )}
               { 
 
                 Images.map( image =>
@@ -65,15 +74,6 @@ export const ChaosCounter = props =>{
                 
               }
             </div>
-            {(props.chaos === 3 ? 
-                
-              <p class='chaos-text has-text-centered'>
-                {chaos_begin()}
-                Chaos              
-              </p>
-
-              : <div></div>
-            )}
           </div>
         </div>
       </div>
