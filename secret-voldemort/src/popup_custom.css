@@ -21,6 +21,19 @@
     display: inline-block;
   }
 
+.director-modal {
+  background-color: #b88d0a;
+  padding: 1%;
+  height: auto;
+  width: auto;
+}
+
+.director-modal-content {
+  background-color: #b88d0a;
+  width: 30%;
+  text-align: center;
+}
+
 .divination-modal-content {
   background-color: #e0c580;
   text-align: center;
@@ -49,4 +62,10 @@
 .spell-modal-content {
   background-color: #e0c580;
   text-align: center;
+}
+
+.director-modal {
+  background-color: #b88d0a;
+  height: fit-content;
+  width: fit-content;
 }

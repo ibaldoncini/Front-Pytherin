@@ -58,7 +58,7 @@ export function DirectorCandidates(props) {
       <p id='p_director'> 
       </p>
     </Popup>
-    <Popup trigger={<button class='panel-button'>Propose Director</button>} modal position='right center' >
+    <Popup className='director-modal' trigger={<button class='panel-button'>Propose Director</button>} modal position='right center' >
       {close =>
         <div class='container has-text-centered'>
           <ul>

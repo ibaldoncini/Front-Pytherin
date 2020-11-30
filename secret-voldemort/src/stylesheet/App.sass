@@ -137,6 +137,8 @@ $progress-value-background-color: $gold
     color: $black
     background-color: $sand;
     border-radius: 10px;
+    height: 150px
+    overflow-y: scroll
 
 .room-row
     border-radius: 10px
@@ -160,6 +162,10 @@ $progress-value-background-color: $gold
     border-radius: 30px;
     color: $black;
     font-size: large;
+
+.player-list:
+    height: 150px
+    overflow-y: scroll    
 
 .panel-title
     @extend .title
@@ -201,6 +207,7 @@ $progress-value-background-color: $gold
     color: $black
     background-color: $sand
     border-radius: 5px
+    border: 1px solid $black
     
 .chat-input
     @extend .input
@@ -209,7 +216,7 @@ $progress-value-background-color: $gold
 
 .chaos-card
     @extend .card
-    height: fit-conten
+    height: auto
     background-color: $black
     
 .chaos-text

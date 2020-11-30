@@ -33,8 +33,7 @@ export const Minister = (props) => {
       <userContext.Consumer>
         {(email, token) =>
           <div class="container align-cntr">
-            <p class='panel-title'>Current minister</p>
-            <span class='i-playerlist'>{name}</span>
+            <span class='i-playerlist'><strong>Minister:</strong>{name}</span>
             
             <div>
               { ((phase === 1) && (name === context.username)) ?  

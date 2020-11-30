@@ -50,7 +50,7 @@ export const ChaosCounter = props =>{
     
     props.chaos === 0 ? <div></div> :
     
-    <div class='container py-2'>
+    <div class='container'>
       <div class='column is-6 is-offset-3 align-cntr is-vcentered'>
         <div class='chaos-card'>
           <div class='card-content'>

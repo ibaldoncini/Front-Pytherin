@@ -10,7 +10,7 @@ export const PlayersList = (props) => {
 
     return( <div class="container align-cntr">
                 <p class='panel-title'>Players list</p>
-                <ul>
+                <ul class='player-list'>
                     {players.map((player) => 
                         <li class='i-playerlist'>{player}</li>
                     )}

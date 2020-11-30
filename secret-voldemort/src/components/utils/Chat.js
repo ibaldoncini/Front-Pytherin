@@ -36,7 +36,7 @@ export const Chat = props => {
   }
 
   return(
-    <div class='column is-6 is-offset-3 '>
+    <div class='column is-12'>
       <div id='chat' class='chat py-0 my-0'>
         {
         }

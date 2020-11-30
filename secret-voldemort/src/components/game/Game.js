@@ -167,21 +167,34 @@ class Game extends React.Component{
             {({ token }) => (
               token ? 
               <section id='game-form'>
-                  <div class="container my-6">
+                  <div class="container my-1 py-1">
                     <Popup className='alert-modal' trigger={<button id='btnModal' style={{display:"none"}}></button>} modal position='right center'>
                         <p> 
                             {this.state.modalText}
                         </p>
                     </Popup>
                       <h1 class="game-title is-large"> {this.state.room_name}</h1>
+                  </div>
+                  <div class='container my-1 py-1'>
                           <Dashboard proclam_de = {this.state.de_procs} 
                           proclam_op={this.state.fo_procs} n_of_players={this.state.n_of_players}/>
+                  </div>
+                  <div class='container my-1 py-1'>
                           <ChaosCounter token={this.context.token} 
                           room_name={this.state.room_name} chaos={this.state.chaos} />         
                   </div>
-                  <div class='container panel-bg'> 
+                  <div class='container my-1 py-1 panel-bg'> 
                     <div class="columns">
-                        <div class="column is-3"></div>
+                        <div class="column is-5">
+                          <Chat room_name={this.state.room_name} 
+                            messages={this.state.chat} 
+                            token={token}
+                            name={this.context.username}
+                            minister={this.state.minister}
+                            director={this.state.director}
+                            phase={this.state.phase}
+                          />
+                        </div>
                         <div class="column is-2">
                           <RoleCharacter role={this.state.my_role} charac={ this.state.myChar} />
                         </div>
@@ -194,6 +207,9 @@ class Game extends React.Component{
                             players={this.state.player_list}
                             last_minister={this.state.last_minister}
                             last_director={this.state.last_director}/>
+                            
+                            <Director name={this.state.director} />
+                            
                             {(this.state.phase === 7 && this.state.minister === this.context.username) ?
                             <Divination room_name={this.state.room_name} minister={this.state.minister} />
                             : <div></div>
@@ -225,9 +241,8 @@ class Game extends React.Component{
                             : <div></div>
                           }
                         </div>
-                        <div class="column is-2">
-                            <Director name={this.state.director} />
-                        </div>
+                        
+                        
                         <div class='column is-3'> 
                           <PlayersList players= {this.state.player_list} />
                         </div>
@@ -243,7 +258,7 @@ class Game extends React.Component{
                         phase={this.state.phase}
                         de_procs={this.state.de_procs}
                         /> 
-                      :
+                        :
                       <div></div>
                     }
                   </div>
@@ -257,22 +272,13 @@ class Game extends React.Component{
                       (<div></div>)
                     }
                   </div> 
-                  <div class='container align-cntr'>   
+                  <div class='container'>   
                     { (this.state.phase === 11 && this.state.minister === this.context.username) ?
                       <Expelliarmus room_name={this.state.room_name}/>
                       :
                       <div></div>
                     }
-                    <div class='container my-1'>
-                      <Chat room_name={this.state.room_name} 
-                        messages={this.state.chat} 
-                        token={token}
-                        name={this.context.username}
-                        minister={this.state.minister}
-                        director={this.state.director}
-                        phase={this.state.phase}
-                      />
-                    </div>  
+                      
                   </div>
               </section>
               :

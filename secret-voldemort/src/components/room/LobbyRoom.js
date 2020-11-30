@@ -152,7 +152,7 @@ class LobbyRoom extends React.Component{
             }}
                 />) :
             (<section>
-                <div class="container room-bg my-3 py-6">
+                <div class="container room-bg my-3 py-3">
                     <Popup className='alert-modal' trigger={<button id='btnModal' style={{display:"none"}}></button>} modal position='right center'>
                         <p>
                             {this.state.modalText}
@@ -161,13 +161,13 @@ class LobbyRoom extends React.Component{
                     <div class='container has-text-centered'>
                         <h2 id='title' class='room-title'>Lobby</h2>
                     </div>
-                    <div class='columns py-6'>
+                    <div class='columns py-4'>
                         <div class='column is-4'>
                             <div class='room-card'>
-                                <div class='card-header'>
+                                <div class='card-header py-0 my-1'>
                                     <h3 class='card-header-title is-centered'>Players in room</h3>
                                 </div>
-                                <div class='card-content is-centered'>
+                                <div class='card-content player-list py-0 my-1 is-centered'>
                                     <ul name='players-list' id='unique-list'>
                                     {this.state.players.map(item => {
                                         return <li class='i-playerlist' id={item}>{item}</li>;
@@ -181,16 +181,18 @@ class LobbyRoom extends React.Component{
                         </div>
                         <div class='column is-4'>
                             {(this.context.username === this.state.owner) ? 
-                                <input class='room-button is-fullwidth my-2 is-rounded' type='button' value='Empezar partida' onClick={this.handleStart}/> 
+                                <input class='room-button is-fullwidth my-2 is-rounded' type='button' value='Start Game' onClick={this.handleStart}/> 
                             :   
                                 ""
                             }
-                            <input id='exitlobby' class='room-button is-fullwidth my-2 is-rounded' type='button' value='Salir de partida' onClick={() => this.handleExit(token)}/>
+                            <input id='exitlobby' class='room-button is-fullwidth my-2 is-rounded' type='button' value='Exit Room' onClick={() => this.handleExit(token)}/>
                         </div>
                     </div>
                 </div>
                 <div class='container'>
-                    <Chat room_name={this.state.room_name} token={token} messages={this.state.chat}/>  
+                    <div class='column is-6 is-offset-3'>
+                        <Chat room_name={this.state.room_name} token={token} messages={this.state.chat}/>  
+                    </div>
                 </div>
             </section>))
             :

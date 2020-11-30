@@ -11,7 +11,7 @@ export const ChaosPiece = props => {
 
   return(
     <div class='column is-4 mx-4 is-vcentered align-cntr'>
-      <figure class="image is-64x64  py-1 my-2">
+      <figure class="image is-64x64">
         <img  class='is-rounded' src={Image} alt='Chaos'/>
       </figure>
     </div>
