@@ -64,7 +64,11 @@ function DiscardPanel(props) {
     };
 
     return(
-      <Popup className='divination-modal' trigger={<button id='btnOnModal' style={{display:"none"}}></button>} modal position='right center'>
+      <Popup  className='divination-modal' 
+              closeOnDocumentClick={false} 
+              closeOnEscape={false}
+              modal position='right center'
+              trigger={<button id='btnOnModal' style={{display:"none"}}></button>}>
         {(close) => (
         <div class='container align-cntr my-6 py-3'> 
           <p class='game-title align-cntr'>Discard</p>
@@ -84,7 +88,7 @@ function DiscardPanel(props) {
                 showCards() === false ? console.log("never")
                   : (
                     /* Insert one more index since the Expelliarmus was enabled */
-                    cards.concat(',Expelliarmus').split(',').map((card, index) =>
+                    cards.concat(',expelliarmus').split(',').map((card, index) =>
                     <div class='column is-4 align-cntr'>
                     <Card ind={(index === 2) ? (index+1) : index} room_name={room_name}
                       image={card} />

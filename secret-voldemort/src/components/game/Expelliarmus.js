@@ -91,7 +91,9 @@ class Expelliarmus extends React.Component{
         <div class="align-cntr">
             <Popup className='divination-modal' 
                   trigger={<button id='openPopup' class="btn-spell"></button>}
-                  modal position='right center' > 
+                  modal position='right center' 
+                  closeOnDocumentClick={false} 
+                  closeOnEscape={false}>
                 {(close) => (
                   <div class='container has-text-centered'>
                   <h3 class='room-title'>The director said Expelliarmus, and you?</h3>

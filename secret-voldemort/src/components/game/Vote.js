@@ -59,6 +59,7 @@ function Vote(props) {
       <Popup className='divination-modal'
             trigger={<button id='btnModalVote' style={{display:"none"}}></button>}
             closeOnDocumentClick={false} 
+            closeOnEscape={false}
             modal 
             position='right center'
       >

@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import  Death_Eater  from '../../images/death_eaters.jpg';
-import Phoenix from '../../images/phoenix_order.png';
+import  Death_Eater  from '../../images/DE_Dashboard.jpg';
+import Phoenix from '../../images/PO_Dashboard.jpg';
 import Cancel from '../../images/cancel.png';
 import Wand from '../../images/wand.png';
 import { sendRequest } from '../../services/request';
