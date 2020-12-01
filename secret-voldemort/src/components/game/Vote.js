@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo } from 'react';
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import { sendRequest } from '../../services/request';
-import { MemoizedVotesList } from './VotesList';
+import { VotesList } from './VotesList';
 
 /* TODO: Need to add the list of users and polling to obtain the votes of the 
  * other players.
@@ -72,7 +72,7 @@ function Vote(props) {
                 <button class='panel-button is-medium mx-3' name='Lumos' onClick={(e) => handleVote(e)} /*onClickCapture={close}*/ >Lumos</button>
                 <button class='panel-button is-medium mx-3' name='Nox' onClick={(e) => handleVote(e)} /*onClickCapture={close}*/ >Nox</button>
               </div>) 
-              : (<MemoizedVotesList usersVotes={usersVotes}/>)
+              : (<VotesList usersVotes={usersVotes}/>)
           )
       }
       </Popup>

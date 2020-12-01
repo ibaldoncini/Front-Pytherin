@@ -3,7 +3,7 @@ import React, { useState, useEffect, memo } from 'react';
 
 /* This component take a list of user with their votes as
  * [{user: "username", vote: "lumox/nox"},...] */
- function VotesList(props) {
+ export function VotesList(props) {
     
   const [usersVotes, setUsersVotes] = useState([])
 
@@ -20,4 +20,4 @@ import React, { useState, useEffect, memo } from 'react';
       </ul>
     </div>
   );
-} export const MemoizedVotesList = memo(VotesList)
+}
