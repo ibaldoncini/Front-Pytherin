@@ -271,7 +271,8 @@ class Game extends React.Component{
                       (<MemoizedVote room_name={this.state.room_name} 
                       usersVotes={this.state.votes}
                       token = {this.context.token}
-                      director = {this.state.director} />)
+                      director = {this.state.director} 
+                       minister = {this.state.minister}/>)
                     :
                       (<div></div>)
                     }
